@@ -7,39 +7,49 @@
 <style>
 :root{--blue:#1769e8;--ink:#12336d;--muted:#66758d;--line:#dce5f1;--bg:#f7faff}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:#14233e;font-family:"Segoe UI","Noto Sans",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
-.page{max-width:1450px;margin:auto;padding:22px 28px}
-.header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:18px}
-.brand{display:flex;align-items:center;gap:18px}.brandIcon{font-size:55px}.brand h1{margin:0;color:#153b7c;font-size:34px}.brand p{margin:5px 0 0;font-size:17px;color:#243957}
-.datebox{background:#fff;border:1px solid #d7e4f5;border-radius:14px;padding:12px 22px;min-width:240px;box-shadow:0 5px 16px #17335f10;text-align:center}
-.datebox b{display:block;font-size:26px;color:#135dc9;margin:4px}.datebox small{color:#68758a}
-.card{background:#fff;border:1px solid #e1e8f1;border-radius:16px;box-shadow:0 5px 20px #17335f0b;overflow:hidden}
-.section{padding:18px 26px}.section+.section{border-top:1px solid #e6ecf3}
-.section h2{margin:0 0 16px;color:#153b7c;font-size:21px}
-.profiles{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.profile{position:relative;border:1.5px solid #d8e2ef;border-radius:14px;padding:18px;display:flex;align-items:center;gap:18px;cursor:pointer;min-height:140px;transition:.15s}
-.profile:hover{transform:translateY(-1px);box-shadow:0 6px 18px #17335f12}
-.profile.active{border-color:#2a74ee;background:#f7fbff;box-shadow:0 0 0 1px #2a74ee22}
-.icon{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:35px;flex:none}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:#14233e;font-family:"Segoe UI","Noto Sans",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+.page{height:100vh;max-width:1500px;margin:auto;padding:10px 22px 8px;display:flex;flex-direction:column;gap:8px}
+.header{height:82px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex:none}
+.brand{display:flex;align-items:center;gap:13px}.brandIcon{font-size:44px}.brand h1{margin:0;color:#153b7c;font-size:30px;line-height:1}.brand p{margin:6px 0 0;font-size:15px;color:#243957}
+.datebox{background:#fff;border:1px solid #d7e4f5;border-radius:13px;padding:8px 18px;min-width:210px;box-shadow:0 4px 14px #17335f0d;text-align:center;font-size:14px}
+.datebox b{display:block;font-size:23px;color:#135dc9;margin:2px}.datebox small{color:#68758a;font-size:12px}
+.card{background:#fff;border:1px solid #e1e8f1;border-radius:14px;box-shadow:0 5px 18px #17335f0b;overflow:hidden;flex:1;min-height:0;display:flex;flex-direction:column}
+.section{padding:12px 20px}.section+.section{border-top:1px solid #e6ecf3}.section:first-child{flex:none}.section:last-child{flex:1;min-height:0;display:flex;flex-direction:column}
+.section h2{margin:0 0 10px;color:#153b7c;font-size:19px}
+.profiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.profile{position:relative;border:1.5px solid #d8e2ef;border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;min-height:100px;transition:.15s}
+.profile:hover{box-shadow:0 4px 14px #17335f10}.profile.active{border-color:#2a74ee;background:#f7fbff;box-shadow:0 0 0 1px #2a74ee20}
+.icon{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:27px;flex:none}
 .profile:nth-child(1) .icon{background:#2778e8}.profile:nth-child(2) .icon{background:#32b36b}.profile:nth-child(3) .icon{background:#8139dd}
-.profile h3{margin:0 0 5px;font-size:26px}.profile:nth-child(1) h3{color:#1769e8}.profile:nth-child(2) h3{color:#23a45b}.profile:nth-child(3) h3{color:#7130c8}
-.profile p{margin:4px 0;color:#34445f;font-size:14px}.check{position:absolute;right:14px;top:14px;font-size:23px;color:#c8d1dd}.active .check{color:#1769e8}
-.editBtn{position:absolute;right:12px;bottom:10px;border:0;background:transparent;color:#75839a;cursor:pointer;font-size:12px}
-.formrow{display:grid;grid-template-columns:1.7fr .55fr .7fr;gap:26px}
-label{display:block;font-weight:650;color:#153b7c;margin-bottom:8px;font-size:16px}.req{color:#e11d48}
-input{width:100%;height:54px;border:1px solid #ccd8e8;border-radius:10px;padding:0 15px;font-size:17px;font-family:inherit;outline:none}
-input:focus{border-color:#4f8eea;box-shadow:0 0 0 3px #4f8eea15}
-.info{margin-top:16px;border:1px solid #cfe0f8;background:#f4f9ff;border-radius:11px;padding:13px 18px;color:#304b70;font-size:14px}
+.profile h3{margin:0 0 3px;font-size:22px}.profile:nth-child(1) h3{color:#1769e8}.profile:nth-child(2) h3{color:#23a45b}.profile:nth-child(3) h3{color:#7130c8}
+.profile p{margin:2px 0;color:#34445f;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:330px}
+.check{position:absolute;right:12px;top:10px;font-size:19px;color:#c8d1dd}.active .check{color:#1769e8}
+.editBtn{position:absolute;right:10px;bottom:7px;border:0;background:transparent;color:#75839a;cursor:pointer;font-size:11px}
+.lessonWrap{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:18px;flex:1;min-height:0}
+.formstack{display:flex;flex-direction:column;gap:10px;justify-content:center}
+.field label{display:block;font-weight:650;color:#153b7c;margin-bottom:5px;font-size:15px}.req{color:#e11d48}
+input{width:100%;height:46px;border:1px solid #ccd8e8;border-radius:9px;padding:0 13px;font-size:16px;font-family:inherit;outline:none}
+input:focus{border-color:#4f8eea;box-shadow:0 0 0 3px #4f8eea12}
+.info{border:1px solid #cfe0f8;background:#f4f9ff;border-radius:9px;padding:9px 12px;color:#304b70;font-size:12.5px;line-height:1.4}
 .info b{color:#1769e8}
-.actions{display:grid;grid-template-columns:1fr .9fr;gap:24px;margin-top:18px}
-button.big{height:74px;border-radius:11px;font-family:inherit;font-size:19px;font-weight:700;cursor:pointer}
-.open{border:0;color:#fff;background:linear-gradient(#367de8,#0f5dd2);box-shadow:0 5px 12px #1769e82a}.reset{background:#fff;border:1px solid #d0d9e6;color:#153b7c}
-.footer{margin-top:12px;background:#f3fbf6;border:1px solid #d4eadb;border-radius:12px;padding:12px;text-align:center;color:#315c47;font-size:14px}
+.actions{display:flex;flex-direction:column;gap:12px;justify-content:center}
+button.big{height:78px;border-radius:11px;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer}
+.open{border:0;color:#fff;background:linear-gradient(#367de8,#0f5dd2);box-shadow:0 5px 12px #1769e82a}.reset{background:#16a34a;border:0;color:#fff}
+.footer{height:34px;flex:none;background:#f3fbf6;border:1px solid #d4eadb;border-radius:10px;padding:6px 12px;text-align:center;color:#315c47;font-size:13px;font-weight:650}
 .editor{display:none;position:fixed;inset:0;background:#10203c66;z-index:10;align-items:center;justify-content:center}.editor.show{display:flex}
 .editorBox{width:min(560px,92vw);background:#fff;border-radius:16px;padding:22px;box-shadow:0 20px 60px #0003}.editorBox h3{margin-top:0;color:#153b7c}
 .editorGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.editorGrid input{height:46px;font-size:15px}.full{grid-column:1/-1}
 .editorActions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px}.editorActions button{padding:10px 16px;border-radius:8px;border:0;font-weight:650;cursor:pointer}
-@media(max-width:900px){.page{padding:15px}.header{align-items:flex-start}.brand h1{font-size:25px}.datebox{min-width:190px}.profiles,.formrow{grid-template-columns:1fr}.profile{min-height:105px}.actions{grid-template-columns:1fr}}
+@media(max-height:760px) and (min-width:901px){
+  .page{padding-top:6px}.header{height:68px}.brandIcon{font-size:36px}.brand h1{font-size:26px}.brand p{font-size:13px}.datebox{padding:5px 14px}.datebox b{font-size:20px}
+  .section{padding:9px 16px}.section h2{font-size:17px;margin-bottom:7px}.profile{min-height:82px;padding:9px 11px}.icon{width:44px;height:44px;font-size:23px}.profile h3{font-size:19px}.profile p{font-size:12px}
+  input{height:40px}.formstack{gap:7px}.info{padding:7px 10px}.footer{height:30px;padding:4px 10px}
+}
+@media(max-width:900px){
+  html,body{height:auto}body{overflow:auto}.page{height:auto;min-height:100vh;padding:12px}.header{height:auto;align-items:flex-start}.brand h1{font-size:24px}.datebox{min-width:175px}
+  .profiles{grid-template-columns:1fr}.lessonWrap{grid-template-columns:1fr}.actions{flex-direction:row}.actions .big{flex:1}.footer{height:auto}.profile{min-height:90px}
+}
 </style>
 </head>
 <body>
@@ -57,21 +67,21 @@ button.big{height:74px;border-radius:11px;font-family:inherit;font-size:19px;fon
 
     <section class="section">
       <h2>2. NHẬP THÔNG TIN BÀI DẠY</h2>
-      <div class="formrow">
-        <div><label>Tên bài học / chuyên đề <span class="req">*</span></label><input id="lesson" placeholder="Nhập tên bài học hoặc chuyên đề..."></div>
-        <div><label>Số tiết <span class="req">*</span></label><input id="periods" inputmode="numeric" placeholder="VD: 2"></div>
-        <div><label>Từ tiết đến tiết (a-b) <span class="req">*</span></label><input id="range" placeholder="VD: 1-5"></div>
-      </div>
-
-      <div class="info">ℹ️ <b>Thông tin sẽ được tự động điền:</b> Họ tên, môn học, tổ chuyên môn, khối lớp, ngày nộp và người duyệt sẽ được chuyển sang Google Form.</div>
-
-      <div class="actions">
-        <button class="big open" onclick="openPrefilled()">🚀 MỞ GOOGLE FORM ĐÃ ĐIỀN<br><span style="font-size:13px;font-weight:400">Thầy/Cô chỉ việc tải file giáo án và Gửi</span></button>
-        <button class="big reset" onclick="resetLesson()">↻ LÀM MỚI<br><span style="font-size:13px;font-weight:400">Xóa thông tin vừa nhập</span></button>
+      <div class="lessonWrap">
+        <div class="formstack">
+          <div class="field"><label>Tên bài học / chuyên đề <span class="req">*</span></label><input id="lesson" placeholder="Nhập tên bài học hoặc chuyên đề..."></div>
+          <div class="field"><label>Số tiết <span class="req">*</span></label><input id="periods" inputmode="numeric" placeholder="Ví dụ: 2"></div>
+          <div class="field"><label>Từ tiết đến tiết (a-b) <span class="req">*</span></label><input id="range" placeholder="Ví dụ: 1-5"></div>
+          <div class="info">ℹ️ <b>Tự động điền:</b> Họ tên, môn học, tổ chuyên môn, khối lớp, ngày nộp và người duyệt.</div>
+        </div>
+        <div class="actions">
+          <button class="big open" onclick="openPrefilled()">🚀 MỞ GOOGLE FORM ĐÃ ĐIỀN<br><span style="font-size:12px;font-weight:400">Tự động điền thông tin vào Google Form</span></button>
+          <button class="big reset" onclick="resetLesson()">↻ LÀM MỚI<br><span style="font-size:12px;font-weight:400">Xóa thông tin vừa nhập</span></button>
+        </div>
       </div>
     </section>
   </div>
-  <div class="footer">🛡️ <b>Bảo mật thông tin</b>　•　Không lưu file　•　Chỉ hỗ trợ điền Google Form</div>
+  <div class="footer">🏫 TRƯỜNG PT DTNT TỈNH CAO BẰNG</div>
 </main>
 
 <div class="editor" id="editor">
