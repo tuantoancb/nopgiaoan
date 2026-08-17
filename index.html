@@ -5,158 +5,412 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Nộp giáo án online - NTT</title>
 <style>
-:root{--blue:#1769e8;--ink:#12336d;--muted:#66758d;--line:#dce5f1;--bg:#f7faff}
+:root{
+  --blue:#1769e8;--blue-dark:#123d87;--green:#16a34a;--purple:#7c3aed;
+  --ink:#13244a;--muted:#5f6f89;--line:#dbe5f1;--bg:#f7faff;
+}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
-body{background:var(--bg);color:#14233e;font-family:"Segoe UI","Noto Sans",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
-.page{height:100vh;max-width:1500px;margin:auto;padding:10px 22px 8px;display:flex;flex-direction:column;gap:8px}
-.header{height:82px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex:none}
-.brand{display:flex;align-items:center;gap:13px}.brandIcon{font-size:44px}.brand h1{margin:0;color:#153b7c;font-size:30px;line-height:1}.brand p{margin:6px 0 0;font-size:15px;color:#243957}
-.datebox{background:#fff;border:1px solid #d7e4f5;border-radius:13px;padding:8px 18px;min-width:210px;box-shadow:0 4px 14px #17335f0d;text-align:center;font-size:14px}
-.datebox b{display:block;font-size:23px;color:#135dc9;margin:2px}.datebox small{color:#68758a;font-size:12px}
-.card{background:#fff;border:1px solid #e1e8f1;border-radius:14px;box-shadow:0 5px 18px #17335f0b;overflow:hidden;flex:1;min-height:0;display:flex;flex-direction:column}
-.section{padding:12px 20px}.section+.section{border-top:1px solid #e6ecf3}.section:first-child{flex:none}.section:last-child{flex:1;min-height:0;display:flex;flex-direction:column}
-.section h2{margin:0 0 10px;color:#153b7c;font-size:19px}
-.profiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.profile{position:relative;border:1.5px solid #d8e2ef;border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;min-height:100px;transition:.15s}
-.profile:hover{box-shadow:0 4px 14px #17335f10}.profile.active{border-color:#2a74ee;background:#f7fbff;box-shadow:0 0 0 1px #2a74ee20}
-.icon{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:27px;flex:none}
-.profile:nth-child(1) .icon{background:#2778e8}.profile:nth-child(2) .icon{background:#32b36b}.profile:nth-child(3) .icon{background:#8139dd}
-.profile h3{margin:0 0 3px;font-size:22px}.profile:nth-child(1) h3{color:#1769e8}.profile:nth-child(2) h3{color:#23a45b}.profile:nth-child(3) h3{color:#7130c8}
-.profile p{margin:2px 0;color:#34445f;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:330px}
-.check{position:absolute;right:12px;top:10px;font-size:19px;color:#c8d1dd}.active .check{color:#1769e8}
-.editBtn{position:absolute;right:10px;bottom:7px;border:0;background:transparent;color:#75839a;cursor:pointer;font-size:11px}
-.lessonWrap{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:18px;flex:1;min-height:0}
-.formstack{display:flex;flex-direction:column;gap:10px;justify-content:center}
-.field label{display:block;font-weight:650;color:#153b7c;margin-bottom:5px;font-size:15px}.req{color:#e11d48}
-input{width:100%;height:46px;border:1px solid #ccd8e8;border-radius:9px;padding:0 13px;font-size:16px;font-family:inherit;outline:none}
-input:focus{border-color:#4f8eea;box-shadow:0 0 0 3px #4f8eea12}
-.info{border:1px solid #cfe0f8;background:#f4f9ff;border-radius:9px;padding:9px 12px;color:#304b70;font-size:12.5px;line-height:1.4}
-.info b{color:#1769e8}
-.actions{display:flex;flex-direction:column;gap:12px;justify-content:center}
-button.big{height:78px;border-radius:11px;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer}
-.open{border:0;color:#fff;background:linear-gradient(#367de8,#0f5dd2);box-shadow:0 5px 12px #1769e82a}.reset{background:#16a34a;border:0;color:#fff}
-.footer{height:34px;flex:none;background:#f3fbf6;border:1px solid #d4eadb;border-radius:10px;padding:6px 12px;text-align:center;color:#315c47;font-size:13px;font-weight:650}
-.editor{display:none;position:fixed;inset:0;background:#10203c66;z-index:10;align-items:center;justify-content:center}.editor.show{display:flex}
-.editorBox{width:min(560px,92vw);background:#fff;border-radius:16px;padding:22px;box-shadow:0 20px 60px #0003}.editorBox h3{margin-top:0;color:#153b7c}
-.editorGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.editorGrid input{height:46px;font-size:15px}.full{grid-column:1/-1}
-.editorActions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px}.editorActions button{padding:10px 16px;border-radius:8px;border:0;font-weight:650;cursor:pointer}
-@media(max-height:760px) and (min-width:901px){
-  .page{padding-top:6px}.header{height:68px}.brandIcon{font-size:36px}.brand h1{font-size:26px}.brand p{font-size:13px}.datebox{padding:5px 14px}.datebox b{font-size:20px}
-  .section{padding:9px 16px}.section h2{font-size:17px;margin-bottom:7px}.profile{min-height:82px;padding:9px 11px}.icon{width:44px;height:44px;font-size:23px}.profile h3{font-size:19px}.profile p{font-size:12px}
-  input{height:40px}.formstack{gap:7px}.info{padding:7px 10px}.footer{height:30px;padding:4px 10px}
+body{
+  font-family:"Segoe UI","Noto Sans",Roboto,Arial,sans-serif;
+  background:linear-gradient(180deg,#f7fbff 0%,#f4f8fc 100%);
+  color:var(--ink);
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+.app{
+  height:100vh;
+  max-width:1540px;
+  margin:0 auto;
+  padding:10px 22px 8px;
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+.header{
+  flex:none;
+  height:112px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  position:relative;
+  overflow:hidden;
+  border-radius:0 0 24px 24px;
+}
+.header:after{
+  content:"";
+  position:absolute;
+  right:-40px; top:-65px;
+  width:720px; height:190px;
+  background:linear-gradient(135deg,#cfeaff66,#8bcaff55);
+  border-radius:50%;
+  z-index:-1;
+}
+.brand{display:flex;align-items:center;gap:16px}
+.brandIcon{font-size:54px}
+.brand h1{margin:0;color:#123d87;font-size:34px;line-height:1.05;font-weight:800}
+.brand p{margin:7px 0 0;color:#304665;font-size:16px}
+.datebox{
+  background:#fff;
+  border:1px solid #d4e1f1;
+  border-radius:16px;
+  min-width:250px;
+  padding:10px 18px;
+  text-align:center;
+  box-shadow:0 6px 18px #17335f10;
+}
+.datebox span{font-size:14px;color:#3c4d67}
+.datebox b{display:block;font-size:27px;color:#125fd5;margin:2px 0}
+.datebox small{font-size:12px;color:#7a879b}
+.card{
+  background:#fff;
+  border:1px solid #e1e8f1;
+  border-radius:15px;
+  box-shadow:0 5px 18px #17335f0b;
+}
+.profileSection{flex:none;padding:14px 18px 12px}
+.sectionTitle{
+  margin:0 0 12px;
+  font-size:19px;
+  color:#153b7c;
+  font-weight:800;
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+.profiles{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.profile{
+  position:relative;
+  border:1.5px solid #d6e0ed;
+  border-radius:13px;
+  min-height:112px;
+  padding:13px 15px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  cursor:pointer;
+  background:#fff;
+  transition:.15s;
+}
+.profile:hover{transform:translateY(-1px);box-shadow:0 5px 15px #17335f10}
+.profile.active{border-color:#2778ee;background:#f7fbff;box-shadow:0 0 0 1px #2778ee1f}
+.gradeIcon{
+  width:62px;height:62px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:31px;flex:none;
+}
+.profile:nth-child(1) .gradeIcon{background:#2878e8}
+.profile:nth-child(2) .gradeIcon{background:#32b36b}
+.profile:nth-child(3) .gradeIcon{background:#7b35dc}
+.profile h3{margin:0 0 4px;font-size:23px}
+.profile:nth-child(1) h3{color:#1769e8}
+.profile:nth-child(2) h3{color:#21a058}
+.profile:nth-child(3) h3{color:#7130c8}
+.profile .teacher{font-weight:700;font-size:14.5px;margin-bottom:4px}
+.profile .meta{font-size:13px;color:#42516a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:330px}
+.check{position:absolute;right:13px;top:11px;font-size:20px;color:#c8d1dc}
+.profile.active .check{color:#1769e8}
+.edit{
+  position:absolute;right:11px;bottom:8px;
+  border:0;background:transparent;color:#7b8798;
+  font-size:11px;cursor:pointer
+}
+.info{
+  margin-top:10px;
+  border:1px solid #cfe0f8;
+  background:#f4f9ff;
+  border-radius:9px;
+  padding:8px 12px;
+  font-size:12.5px;
+  color:#365578
+}
+.lessonCard{
+  flex:1;
+  min-height:0;
+  padding:14px 18px 16px;
+  display:flex;
+  flex-direction:column;
+}
+.lessonBody{
+  flex:1;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:9px;
+}
+.field label{
+  display:block;
+  color:#153b7c;
+  font-weight:700;
+  font-size:15px;
+  margin-bottom:5px;
+}
+.req{color:#e11d48}
+input{
+  width:100%;
+  height:44px;
+  padding:0 13px;
+  border:1px solid #cbd7e7;
+  border-radius:9px;
+  font:inherit;
+  font-size:16px;
+  outline:none;
+  background:#fff;
+}
+input:focus{border-color:#4a8bea;box-shadow:0 0 0 3px #4a8bea14}
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px;
+  margin-top:8px;
+}
+.big{
+  height:70px;
+  border-radius:11px;
+  font:inherit;
+  font-size:19px;
+  font-weight:800;
+  cursor:pointer;
+}
+.openBtn{
+  color:#fff;border:0;
+  background:linear-gradient(180deg,#347df0,#1263db);
+  box-shadow:0 5px 13px #1769e826;
+}
+.resetBtn{
+  color:#fff;border:0;
+  background:linear-gradient(180deg,#2fba62,#129b45);
+  box-shadow:0 5px 13px #16a34a20;
+}
+.big small{display:block;font-size:12px;font-weight:400;margin-top:4px}
+.footer{
+  flex:none;
+  height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  color:#153b7c;
+  font-size:14px;
+}
+.editor{
+  display:none;position:fixed;inset:0;background:#10203c66;z-index:10;
+  align-items:center;justify-content:center
+}
+.editor.show{display:flex}
+.editorBox{
+  width:min(560px,92vw);background:#fff;border-radius:16px;padding:22px;
+  box-shadow:0 20px 60px #0003
+}
+.editorBox h3{margin-top:0;color:#153b7c}
+.editorGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.editorGrid input{height:46px;font-size:15px}.full{grid-column:1/-1}
+.editorActions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px}
+.editorActions button{padding:10px 16px;border-radius:8px;border:0;font-weight:700;cursor:pointer}
+@media(max-height:780px) and (min-width:901px){
+  .app{padding-top:5px;gap:6px}
+  .header{height:88px}
+  .brandIcon{font-size:42px}
+  .brand h1{font-size:28px}
+  .brand p{font-size:13px;margin-top:4px}
+  .datebox{min-width:220px;padding:6px 14px}
+  .datebox b{font-size:22px}
+  .profileSection{padding:10px 14px 9px}
+  .sectionTitle{font-size:17px;margin-bottom:8px}
+  .profile{min-height:88px;padding:9px 11px}
+  .gradeIcon{width:48px;height:48px;font-size:24px}
+  .profile h3{font-size:19px}.profile .teacher{font-size:13px}.profile .meta{font-size:11.5px}
+  .info{padding:6px 9px;margin-top:7px}
+  .lessonCard{padding:10px 14px 12px}
+  .lessonBody{gap:6px}
+  input{height:39px;font-size:15px}
+  .field label{font-size:13.5px;margin-bottom:3px}
+  .big{height:58px;font-size:17px}
+  .footer{height:26px;font-size:12px}
 }
 @media(max-width:900px){
-  html,body{height:auto}body{overflow:auto}.page{height:auto;min-height:100vh;padding:12px}.header{height:auto;align-items:flex-start}.brand h1{font-size:24px}.datebox{min-width:175px}
-  .profiles{grid-template-columns:1fr}.lessonWrap{grid-template-columns:1fr}.actions{flex-direction:row}.actions .big{flex:1}.footer{height:auto}.profile{min-height:90px}
+  html,body{height:auto}
+  body{overflow:auto}
+  .app{height:auto;min-height:100vh;padding:12px}
+  .header{height:auto;align-items:flex-start}
+  .brand h1{font-size:25px}
+  .brandIcon{font-size:40px}
+  .datebox{min-width:180px}
+  .profiles{grid-template-columns:1fr}
+  .profile{min-height:92px}
+  .actions{grid-template-columns:1fr}
+  .footer{height:auto;padding:8px}
 }
 </style>
 </head>
 <body>
-<main class="page">
-  <div class="header">
-    <div class="brand"><div class="brandIcon">📋</div><div><h1>NỘP GIÁO ÁN ONLINE - NTT</h1><p>Tự động điền Google Form - Nhanh gọn, chính xác</p></div></div>
-    <div class="datebox">📅 Ngày nộp<b id="todayText"></b><small>Tự động lấy ngày hôm nay</small></div>
-  </div>
-
-  <div class="card">
-    <section class="section">
-      <h2>1. CHỌN HỒ SƠ NHANH</h2>
-      <div class="profiles" id="profiles"></div>
-    </section>
-
-    <section class="section">
-      <h2>2. NHẬP THÔNG TIN BÀI DẠY</h2>
-      <div class="lessonWrap">
-        <div class="formstack">
-          <div class="field"><label>Tên bài học / chuyên đề <span class="req">*</span></label><input id="lesson" placeholder="Nhập tên bài học hoặc chuyên đề..."></div>
-          <div class="field"><label>Số tiết <span class="req">*</span></label><input id="periods" inputmode="numeric" placeholder="Ví dụ: 2"></div>
-          <div class="field"><label>Từ tiết đến tiết (a-b) <span class="req">*</span></label><input id="range" placeholder="Ví dụ: 1-5"></div>
-          <div class="info">ℹ️ <b>Tự động điền:</b> Họ tên, môn học, tổ chuyên môn, khối lớp, ngày nộp và người duyệt.</div>
-        </div>
-        <div class="actions">
-          <button class="big open" onclick="openPrefilled()">🚀 MỞ GOOGLE FORM ĐÃ ĐIỀN<br><span style="font-size:12px;font-weight:400">Tự động điền thông tin vào Google Form</span></button>
-          <button class="big reset" onclick="resetLesson()">↻ LÀM MỚI<br><span style="font-size:12px;font-weight:400">Xóa thông tin vừa nhập</span></button>
-        </div>
+<main class="app">
+  <header class="header">
+    <div class="brand">
+      <div class="brandIcon">📋</div>
+      <div>
+        <h1>NỘP GIÁO ÁN ONLINE - NTT</h1>
+        <p>Tự động điền Google Form - Nhanh gọn, chính xác</p>
       </div>
-    </section>
-  </div>
-  <div class="footer">🏫 TRƯỜNG PT DTNT TỈNH CAO BẰNG</div>
+    </div>
+    <div class="datebox">
+      <span>📅 Ngày nộp</span>
+      <b id="todayText"></b>
+      <small>(Tự động lấy ngày hôm nay)</small>
+    </div>
+  </header>
+
+  <section class="card profileSection">
+    <h2 class="sectionTitle">👥 1. CHỌN HỒ SƠ NHANH</h2>
+    <div class="profiles" id="profiles"></div>
+    <div class="info">ℹ️ Thông tin hồ sơ được lưu theo từng khối. Chọn khối để tự động điền giáo viên, môn học, tổ chuyên môn và người duyệt.</div>
+  </section>
+
+  <section class="card lessonCard">
+    <h2 class="sectionTitle">📄 2. NHẬP THÔNG TIN BÀI DẠY</h2>
+    <div class="lessonBody">
+      <div class="field">
+        <label>Tên bài học / chuyên đề <span class="req">*</span></label>
+        <input id="lesson" placeholder="Nhập tên bài học hoặc chuyên đề...">
+      </div>
+      <div class="field">
+        <label>Số tiết <span class="req">*</span></label>
+        <input id="periods" inputmode="numeric" placeholder="Ví dụ: 2">
+      </div>
+      <div class="field">
+        <label>Từ tiết đến tiết (a-b) <span class="req">*</span></label>
+        <input id="range" placeholder="Ví dụ: 1-5">
+      </div>
+
+      <div class="actions">
+        <button class="big openBtn" onclick="openPrefilled()">🚀 MỞ GOOGLE FORM ĐÃ ĐIỀN<small>Tự động điền thông tin vào Google Form</small></button>
+        <button class="big resetBtn" onclick="resetLesson()">↻ LÀM MỚI<small>Xóa thông tin vừa nhập</small></button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">🏫 TRƯỜNG PT DTNT TỈNH CAO BẰNG</footer>
 </main>
 
 <div class="editor" id="editor">
- <div class="editorBox">
-  <h3 id="editorTitle">Thiết lập hồ sơ</h3>
-  <div class="editorGrid">
-   <input id="p_name" class="full" placeholder="Họ và tên">
-   <input id="p_subject" placeholder="Môn/HĐGD">
-   <input id="p_team" placeholder="Tổ chuyên môn">
-   <input id="p_approver" class="full" placeholder="Tên người duyệt">
+  <div class="editorBox">
+    <h3 id="editorTitle">Thiết lập hồ sơ</h3>
+    <div class="editorGrid">
+      <input id="p_name" class="full" placeholder="Họ và tên">
+      <input id="p_subject" placeholder="Môn/HĐGD">
+      <input id="p_team" placeholder="Tổ chuyên môn">
+      <input id="p_approver" class="full" placeholder="Tên người duyệt">
+    </div>
+    <div class="editorActions">
+      <button onclick="closeEditor()">Hủy</button>
+      <button style="background:#1769e8;color:#fff" onclick="saveProfile()">💾 Lưu hồ sơ</button>
+    </div>
   </div>
-  <div class="editorActions"><button onclick="closeEditor()">Hủy</button><button style="background:#1769e8;color:#fff" onclick="saveProfile()">💾 Lưu hồ sơ</button></div>
- </div>
 </div>
 
 <script>
 const FORM="https://docs.google.com/forms/d/e/1FAIpQLSf20YrTDt_BOqmIrZ8oYp85Sd7eCEu2ugcJslLcKbNmCwrU2A/viewform";
 const ENTRY={"name": "1039854064", "subject": "311167583", "team": "1030504847", "date": "392066118", "lesson": "35887539", "className": "851950241", "periods": "993971607", "range": "202499073", "approver": "3704355"};
 const $=id=>document.getElementById(id);
-let selected=0, editing=0;
+let selected=0,editing=0;
 
-function todayISO(){const d=new Date(); return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
-function todayVN(){const d=new Date(); return [String(d.getDate()).padStart(2,'0'),String(d.getMonth()+1).padStart(2,'0'),d.getFullYear()].join('/')}
+function todayISO(){
+  const d=new Date();
+  return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');
+}
+function todayVN(){
+  const d=new Date();
+  return [String(d.getDate()).padStart(2,'0'),String(d.getMonth()+1).padStart(2,'0'),d.getFullYear()].join('/');
+}
 $('todayText').textContent=todayVN();
 
 function defaults(){
- return [
-  {grade:'10',name:'',subject:'',team:'',approver:''},
-  {grade:'11',name:'',subject:'',team:'',approver:''},
-  {grade:'12',name:'',subject:'',team:'',approver:''}
- ];
+  return [
+    {grade:'10',name:'',subject:'',team:'',approver:''},
+    {grade:'11',name:'',subject:'',team:'',approver:''},
+    {grade:'12',name:'',subject:'',team:'',approver:''}
+  ];
 }
 function getProfiles(){
- try{
-   const p=JSON.parse(localStorage.getItem('ntt_profiles_v41')||'null');
-   if(Array.isArray(p)){while(p.length<3)p.push(defaults()[p.length]);return p.slice(0,3)}
- }catch(e){}
- return defaults();
+  try{
+    const p=JSON.parse(localStorage.getItem('ntt_profiles_v43')||'null');
+    if(Array.isArray(p)){while(p.length<3)p.push(defaults()[p.length]);return p.slice(0,3)}
+  }catch(e){}
+  return defaults();
 }
-function setProfiles(p){localStorage.setItem('ntt_profiles_v41',JSON.stringify(p))}
+function setProfiles(p){localStorage.setItem('ntt_profiles_v43',JSON.stringify(p))}
 function esc(s){return (s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+
 function render(){
- const p=getProfiles();
- $('profiles').innerHTML=p.map((x,i)=>`
- <div class="profile ${i===selected?'active':''}" onclick="selectProfile(${i})">
-   <div class="icon">🎓</div>
-   <div><h3>KHỐI ${x.grade}</h3><p><b>Hồ sơ ${x.grade}</b></p><p>${esc(x.subject)||'Chưa nhập môn'}${x.team?' - '+esc(x.team):''}${x.approver?' - '+esc(x.approver):''}</p></div>
-   <div class="check">${i===selected?'●':'○'}</div>
-   <button class="editBtn" onclick="event.stopPropagation();editProfile(${i})">⚙ Sửa hồ sơ</button>
- </div>`).join('');
+  const p=getProfiles();
+  $('profiles').innerHTML=p.map((x,i)=>`
+    <div class="profile ${i===selected?'active':''}" onclick="selectProfile(${i})">
+      <div class="gradeIcon">🎓</div>
+      <div style="min-width:0">
+        <h3>KHỐI ${x.grade}</h3>
+        <div class="teacher">${esc(x.name)||'Chưa thiết lập giáo viên'}</div>
+        <div class="meta">${esc(x.subject)||'Chưa nhập môn'}${x.team?' • '+esc(x.team):''}${x.approver?' • '+esc(x.approver):''}</div>
+      </div>
+      <div class="check">${i===selected?'●':'○'}</div>
+      <button class="edit" onclick="event.stopPropagation();editProfile(${i})">⚙ Sửa hồ sơ</button>
+    </div>
+  `).join('');
 }
-function selectProfile(i){selected=i;render();$('lesson').focus()}
+function selectProfile(i){
+  selected=i;render();$('lesson').focus();
+}
 function editProfile(i){
- editing=i; const x=getProfiles()[i];
- $('editorTitle').textContent='Thiết lập KHỐI '+x.grade;
- $('p_name').value=x.name||'';$('p_subject').value=x.subject||'';$('p_team').value=x.team||'';$('p_approver').value=x.approver||'';
- $('editor').classList.add('show')
+  editing=i;const x=getProfiles()[i];
+  $('editorTitle').textContent='Thiết lập KHỐI '+x.grade;
+  $('p_name').value=x.name||'';
+  $('p_subject').value=x.subject||'';
+  $('p_team').value=x.team||'';
+  $('p_approver').value=x.approver||'';
+  $('editor').classList.add('show');
 }
 function closeEditor(){$('editor').classList.remove('show')}
 function saveProfile(){
- const p=getProfiles();p[editing]={grade:String(10+editing),name:$('p_name').value.trim(),subject:$('p_subject').value.trim(),team:$('p_team').value.trim(),approver:$('p_approver').value.trim()};
- setProfiles(p);selected=editing;render();closeEditor();$('lesson').focus()
+  const p=getProfiles();
+  p[editing]={
+    grade:String(10+editing),
+    name:$('p_name').value.trim(),
+    subject:$('p_subject').value.trim(),
+    team:$('p_team').value.trim(),
+    approver:$('p_approver').value.trim()
+  };
+  setProfiles(p);selected=editing;render();closeEditor();$('lesson').focus();
 }
-function resetLesson(){$('lesson').value='';$('periods').value='';$('range').value='';$('lesson').focus()}
+function resetLesson(){
+  $('lesson').value='';$('periods').value='';$('range').value='';$('lesson').focus();
+}
 function openPrefilled(){
- const x=getProfiles()[selected];
- if(!x.name||!x.subject||!x.team||!x.approver){editProfile(selected);return alert('Hãy thiết lập hồ sơ cho khối này trước.')}
- if(!$('lesson').value.trim()||!$('periods').value.trim()||!$('range').value.trim()) return alert('Vui lòng nhập đủ Tên bài, Số tiết và Từ tiết đến tiết.');
- const values={
-   name:x.name,subject:x.subject,team:x.team,date:todayISO(),lesson:$('lesson').value.trim(),
-   className:x.grade,periods:$('periods').value.trim(),range:$('range').value.trim(),approver:x.approver
- };
- const u=new URL(FORM);u.searchParams.set('usp','pp_url');
- for(const [field,id] of Object.entries(ENTRY)){if(values[field])u.searchParams.set('entry.'+id,values[field])}
- window.open(u.toString(),'_blank')
+  const x=getProfiles()[selected];
+  if(!x.name||!x.subject||!x.team||!x.approver){
+    editProfile(selected);
+    return alert('Hãy thiết lập hồ sơ cho khối này trước.');
+  }
+  if(!$('lesson').value.trim()||!$('periods').value.trim()||!$('range').value.trim()){
+    return alert('Vui lòng nhập đủ Tên bài, Số tiết và Từ tiết đến tiết.');
+  }
+  const values={
+    name:x.name,
+    subject:x.subject,
+    team:x.team,
+    date:todayISO(),
+    lesson:$('lesson').value.trim(),
+    className:x.grade,
+    periods:$('periods').value.trim(),
+    range:$('range').value.trim(),
+    approver:x.approver
+  };
+  const u=new URL(FORM);
+  u.searchParams.set('usp','pp_url');
+  for(const [field,id] of Object.entries(ENTRY)){
+    if(values[field])u.searchParams.set('entry.'+id,values[field]);
+  }
+  window.open(u.toString(),'_blank');
 }
 render();
 </script>
