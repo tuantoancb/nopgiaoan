@@ -6,247 +6,239 @@
 <title>Nộp giáo án online - NTT</title>
 <style>
 :root{
-  --blue:#1769e8;--blue-dark:#123d87;--green:#16a34a;--purple:#7c3aed;
-  --ink:#13244a;--muted:#5f6f89;--line:#dbe5f1;--bg:#f7faff;
+  --blue:#1769e8; --blue2:#0f5dd2; --ink:#12336d; --muted:#62728b;
+  --green:#17a34a; --purple:#7737dc; --line:#d7e2ef;
 }
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 body{
   font-family:"Segoe UI","Noto Sans",Roboto,Arial,sans-serif;
-  background:linear-gradient(180deg,#f7fbff 0%,#f4f8fc 100%);
-  color:var(--ink);
+  color:#13244a;
   overflow:hidden;
+  background:
+    radial-gradient(circle at 8% 88%, rgba(113,188,255,.23) 0 15%, transparent 16%),
+    radial-gradient(circle at 91% 78%, rgba(96,174,255,.20) 0 18%, transparent 19%),
+    linear-gradient(135deg,#f7fbff 0%,#edf7ff 42%,#f9fcff 100%);
   -webkit-font-smoothing:antialiased;
 }
+body:before,body:after{
+  content:"";position:fixed;z-index:-1;border-radius:50%;filter:blur(.2px)
+}
+body:before{width:680px;height:680px;left:-360px;top:80px;border:34px solid rgba(89,166,250,.13)}
+body:after{width:620px;height:620px;right:-335px;bottom:-160px;border:34px solid rgba(89,166,250,.12)}
 .app{
   height:100vh;
-  max-width:1540px;
+  width:min(1220px,calc(100vw - 34px));
   margin:0 auto;
-  padding:10px 22px 8px;
+  padding:8px 0;
   display:flex;
   flex-direction:column;
-  gap:9px;
+  gap:8px;
+}
+.shell{
+  height:100%;
+  padding:10px 16px 8px;
+  border:1px solid rgba(174,205,238,.72);
+  border-radius:22px;
+  background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(250,253,255,.90));
+  box-shadow:0 18px 45px rgba(38,97,159,.15), inset 0 1px 0 #fff;
+  display:flex;flex-direction:column;gap:8px;
 }
 .header{
-  flex:none;
-  height:112px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:18px;
-  position:relative;
-  overflow:hidden;
-  border-radius:0 0 24px 24px;
+  height:98px;flex:none;
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  position:relative;overflow:hidden;border-radius:16px;
+  padding:0 12px;
+}
+.header:before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:
+    radial-gradient(ellipse at 82% -25%,rgba(85,169,255,.24),transparent 58%),
+    linear-gradient(180deg,#ffffff,#f7fbff);
 }
 .header:after{
-  content:"";
-  position:absolute;
-  right:-40px; top:-65px;
-  width:720px; height:190px;
-  background:linear-gradient(135deg,#cfeaff66,#8bcaff55);
-  border-radius:50%;
-  z-index:-1;
+  content:"";position:absolute;right:-10px;top:-58px;width:620px;height:150px;z-index:-1;
+  border-radius:0 0 50% 50%;
+  background:linear-gradient(135deg,rgba(104,183,255,.07),rgba(88,167,250,.24));
+  transform:rotate(-4deg);
 }
-.brand{display:flex;align-items:center;gap:16px}
-.brandIcon{font-size:54px}
-.brand h1{margin:0;color:#123d87;font-size:34px;line-height:1.05;font-weight:800}
-.brand p{margin:7px 0 0;color:#304665;font-size:16px}
-.datebox{
-  background:#fff;
-  border:1px solid #d4e1f1;
-  border-radius:16px;
-  min-width:250px;
-  padding:10px 18px;
-  text-align:center;
-  box-shadow:0 6px 18px #17335f10;
-}
-.datebox span{font-size:14px;color:#3c4d67}
-.datebox b{display:block;font-size:27px;color:#125fd5;margin:2px 0}
-.datebox small{font-size:12px;color:#7a879b}
-.card{
-  background:#fff;
-  border:1px solid #e1e8f1;
-  border-radius:15px;
-  box-shadow:0 5px 18px #17335f0b;
-}
-.profileSection{flex:none;padding:14px 18px 12px}
-.sectionTitle{
-  margin:0 0 12px;
-  font-size:19px;
-  color:#153b7c;
-  font-weight:800;
-  display:flex;
-  gap:8px;
-  align-items:center;
-}
-.profiles{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.profile{
-  position:relative;
-  border:1.5px solid #d6e0ed;
-  border-radius:13px;
-  min-height:112px;
-  padding:13px 15px;
-  display:flex;
-  align-items:center;
-  gap:14px;
-  cursor:pointer;
-  background:#fff;
-  transition:.15s;
-}
-.profile:hover{transform:translateY(-1px);box-shadow:0 5px 15px #17335f10}
-.profile.active{border-color:#2778ee;background:#f7fbff;box-shadow:0 0 0 1px #2778ee1f}
-.gradeIcon{
-  width:62px;height:62px;border-radius:50%;
+.brand{display:flex;align-items:center;gap:15px}
+.brandIcon{
+  width:66px;height:66px;border-radius:18px;
   display:flex;align-items:center;justify-content:center;
-  color:#fff;font-size:31px;flex:none;
+  font-size:43px;
+  background:linear-gradient(145deg,#fff,#eef6ff);
+  box-shadow:0 7px 20px rgba(28,105,225,.16),inset 0 0 0 1px #d7e7fa;
 }
-.profile:nth-child(1) .gradeIcon{background:#2878e8}
-.profile:nth-child(2) .gradeIcon{background:#32b36b}
-.profile:nth-child(3) .gradeIcon{background:#7b35dc}
-.profile h3{margin:0 0 4px;font-size:23px}
+.brand h1{
+  margin:0;color:#123d87;font-size:31px;line-height:1.05;font-weight:850;
+  letter-spacing:.1px;text-shadow:0 1px 0 #fff;
+}
+.brand p{margin:7px 0 0;color:#315281;font-size:15px;font-style:italic}
+.datebox{
+  min-width:228px;padding:8px 17px;text-align:center;
+  background:linear-gradient(180deg,#fff,#fbfdff);
+  border:1px solid #cfe0f4;border-radius:15px;
+  box-shadow:0 8px 20px rgba(32,94,160,.14), inset 0 1px 0 #fff;
+}
+.datebox span{font-size:13px;color:#334b6d}
+.datebox b{
+  display:block;font-size:26px;color:#125fd5;margin:2px 0;font-weight:850;
+  text-shadow:0 1px 0 #fff;
+}
+.datebox small{font-size:11.5px;color:#7b8798}
+.card{
+  background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(253,254,255,.96));
+  border:1px solid #dce7f2;border-radius:15px;
+  box-shadow:0 7px 20px rgba(37,87,143,.08),inset 0 1px 0 #fff;
+}
+.profileSection{flex:none;padding:11px 15px 10px}
+.sectionTitle{
+  margin:0 0 9px;color:#153b7c;font-size:18px;font-weight:850;
+  display:flex;align-items:center;gap:8px
+}
+.profiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.profile{
+  min-width:0;min-height:94px;position:relative;cursor:pointer;
+  padding:10px 12px;display:flex;align-items:center;gap:11px;
+  border:1.5px solid #d5e0ed;border-radius:13px;
+  background:linear-gradient(180deg,#fff,#fcfdff);
+  box-shadow:0 4px 11px rgba(45,86,134,.06);
+  transition:.18s ease;
+}
+.profile:hover{transform:translateY(-2px);box-shadow:0 9px 20px rgba(40,94,155,.13)}
+.profile.active{
+  border-color:#2777f0;
+  background:linear-gradient(135deg,#f8fbff,#edf6ff);
+  box-shadow:0 0 0 1px rgba(39,119,240,.15),0 8px 19px rgba(30,100,215,.13);
+}
+.gradeIcon{
+  width:50px;height:50px;border-radius:50%;flex:none;
+  display:flex;align-items:center;justify-content:center;font-size:25px;color:#fff;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.25),0 5px 12px rgba(34,81,132,.13)
+}
+.profile:nth-child(1) .gradeIcon{background:linear-gradient(145deg,#3290ff,#1263dc)}
+.profile:nth-child(2) .gradeIcon{background:linear-gradient(145deg,#3bc678,#119844)}
+.profile:nth-child(3) .gradeIcon{background:linear-gradient(145deg,#984df1,#6620cd)}
+.profile h3{margin:0 0 2px;font-size:19px;font-weight:850}
 .profile:nth-child(1) h3{color:#1769e8}
-.profile:nth-child(2) h3{color:#21a058}
+.profile:nth-child(2) h3{color:#16934a}
 .profile:nth-child(3) h3{color:#7130c8}
-.profile .teacher{font-weight:700;font-size:14.5px;margin-bottom:4px}
-.profile .meta{font-size:13px;color:#42516a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:330px}
-.check{position:absolute;right:13px;top:11px;font-size:20px;color:#c8d1dc}
+.profile .teacher{font-size:12.7px;font-weight:750;color:#213b69;margin-bottom:3px}
+.profile .meta{
+  font-size:10.8px;color:#3f4d63;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width:240px
+}
+.check{position:absolute;right:10px;top:9px;color:#c7d1de;font-size:18px}
 .profile.active .check{color:#1769e8}
 .edit{
-  position:absolute;right:11px;bottom:8px;
-  border:0;background:transparent;color:#7b8798;
-  font-size:11px;cursor:pointer
+  position:absolute;right:8px;bottom:6px;border:0;background:transparent;
+  color:#77859a;font-size:10px;cursor:pointer
 }
 .info{
-  margin-top:10px;
-  border:1px solid #cfe0f8;
-  background:#f4f9ff;
-  border-radius:9px;
-  padding:8px 12px;
-  font-size:12.5px;
-  color:#365578
+  margin-top:8px;padding:7px 10px;border-radius:8px;
+  color:#31537e;font-size:11.7px;line-height:1.35;
+  border:1px solid #cfe2f8;
+  background:linear-gradient(180deg,#f7fbff,#edf6ff);
 }
 .lessonCard{
-  flex:1;
-  min-height:0;
-  padding:14px 18px 16px;
-  display:flex;
-  flex-direction:column;
+  flex:1;min-height:0;padding:11px 15px 12px;
+  display:flex;flex-direction:column
 }
 .lessonBody{
-  flex:1;
-  min-height:0;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  gap:9px;
+  flex:1;min-height:0;display:flex;flex-direction:column;
+  justify-content:center;gap:6px
 }
+.field{position:relative;padding-left:58px}
+.field:before{
+  position:absolute;left:0;top:18px;width:42px;height:42px;border-radius:13px;
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8)
+}
+.field:nth-of-type(1):before{content:"📖";background:linear-gradient(145deg,#e7f2ff,#d9ecff)}
+.field:nth-of-type(2):before{content:"🕘";background:linear-gradient(145deg,#eafaf0,#d8f3e1)}
+.field:nth-of-type(3):before{content:"☷";background:linear-gradient(145deg,#f2ecff,#e7ddff);color:#6b2fe1}
 .field label{
-  display:block;
-  color:#153b7c;
-  font-weight:700;
-  font-size:15px;
-  margin-bottom:5px;
+  display:block;margin-bottom:4px;color:#153b7c;font-size:13.5px;font-weight:750
 }
 .req{color:#e11d48}
 input{
-  width:100%;
-  height:44px;
-  padding:0 13px;
-  border:1px solid #cbd7e7;
-  border-radius:9px;
-  font:inherit;
-  font-size:16px;
-  outline:none;
-  background:#fff;
+  width:100%;height:39px;padding:0 12px;
+  border:1px solid #cbd8e8;border-radius:8px;
+  font:inherit;font-size:14.5px;outline:none;
+  background:linear-gradient(180deg,#fff,#fdfefe);
+  box-shadow:inset 0 1px 2px rgba(23,51,84,.025)
 }
-input:focus{border-color:#4a8bea;box-shadow:0 0 0 3px #4a8bea14}
-.actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:22px;
-  margin-top:8px;
+input:focus{
+  border-color:#4c8ff1;
+  box-shadow:0 0 0 3px rgba(76,143,241,.11),0 4px 10px rgba(29,96,185,.08)
 }
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px;padding-left:0}
 .big{
-  height:70px;
-  border-radius:11px;
-  font:inherit;
-  font-size:19px;
-  font-weight:800;
-  cursor:pointer;
+  height:58px;border-radius:9px;border:0;
+  font:inherit;font-size:16.5px;font-weight:850;cursor:pointer;
+  transition:.16s;letter-spacing:.05px
 }
+.big:hover{transform:translateY(-1px);filter:brightness(1.03)}
 .openBtn{
-  color:#fff;border:0;
-  background:linear-gradient(180deg,#347df0,#1263db);
-  box-shadow:0 5px 13px #1769e826;
+  color:#fff;background:linear-gradient(180deg,#2f7df0 0%,#0e5fd8 100%);
+  box-shadow:0 7px 15px rgba(18,99,219,.23),inset 0 1px 0 rgba(255,255,255,.28)
 }
 .resetBtn{
-  color:#fff;border:0;
-  background:linear-gradient(180deg,#2fba62,#129b45);
-  box-shadow:0 5px 13px #16a34a20;
+  color:#fff;background:linear-gradient(180deg,#2db65c,#10953f);
+  box-shadow:0 7px 15px rgba(16,149,63,.20),inset 0 1px 0 rgba(255,255,255,.25)
 }
-.big small{display:block;font-size:12px;font-weight:400;margin-top:4px}
+.big small{display:block;font-size:10.8px;font-weight:450;margin-top:3px;opacity:.95}
 .footer{
-  flex:none;
-  height:36px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:800;
-  color:#153b7c;
-  font-size:14px;
+  height:27px;flex:none;display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:#153b7c;font-weight:850;letter-spacing:.1px;position:relative
 }
+.footer:before,.footer:after{
+  content:"";width:90px;height:1px;background:linear-gradient(90deg,transparent,#4380df)
+}
+.footer:before{margin-right:15px}.footer:after{margin-left:15px;transform:scaleX(-1)}
 .editor{
-  display:none;position:fixed;inset:0;background:#10203c66;z-index:10;
-  align-items:center;justify-content:center
+  display:none;position:fixed;inset:0;background:rgba(12,32,67,.42);z-index:10;
+  align-items:center;justify-content:center;backdrop-filter:blur(3px)
 }
 .editor.show{display:flex}
 .editorBox{
-  width:min(560px,92vw);background:#fff;border-radius:16px;padding:22px;
-  box-shadow:0 20px 60px #0003
+  width:min(540px,92vw);padding:21px;background:#fff;border-radius:16px;
+  box-shadow:0 25px 70px rgba(0,0,0,.25);border:1px solid #dbe7f3
 }
 .editorBox h3{margin-top:0;color:#153b7c}
-.editorGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.editorGrid input{height:46px;font-size:15px}.full{grid-column:1/-1}
-.editorActions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px}
-.editorActions button{padding:10px 16px;border-radius:8px;border:0;font-weight:700;cursor:pointer}
-@media(max-height:780px) and (min-width:901px){
-  .app{padding-top:5px;gap:6px}
-  .header{height:88px}
-  .brandIcon{font-size:42px}
-  .brand h1{font-size:28px}
-  .brand p{font-size:13px;margin-top:4px}
-  .datebox{min-width:220px;padding:6px 14px}
-  .datebox b{font-size:22px}
-  .profileSection{padding:10px 14px 9px}
-  .sectionTitle{font-size:17px;margin-bottom:8px}
-  .profile{min-height:88px;padding:9px 11px}
-  .gradeIcon{width:48px;height:48px;font-size:24px}
-  .profile h3{font-size:19px}.profile .teacher{font-size:13px}.profile .meta{font-size:11.5px}
-  .info{padding:6px 9px;margin-top:7px}
-  .lessonCard{padding:10px 14px 12px}
-  .lessonBody{gap:6px}
-  input{height:39px;font-size:15px}
-  .field label{font-size:13.5px;margin-bottom:3px}
-  .big{height:58px;font-size:17px}
-  .footer{height:26px;font-size:12px}
+.editorGrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.editorGrid input{height:43px;font-size:14px}.full{grid-column:1/-1}
+.editorActions{display:flex;justify-content:flex-end;gap:9px;margin-top:15px}
+.editorActions button{padding:9px 15px;border-radius:8px;border:0;font-weight:700;cursor:pointer}
+@media(max-height:760px) and (min-width:901px){
+  .app{padding-top:5px}.shell{padding-top:6px;gap:6px}
+  .header{height:76px}.brandIcon{width:54px;height:54px;font-size:34px}
+  .brand h1{font-size:26px}.brand p{font-size:12.5px;margin-top:4px}
+  .datebox{padding:5px 13px;min-width:205px}.datebox b{font-size:20px}
+  .profileSection{padding:8px 11px 7px}.profile{min-height:76px;padding:7px 9px}
+  .gradeIcon{width:41px;height:41px;font-size:20px}.profile h3{font-size:17px}
+  .profile .teacher{font-size:11.5px}.profile .meta{font-size:9.8px}
+  .sectionTitle{font-size:16px;margin-bottom:6px}.info{padding:5px 8px;margin-top:6px}
+  .lessonCard{padding:8px 11px 9px}.lessonBody{gap:4px}
+  .field{padding-left:48px}.field:before{width:35px;height:35px;top:15px;font-size:18px}
+  input{height:34px;font-size:13.5px}.field label{font-size:12.5px;margin-bottom:2px}
+  .big{height:50px;font-size:15px}.footer{height:22px;font-size:10.8px}
 }
 @media(max-width:900px){
-  html,body{height:auto}
-  body{overflow:auto}
-  .app{height:auto;min-height:100vh;padding:12px}
-  .header{height:auto;align-items:flex-start}
-  .brand h1{font-size:25px}
-  .brandIcon{font-size:40px}
-  .datebox{min-width:180px}
-  .profiles{grid-template-columns:1fr}
-  .profile{min-height:92px}
-  .actions{grid-template-columns:1fr}
-  .footer{height:auto;padding:8px}
+  html,body{height:auto}body{overflow:auto}
+  .app{height:auto;min-height:100vh;width:100%;padding:8px}
+  .shell{height:auto}.header{height:auto;align-items:flex-start;padding:8px}
+  .brandIcon{width:48px;height:48px;font-size:31px}.brand h1{font-size:23px}
+  .brand p{font-size:12px}.datebox{min-width:175px;padding:6px 10px}
+  .profiles{grid-template-columns:1fr}.profile{min-height:86px}
+  .field{padding-left:0}.field:before{display:none}
+  .actions{grid-template-columns:1fr}.footer{height:auto;padding:6px}
 }
 </style>
 </head>
 <body>
-<main class="app">
+<main class="app"><div class="shell">
   <header class="header">
     <div class="brand">
       <div class="brandIcon">📋</div>
@@ -292,7 +284,7 @@ input:focus{border-color:#4a8bea;box-shadow:0 0 0 3px #4a8bea14}
   </section>
 
   <footer class="footer">🏫 TRƯỜNG PT DTNT TỈNH CAO BẰNG</footer>
-</main>
+</div></main>
 
 <div class="editor" id="editor">
   <div class="editorBox">

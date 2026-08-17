@@ -1,9 +1,7 @@
-NỘP GIÁO ÁN ONLINE - NTT V4.3
+NỘP GIÁO ÁN ONLINE - NTT V4.5 LUNG LINH
 
-- Viết lại giao diện từ đầu theo mẫu đã chốt.
-- Desktop một màn hình, body overflow hidden.
-- 3 hồ sơ Khối 10, 11, 12.
-- Mục nhập dọc: Tên bài, Số tiết, Từ tiết đến tiết.
-- 2 nút lớn phía dưới phần nhập.
-- Chân trang: TRƯỜNG PT DTNT TỈNH CAO BẰNG.
-- Lưu hồ sơ bằng localStorage key ntt_profiles_v43.
+- Giao diện làm mới theo ảnh tham chiếu: nền xanh nhạt, họa tiết vòng cung, khung nổi, shadow mềm.
+- Khung app 1220px, căn giữa, giữ mục tiêu một màn hình desktop.
+- 3 hồ sơ Khối 10, Khối 11, Khối 12.
+- Phần nhập dọc 3 ô và hai nút gradient phía dưới.
+- Giữ nguyên chức năng tự điền Google Form.
