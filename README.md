@@ -1,7 +1,15 @@
-NỘP GIÁO ÁN ONLINE - NTT V4.5 LUNG LINH
+NỘP GIÁO ÁN ONLINE - NTT V4.8 FINAL DEPLOY
 
-- Giao diện làm mới theo ảnh tham chiếu: nền xanh nhạt, họa tiết vòng cung, khung nổi, shadow mềm.
-- Khung app 1220px, căn giữa, giữ mục tiêu một màn hình desktop.
-- 3 hồ sơ Khối 10, Khối 11, Khối 12.
-- Phần nhập dọc 3 ô và hai nút gradient phía dưới.
-- Giữ nguyên chức năng tự điền Google Form.
+Bản chốt theo giao diện đã duyệt:
+- Khung 1080px, căn giữa.
+- Không kéo khung xuống hết chiều cao màn hình, loại bỏ khoảng trắng thừa phía dưới.
+- 3 hồ sơ Khối 10 / 11 / 12.
+- Nhập dọc: Tên bài học, Số tiết, Từ tiết đến tiết.
+- Hai nút dưới được thu gọn; chữ/icon LÀM MỚI gần nhau hơn.
+- Giữ chức năng lưu hồ sơ trên trình duyệt và mở Google Form đã điền.
+- Chân trang: TRƯỜNG PT DTNT TỈNH CAO BẰNG.
+
+Triển khai Vercel:
+1. Giải nén ZIP.
+2. Upload index.html và vercel.json vào project/repository.
+3. Redeploy.

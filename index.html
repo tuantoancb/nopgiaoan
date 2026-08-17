@@ -27,22 +27,21 @@ body:before,body:after{
 body:before{width:680px;height:680px;left:-360px;top:80px;border:34px solid rgba(89,166,250,.13)}
 body:after{width:620px;height:620px;right:-335px;bottom:-160px;border:34px solid rgba(89,166,250,.12)}
 .app{
-  height:100vh;
-  width:min(1220px,calc(100vw - 34px));
+  min-height:0;
+  width:min(1080px,calc(100vw - 28px));
   margin:0 auto;
-  padding:8px 0;
+  padding:6px 0;
   display:flex;
   flex-direction:column;
   gap:8px;
 }
 .shell{
-  height:100%;
   padding:10px 16px 8px;
   border:1px solid rgba(174,205,238,.72);
   border-radius:22px;
   background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(250,253,255,.90));
   box-shadow:0 18px 45px rgba(38,97,159,.15), inset 0 1px 0 #fff;
-  display:flex;flex-direction:column;gap:8px;
+  display:flex;flex-direction:column;gap:7px;
 }
 .header{
   height:98px;flex:none;
@@ -97,7 +96,7 @@ body:after{width:620px;height:620px;right:-335px;bottom:-160px;border:34px solid
   margin:0 0 9px;color:#153b7c;font-size:18px;font-weight:850;
   display:flex;align-items:center;gap:8px
 }
-.profiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.profiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .profile{
   min-width:0;min-height:94px;position:relative;cursor:pointer;
   padding:10px 12px;display:flex;align-items:center;gap:11px;
@@ -127,7 +126,7 @@ body:after{width:620px;height:620px;right:-335px;bottom:-160px;border:34px solid
 .profile .teacher{font-size:12.7px;font-weight:750;color:#213b69;margin-bottom:3px}
 .profile .meta{
   font-size:10.8px;color:#3f4d63;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  max-width:240px
+  max-width:190px
 }
 .check{position:absolute;right:10px;top:9px;color:#c7d1de;font-size:18px}
 .profile.active .check{color:#1769e8}
@@ -142,14 +141,14 @@ body:after{width:620px;height:620px;right:-335px;bottom:-160px;border:34px solid
   background:linear-gradient(180deg,#f7fbff,#edf6ff);
 }
 .lessonCard{
-  flex:1;min-height:0;padding:11px 15px 12px;
+  flex:none;padding:10px 15px 10px;
   display:flex;flex-direction:column
 }
 .lessonBody{
-  flex:1;min-height:0;display:flex;flex-direction:column;
-  justify-content:center;gap:6px
+  display:flex;flex-direction:column;
+  justify-content:flex-start;gap:6px;padding-top:2px
 }
-.field{position:relative;padding-left:58px}
+.field{position:relative;padding-left:58px;margin:0}
 .field:before{
   position:absolute;left:0;top:18px;width:42px;height:42px;border-radius:13px;
   display:flex;align-items:center;justify-content:center;font-size:22px;
@@ -173,10 +172,10 @@ input:focus{
   border-color:#4c8ff1;
   box-shadow:0 0 0 3px rgba(76,143,241,.11),0 4px 10px rgba(29,96,185,.08)
 }
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px;padding-left:0}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:7px;padding-left:0}
 .big{
-  height:58px;border-radius:9px;border:0;
-  font:inherit;font-size:16.5px;font-weight:850;cursor:pointer;
+  height:52px;border-radius:9px;border:0;
+  font:inherit;font-size:16px;font-weight:850;cursor:pointer;
   transition:.16s;letter-spacing:.05px
 }
 .big:hover{transform:translateY(-1px);filter:brightness(1.03)}
@@ -188,9 +187,9 @@ input:focus{
   color:#fff;background:linear-gradient(180deg,#2db65c,#10953f);
   box-shadow:0 7px 15px rgba(16,149,63,.20),inset 0 1px 0 rgba(255,255,255,.25)
 }
-.big small{display:block;font-size:10.8px;font-weight:450;margin-top:3px;opacity:.95}
+.big small{display:block;font-size:10.5px;font-weight:450;margin-top:1px;opacity:.95}
 .footer{
-  height:27px;flex:none;display:flex;align-items:center;justify-content:center;
+  height:24px;flex:none;display:flex;align-items:center;justify-content:center;
   font-size:12px;color:#153b7c;font-weight:850;letter-spacing:.1px;position:relative
 }
 .footer:before,.footer:after{
@@ -235,6 +234,13 @@ input:focus{
   .field{padding-left:0}.field:before{display:none}
   .actions{grid-template-columns:1fr}.footer{height:auto;padding:6px}
 }
+
+@media(min-width:901px){
+  body{overflow:auto;min-height:100vh}
+  .app{height:auto;min-height:0;margin:18px auto 10px}
+  .shell{height:auto}
+}
+
 </style>
 </head>
 <body>
@@ -278,7 +284,7 @@ input:focus{
 
       <div class="actions">
         <button class="big openBtn" onclick="openPrefilled()">🚀 MỞ GOOGLE FORM ĐÃ ĐIỀN<small>Tự động điền thông tin vào Google Form</small></button>
-        <button class="big resetBtn" onclick="resetLesson()">↻ LÀM MỚI<small>Xóa thông tin vừa nhập</small></button>
+        <button class="big resetBtn" onclick="resetLesson()">↻&nbsp; LÀM MỚI<small>Xóa thông tin vừa nhập</small></button>
       </div>
     </div>
   </section>
