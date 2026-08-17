@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nộp giáo án online - NTT</title>
+<style>
+:root{--blue:#1769e8;--ink:#12336d;--muted:#66758d;--line:#dce5f1;--bg:#f7faff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#14233e;font-family:"Segoe UI","Noto Sans",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.page{max-width:1450px;margin:auto;padding:22px 28px}
+.header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:18px}.brandIcon{font-size:55px}.brand h1{margin:0;color:#153b7c;font-size:34px}.brand p{margin:5px 0 0;font-size:17px;color:#243957}
+.datebox{background:#fff;border:1px solid #d7e4f5;border-radius:14px;padding:12px 22px;min-width:240px;box-shadow:0 5px 16px #17335f10;text-align:center}
+.datebox b{display:block;font-size:26px;color:#135dc9;margin:4px}.datebox small{color:#68758a}
+.card{background:#fff;border:1px solid #e1e8f1;border-radius:16px;box-shadow:0 5px 20px #17335f0b;overflow:hidden}
+.section{padding:18px 26px}.section+.section{border-top:1px solid #e6ecf3}
+.section h2{margin:0 0 16px;color:#153b7c;font-size:21px}
+.profiles{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.profile{position:relative;border:1.5px solid #d8e2ef;border-radius:14px;padding:18px;display:flex;align-items:center;gap:18px;cursor:pointer;min-height:140px;transition:.15s}
+.profile:hover{transform:translateY(-1px);box-shadow:0 6px 18px #17335f12}
+.profile.active{border-color:#2a74ee;background:#f7fbff;box-shadow:0 0 0 1px #2a74ee22}
+.icon{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:35px;flex:none}
+.profile:nth-child(1) .icon{background:#2778e8}.profile:nth-child(2) .icon{background:#32b36b}.profile:nth-child(3) .icon{background:#8139dd}
+.profile h3{margin:0 0 5px;font-size:26px}.profile:nth-child(1) h3{color:#1769e8}.profile:nth-child(2) h3{color:#23a45b}.profile:nth-child(3) h3{color:#7130c8}
+.profile p{margin:4px 0;color:#34445f;font-size:14px}.check{position:absolute;right:14px;top:14px;font-size:23px;color:#c8d1dd}.active .check{color:#1769e8}
+.editBtn{position:absolute;right:12px;bottom:10px;border:0;background:transparent;color:#75839a;cursor:pointer;font-size:12px}
+.formrow{display:grid;grid-template-columns:1.7fr .55fr .7fr;gap:26px}
+label{display:block;font-weight:650;color:#153b7c;margin-bottom:8px;font-size:16px}.req{color:#e11d48}
+input{width:100%;height:54px;border:1px solid #ccd8e8;border-radius:10px;padding:0 15px;font-size:17px;font-family:inherit;outline:none}
+input:focus{border-color:#4f8eea;box-shadow:0 0 0 3px #4f8eea15}
+.info{margin-top:16px;border:1px solid #cfe0f8;background:#f4f9ff;border-radius:11px;padding:13px 18px;color:#304b70;font-size:14px}
+.info b{color:#1769e8}
+.actions{display:grid;grid-template-columns:1fr .9fr;gap:24px;margin-top:18px}
+button.big{height:74px;border-radius:11px;font-family:inherit;font-size:19px;font-weight:700;cursor:pointer}
+.open{border:0;color:#fff;background:linear-gradient(#367de8,#0f5dd2);box-shadow:0 5px 12px #1769e82a}.reset{background:#fff;border:1px solid #d0d9e6;color:#153b7c}
+.footer{margin-top:12px;background:#f3fbf6;border:1px solid #d4eadb;border-radius:12px;padding:12px;text-align:center;color:#315c47;font-size:14px}
+.editor{display:none;position:fixed;inset:0;background:#10203c66;z-index:10;align-items:center;justify-content:center}.editor.show{display:flex}
+.editorBox{width:min(560px,92vw);background:#fff;border-radius:16px;padding:22px;box-shadow:0 20px 60px #0003}.editorBox h3{margin-top:0;color:#153b7c}
+.editorGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.editorGrid input{height:46px;font-size:15px}.full{grid-column:1/-1}
+.editorActions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px}.editorActions button{padding:10px 16px;border-radius:8px;border:0;font-weight:650;cursor:pointer}
+@media(max-width:900px){.page{padding:15px}.header{align-items:flex-start}.brand h1{font-size:25px}.datebox{min-width:190px}.profiles,.formrow{grid-template-columns:1fr}.profile{min-height:105px}.actions{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="header">
+    <div class="brand"><div class="brandIcon">📋</div><div><h1>NỘP GIÁO ÁN ONLINE - NTT</h1><p>Tự động điền Google Form - Nhanh gọn, chính xác</p></div></div>
+    <div class="datebox">📅 Ngày nộp<b id="todayText"></b><small>Tự động lấy ngày hôm nay</small></div>
+  </div>
+
+  <div class="card">
+    <section class="section">
+      <h2>1. CHỌN HỒ SƠ NHANH</h2>
+      <div class="profiles" id="profiles"></div>
+    </section>
+
+    <section class="section">
+      <h2>2. NHẬP THÔNG TIN BÀI DẠY</h2>
+      <div class="formrow">
+        <div><label>Tên bài học / chuyên đề <span class="req">*</span></label><input id="lesson" placeholder="Nhập tên bài học hoặc chuyên đề..."></div>
+        <div><label>Số tiết <span class="req">*</span></label><input id="periods" inputmode="numeric" placeholder="VD: 2"></div>
+        <div><label>Từ tiết đến tiết (a-b) <span class="req">*</span></label><input id="range" placeholder="VD: 1-5"></div>
+      </div>
+
+      <div class="info">ℹ️ <b>Thông tin sẽ được tự động điền:</b> Họ tên, môn học, tổ chuyên môn, khối lớp, ngày nộp và người duyệt sẽ được chuyển sang Google Form.</div>
+
+      <div class="actions">
+        <button class="big open" onclick="openPrefilled()">🚀 MỞ GOOGLE FORM ĐÃ ĐIỀN<br><span style="font-size:13px;font-weight:400">Thầy/Cô chỉ việc tải file giáo án và Gửi</span></button>
+        <button class="big reset" onclick="resetLesson()">↻ LÀM MỚI<br><span style="font-size:13px;font-weight:400">Xóa thông tin vừa nhập</span></button>
+      </div>
+    </section>
+  </div>
+  <div class="footer">🛡️ <b>Bảo mật thông tin</b>　•　Không lưu file　•　Chỉ hỗ trợ điền Google Form</div>
+</main>
+
+<div class="editor" id="editor">
+ <div class="editorBox">
+  <h3 id="editorTitle">Thiết lập hồ sơ</h3>
+  <div class="editorGrid">
+   <input id="p_name" class="full" placeholder="Họ và tên">
+   <input id="p_subject" placeholder="Môn/HĐGD">
+   <input id="p_team" placeholder="Tổ chuyên môn">
+   <input id="p_approver" class="full" placeholder="Tên người duyệt">
+  </div>
+  <div class="editorActions"><button onclick="closeEditor()">Hủy</button><button style="background:#1769e8;color:#fff" onclick="saveProfile()">💾 Lưu hồ sơ</button></div>
+ </div>
+</div>
+
+<script>
+const FORM="https://docs.google.com/forms/d/e/1FAIpQLSf20YrTDt_BOqmIrZ8oYp85Sd7eCEu2ugcJslLcKbNmCwrU2A/viewform";
+const ENTRY={"name": "1039854064", "subject": "311167583", "team": "1030504847", "date": "392066118", "lesson": "35887539", "className": "851950241", "periods": "993971607", "range": "202499073", "approver": "3704355"};
+const $=id=>document.getElementById(id);
+let selected=0, editing=0;
+
+function todayISO(){const d=new Date(); return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
+function todayVN(){const d=new Date(); return [String(d.getDate()).padStart(2,'0'),String(d.getMonth()+1).padStart(2,'0'),d.getFullYear()].join('/')}
+$('todayText').textContent=todayVN();
+
+function defaults(){
+ return [
+  {grade:'10',name:'',subject:'',team:'',approver:''},
+  {grade:'11',name:'',subject:'',team:'',approver:''},
+  {grade:'12',name:'',subject:'',team:'',approver:''}
+ ];
+}
+function getProfiles(){
+ try{
+   const p=JSON.parse(localStorage.getItem('ntt_profiles_v41')||'null');
+   if(Array.isArray(p)){while(p.length<3)p.push(defaults()[p.length]);return p.slice(0,3)}
+ }catch(e){}
+ return defaults();
+}
+function setProfiles(p){localStorage.setItem('ntt_profiles_v41',JSON.stringify(p))}
+function esc(s){return (s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function render(){
+ const p=getProfiles();
+ $('profiles').innerHTML=p.map((x,i)=>`
+ <div class="profile ${i===selected?'active':''}" onclick="selectProfile(${i})">
+   <div class="icon">🎓</div>
+   <div><h3>KHỐI ${x.grade}</h3><p><b>Hồ sơ ${x.grade}</b></p><p>${esc(x.subject)||'Chưa nhập môn'}${x.team?' - '+esc(x.team):''}${x.approver?' - '+esc(x.approver):''}</p></div>
+   <div class="check">${i===selected?'●':'○'}</div>
+   <button class="editBtn" onclick="event.stopPropagation();editProfile(${i})">⚙ Sửa hồ sơ</button>
+ </div>`).join('');
+}
+function selectProfile(i){selected=i;render();$('lesson').focus()}
+function editProfile(i){
+ editing=i; const x=getProfiles()[i];
+ $('editorTitle').textContent='Thiết lập KHỐI '+x.grade;
+ $('p_name').value=x.name||'';$('p_subject').value=x.subject||'';$('p_team').value=x.team||'';$('p_approver').value=x.approver||'';
+ $('editor').classList.add('show')
+}
+function closeEditor(){$('editor').classList.remove('show')}
+function saveProfile(){
+ const p=getProfiles();p[editing]={grade:String(10+editing),name:$('p_name').value.trim(),subject:$('p_subject').value.trim(),team:$('p_team').value.trim(),approver:$('p_approver').value.trim()};
+ setProfiles(p);selected=editing;render();closeEditor();$('lesson').focus()
+}
+function resetLesson(){$('lesson').value='';$('periods').value='';$('range').value='';$('lesson').focus()}
+function openPrefilled(){
+ const x=getProfiles()[selected];
+ if(!x.name||!x.subject||!x.team||!x.approver){editProfile(selected);return alert('Hãy thiết lập hồ sơ cho khối này trước.')}
+ if(!$('lesson').value.trim()||!$('periods').value.trim()||!$('range').value.trim()) return alert('Vui lòng nhập đủ Tên bài, Số tiết và Từ tiết đến tiết.');
+ const values={
+   name:x.name,subject:x.subject,team:x.team,date:todayISO(),lesson:$('lesson').value.trim(),
+   className:x.grade,periods:$('periods').value.trim(),range:$('range').value.trim(),approver:x.approver
+ };
+ const u=new URL(FORM);u.searchParams.set('usp','pp_url');
+ for(const [field,id] of Object.entries(ENTRY)){if(values[field])u.searchParams.set('entry.'+id,values[field])}
+ window.open(u.toString(),'_blank')
+}
+render();
+</script>
+</body>
+</html>
