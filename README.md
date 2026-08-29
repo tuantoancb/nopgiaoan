@@ -1,28 +1,15 @@
-NỘP GIÁO ÁN ONLINE - NTT V4.9 HO SO CUA TOI
+# Nộp giáo án online - NTT v5.0
 
-Bản chốt theo giao diện đã duyệt:
-- Khung 1080px, căn giữa.
-- Không kéo khung xuống hết chiều cao màn hình, loại bỏ khoảng trắng thừa phía dưới.
-- 3 hồ sơ Khối 10 / 11 / 12.
-- Nhập dọc: Tên bài học, Số tiết, Từ tiết đến tiết.
-- Hai nút dưới được thu gọn; chữ/icon LÀM MỚI gần nhau hơn.
-- Giữ chức năng lưu hồ sơ trên trình duyệt và mở Google Form đã điền.
-- Chân trang: TRƯỜNG PT DTNT TỈNH CAO BẰNG.
+Bản v5.0 nâng cấp mục **3. HỒ SƠ CỦA TÔI**:
 
-Triển khai Vercel:
-1. Giải nén ZIP.
-2. Upload index.html và vercel.json vào project/repository.
-3. Redeploy.
+- Đọc trực tiếp dữ liệu từ API của app **Minh chứng giáo án** qua Vercel external rewrite.
+- Không còn lưu lịch sử nộp trên `localStorage`.
+- Không cần nút **ĐÃ NỘP XONG**. Sau khi gửi Google Form và quay lại app, hệ thống tự kiểm tra hồ sơ mới.
+- Trạng thái hiển thị ngay: **Chờ duyệt / Đã duyệt / Nộp lại**.
+- Nếu hồ sơ có link tệp, bấm vào dòng để mở tệp giáo án.
+- Có nút `↻` để đồng bộ lại thủ công khi cần.
 
+## Triển khai Vercel
+Upload toàn bộ 3 file `index.html`, `vercel.json`, `README.md` vào project `nopgiaoan` và redeploy.
 
-Bổ sung V4.9:
-- Thêm khối “HỒ SƠ CỦA TÔI” ngay trong app.
-- Sau khi mở Google Form và bấm Gửi, quay lại app chọn “ĐÃ NỘP XONG”; dữ liệu Tên bài / Khối / Số tiết / Tiết PPCT / thời gian nộp xuất hiện ngay.
-- Hồ sơ vừa xác nhận có hiệu ứng sáng nhẹ để dễ nhận biết.
-- Lưu lịch sử trên trình duyệt (tối đa 60 hồ sơ, hiển thị 5 hồ sơ gần nhất).
-- Có nút “XEM TRẠNG THÁI DUYỆT” mở đúng trang giáo viên trên Minh chứng giáo án.
-- Responsive: trên điện thoại danh sách tự chuyển thành thẻ gọn.
-
-Lưu ý kỹ thuật:
-- Google Form mở ở tên miền khác nên trình duyệt không cho app tự biết người dùng đã bấm Gửi hay chưa. Vì vậy V4.9 dùng bước xác nhận “ĐÃ NỘP XONG” khi quay lại app để tránh ghi nhận sai.
-- Muốn trạng thái Chờ duyệt/Đã duyệt/Nộp lại đồng bộ tự động ngay trong app cần kết nối API hoặc nguồn dữ liệu chung của hệ thống Minh chứng giáo án.
+`vercel.json` dùng rewrite `/minhchung-api/*` → `https://minhchunggiaoan.vercel.app/api/*` để frontend đọc cùng nguồn dữ liệu với app Minh chứng mà không vướng CORS.

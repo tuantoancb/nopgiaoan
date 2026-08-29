@@ -1,3 +1,20 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json"
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/minhchung-api/:path*",
+      "destination": "https://minhchunggiaoan.vercel.app/api/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/minhchung-api/:path*",
+      "headers": [
+        {
+          "key": "x-vercel-enable-rewrite-caching",
+          "value": "0"
+        }
+      ]
+    }
+  ]
 }

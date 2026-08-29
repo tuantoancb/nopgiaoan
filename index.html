@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Nộp giáo án online - NTT</title>
+<title>Nộp giáo án online - NTT v5.0</title>
 <style>
 :root{
   --blue:#1769e8; --blue2:#0f5dd2; --ink:#12336d; --muted:#62728b;
@@ -215,41 +215,34 @@ input:focus{
 .submissionHead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
 .submissionHead .sectionTitle{margin:0}
 .submissionTools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-.submissionCount{font-size:11.5px;color:#5b6f8d;font-weight:700}
-.evidenceBtn{
-  height:32px;padding:0 11px;border-radius:8px;border:1px solid #cfe0f5;background:#f7fbff;
-  color:#1769e8;font:inherit;font-size:11.5px;font-weight:800;cursor:pointer
-}
-.evidenceBtn:hover{background:#edf6ff}
-.returnPrompt{
-  display:none;margin:0 0 9px;padding:9px 10px;border:1px solid #f0cf7c;border-radius:10px;
-  background:linear-gradient(180deg,#fffaf0,#fff6df);box-shadow:0 5px 14px rgba(165,111,24,.08)
-}
-.returnPrompt.show{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.returnText{min-width:0;color:#67460d;font-size:12px;line-height:1.4}
-.returnText b{color:#8b5800}
-.returnActions{display:flex;gap:7px;flex:none}
-.returnActions button{height:31px;border-radius:8px;padding:0 10px;font:inherit;font-size:11px;font-weight:800;cursor:pointer}
-.confirmBtn{border:0;color:#fff;background:linear-gradient(180deg,#2db65c,#10953f);box-shadow:0 4px 10px rgba(16,149,63,.17)}
-.reopenBtn{border:1px solid #d7b862;color:#7a5400;background:#fff}
+.submissionCount{font-size:11.5px;color:#5b6f8d;font-weight:750}
+.syncBadge{display:inline-flex;align-items:center;gap:5px;height:29px;padding:0 9px;border-radius:999px;font-size:10.5px;font-weight:850;border:1px solid #d7e4f1;background:#f7fbff;color:#4c6382}
+.syncBadge.ok{border-color:#bfe7cc;background:#effaf3;color:#13763a}
+.syncBadge.loading{border-color:#cdddf3;background:#f2f7ff;color:#1769e8}
+.syncBadge.error{border-color:#f0caca;background:#fff2f2;color:#a42727}
+.syncBtn{width:29px;height:29px;border-radius:8px;border:1px solid #cfe0f5;background:#f7fbff;color:#1769e8;font:inherit;font-size:14px;font-weight:900;cursor:pointer;padding:0}
+.syncBtn:hover{background:#edf6ff}
+.syncBanner{display:none;margin:0 0 9px;padding:9px 11px;border:1px solid #cfe0f5;border-radius:10px;background:linear-gradient(180deg,#f8fbff,#eef6ff);color:#31537e;font-size:11.5px;line-height:1.4}
+.syncBanner.show{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.syncBanner b{color:#153b7c}.syncBanner .miniBtn{flex:none;height:29px;padding:0 9px;border-radius:7px;border:1px solid #c7d9ef;background:#fff;color:#1769e8;font:inherit;font-size:10.5px;font-weight:850;cursor:pointer}
 .submissionTableWrap{border:1px solid #d9e5f1;border-radius:11px;overflow:hidden;background:#fff}
 .submissionTable{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11.5px}
-.submissionTable th{
-  padding:8px 8px;text-align:left;color:#536987;background:#f4f8fc;border-bottom:1px solid #d9e5f1;
-  font-size:10px;text-transform:uppercase;letter-spacing:.2px
-}
+.submissionTable th{padding:8px 8px;text-align:left;color:#536987;background:#f4f8fc;border-bottom:1px solid #d9e5f1;font-size:10px;text-transform:uppercase;letter-spacing:.2px}
 .submissionTable td{padding:8px 8px;vertical-align:middle;border-bottom:1px solid #edf2f7;color:#20385e}
 .submissionTable tr:last-child td{border-bottom:0}
+.submissionTable tbody tr[data-file]{cursor:pointer}
+.submissionTable tbody tr[data-file]:hover{background:#f8fbff}
 .submissionTable .lessonCell{font-weight:800;color:#102d61;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.submissionTable .lessonCell .clip{color:#1769e8;margin-left:5px}
 .submissionTable .dateCell{color:#5f7089;font-size:10.8px;line-height:1.25}
 .statusPill{display:inline-flex;align-items:center;gap:4px;padding:4px 7px;border-radius:999px;font-size:10.5px;font-weight:850;white-space:nowrap}
 .statusPending{background:#fff1cf;color:#8a5900}
 .statusApproved{background:#dcf7e7;color:#0c7b37}
 .statusRejected{background:#ffe1e1;color:#a42727}
-.rowOpen{border:0;background:transparent;color:#1769e8;font:inherit;font-size:11px;font-weight:850;cursor:pointer;padding:4px}
+.statusSub{display:block;margin-top:3px;font-size:9.6px;color:#74839a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:145px}
 .emptySubmissions{padding:13px;text-align:center;color:#718096;font-size:11.5px;background:#fbfdff}
-.submissionTable tr.fresh{animation:freshPulse 2.3s ease}
-@keyframes freshPulse{0%{background:#fff3bf}35%{background:#e9fff1}100%{background:#fff}}
+.submissionTable tr.fresh{animation:freshPulse 2.6s ease}
+@keyframes freshPulse{0%{background:#fff0a8}35%{background:#e8fff0}100%{background:#fff}}
 .submissionNote{margin-top:7px;color:#6f7f95;font-size:10.5px;line-height:1.35}
 .toast{
   display:none;position:fixed;right:20px;bottom:20px;z-index:30;max-width:380px;padding:12px 14px;border-radius:12px;
@@ -284,8 +277,8 @@ input:focus{
   .submissionSection{padding:10px}
   .submissionHead{align-items:flex-start;flex-direction:column}
   .submissionTools{width:100%;justify-content:space-between}
-  .returnPrompt.show{align-items:stretch;flex-direction:column}
-  .returnActions{width:100%}.returnActions button{flex:1}
+  .syncBanner.show{align-items:stretch;flex-direction:column}
+  .syncBanner .miniBtn{width:100%}
   .submissionTableWrap{border:0;background:transparent;overflow:visible}
   .submissionTable,.submissionTable tbody{display:block}
   .submissionTable thead{display:none}
@@ -356,28 +349,26 @@ input:focus{
     <div class="submissionHead">
       <h2 class="sectionTitle">📚 3. HỒ SƠ CỦA TÔI</h2>
       <div class="submissionTools">
-        <span class="submissionCount" id="submissionCount">0 hồ sơ</span>
-        <button class="evidenceBtn" onclick="openEvidence()">↗ XEM TRẠNG THÁI DUYỆT</button>
+        <span class="submissionCount" id="submissionCount">Đang tải hồ sơ…</span>
+        <span class="syncBadge loading" id="syncBadge">● Đang kết nối</span>
+        <button class="syncBtn" title="Đồng bộ lại" onclick="syncSubmissions(true)">↻</button>
       </div>
     </div>
-    <div class="returnPrompt" id="returnPrompt">
-      <div class="returnText" id="returnText"></div>
-      <div class="returnActions">
-        <button class="reopenBtn" onclick="reopenPending()">MỞ LẠI FORM</button>
-        <button class="confirmBtn" onclick="confirmSubmitted()">✓ ĐÃ NỘP XONG</button>
-      </div>
+    <div class="syncBanner" id="syncBanner">
+      <span id="syncBannerText"></span>
+      <button class="miniBtn" id="reopenFormBtn" onclick="reopenPendingForm()">MỞ LẠI FORM</button>
     </div>
     <div class="submissionTableWrap">
       <table class="submissionTable">
         <thead><tr><th style="width:13%">Ngày nộp</th><th style="width:36%">Tên bài / Nội dung</th><th style="width:8%">Khối</th><th style="width:9%">Số tiết</th><th style="width:19%">Tiết PPCT</th><th style="width:15%">Trạng thái</th></tr></thead>
         <tbody id="submissionRows"></tbody>
       </table>
-      <div class="emptySubmissions" id="emptySubmissions">Chưa có hồ sơ nào được xác nhận đã nộp trên thiết bị này.</div>
+      <div class="emptySubmissions" id="emptySubmissions">Đang đọc dữ liệu từ Minh chứng giáo án…</div>
     </div>
-    <div class="submissionNote">ℹ️ Sau khi bấm <b>Gửi</b> trên Google Form, quay lại tab này và chọn <b>ĐÃ NỘP XONG</b>. App sẽ lưu đúng thông tin anh vừa nhập để xem lại ngay. Trạng thái duyệt chính thức xem tại Minh chứng giáo án.</div>
+    <div class="submissionNote">ℹ️ Dữ liệu phần này được <b>đồng bộ trực tiếp từ Minh chứng giáo án</b>. Sau khi bấm <b>Gửi</b> trên Google Form, chỉ cần quay lại tab này; app sẽ tự kiểm tra và hiện hồ sơ mới. Dòng có biểu tượng 📎 có thể bấm để mở tệp giáo án.</div>
   </section>
 
-  <footer class="footer">🏫 TRƯỜNG PT DTNT TỈNH CAO BẰNG</footer>
+  <footer class="footer">🏫 TRƯỜNG PT DTNT TỈNH CAO BẰNG · v5.0</footer>
 </div></main>
 
 <div class="editor" id="editor">
@@ -473,107 +464,149 @@ function resetLesson(){
   $('lesson').value='';$('periods').value='';$('range').value='';$('lesson').focus();
 }
 
-const SUBMISSION_KEY='ntt_submissions_v49';
-const PENDING_KEY='ntt_pending_submission_v49';
+const SYNC_API='/minhchung-api/data';
+let REMOTE_SUBMISSIONS=[];
 let freshId='';
+let pendingForm=null;
+let syncing=false;
+let pollToken=0;
 
-function getSubmissions(){
-  try{const x=JSON.parse(localStorage.getItem(SUBMISSION_KEY)||'[]');return Array.isArray(x)?x:[]}catch(e){return []}
-}
-function setSubmissions(x){localStorage.setItem(SUBMISSION_KEY,JSON.stringify(x.slice(0,60)))}
-function getPending(){try{return JSON.parse(localStorage.getItem(PENDING_KEY)||'null')}catch(e){return null}}
-function setPending(x){x?localStorage.setItem(PENDING_KEY,JSON.stringify(x)):localStorage.removeItem(PENDING_KEY)}
 function pad2(n){return String(n).padStart(2,'0')}
-function formatDateTime(ms){
-  const d=new Date(ms);return `${pad2(d.getDate())}/${pad2(d.getMonth()+1)}/${d.getFullYear()}<br><span>${pad2(d.getHours())}:${pad2(d.getMinutes())}</span>`;
-}
 function slugName(s){
   return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase().trim().replace(/\s+/g,' ');
 }
+function norm(s){return slugName(String(s||'')).replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim()}
+function currentIdentity(){
+  const p=getProfiles(), chosen=p[selected]||{}, named=p.find(x=>x.name)||chosen;
+  return {name:chosen.name||named.name||'',subject:chosen.subject||named.subject||''};
+}
+function parseRemoteDate(v){
+  if(typeof v==='number') return v;
+  const s=String(v||'').trim();
+  let m=s.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})(?:\s+(\d{1,2}):(\d{2})(?::(\d{2}))?)?/);
+  if(m)return new Date(+m[3],+m[2]-1,+m[1],+(m[4]||0),+(m[5]||0),+(m[6]||0)).getTime();
+  const d=new Date(s);return isNaN(d)?0:d.getTime();
+}
+function formatRemoteDate(v){
+  const ms=parseRemoteDate(v);if(!ms)return esc(String(v||'—'));
+  const d=new Date(ms);return `${pad2(d.getDate())}/${pad2(d.getMonth()+1)}/${d.getFullYear()}<br><span>${pad2(d.getHours())}:${pad2(d.getMinutes())}</span>`;
+}
+function rowKey(x){return String(x.id??[x.timestamp,x.teacher,x.subject,x.grade,x.lesson,x.periodRange].join('|'))}
+function fileLinks(x){return String(x.file||'').split(/\s+/).filter(u=>/^https?:\/\//i.test(u))}
+function statusOf(x){
+  const a=norm(x.approval||x.status||'');
+  if(x.reworkRequested||a.includes('yeu cau nop lai')||a.includes('nop lai'))return 'rejected';
+  if(x.approved||a.includes('duyet ga')||a==='approved')return 'approved';
+  return 'pending';
+}
+function teacherSubmissions(){
+  const who=currentIdentity();
+  if(!who.name)return [];
+  return REMOTE_SUBMISSIONS.filter(x=>norm(x.teacher)===norm(who.name)&&(!who.subject||norm(x.subject)===norm(who.subject)))
+    .sort((a,b)=>parseRemoteDate(b.timestamp)-parseRemoteDate(a.timestamp));
+}
+function setSyncBadge(kind,text){const b=$('syncBadge');b.className='syncBadge '+kind;b.textContent=text}
 function evidenceUrl(){
-  const p=getProfiles();
-  const x=p.find(a=>a.name)||p[selected]||{};
+  const p=getProfiles();const x=p.find(a=>a.name)||p[selected]||{};
   const u=new URL('https://minhchunggiaoan.vercel.app/');
   u.searchParams.set('mode','teacher');u.searchParams.set('from','nopgiaoan');
   if(x.name){u.searchParams.set('teacher',x.name);u.searchParams.set('teacherKey',slugName(x.name))}
-  if(x.subject)u.searchParams.set('subject',x.subject);
-  u.searchParams.set('grade','ALL');
-  return u.toString();
+  if(x.subject)u.searchParams.set('subject',x.subject);u.searchParams.set('grade','ALL');return u.toString();
 }
-function openEvidence(){window.open(evidenceUrl(),'_blank')}
 function showToast(html){
-  const t=$('toast');t.innerHTML=html;t.classList.add('show');clearTimeout(showToast._t);showToast._t=setTimeout(()=>t.classList.remove('show'),3600);
+  const t=$('toast');t.innerHTML=html;t.classList.add('show');clearTimeout(showToast._t);showToast._t=setTimeout(()=>t.classList.remove('show'),4200);
 }
-function renderPending(){
-  const p=getPending();
-  if(!p){$('returnPrompt').classList.remove('show');return}
-  $('returnText').innerHTML=`📌 Anh vừa mở Google Form cho <b>${esc(p.lesson)}</b> · Khối ${esc(p.grade)} · Tiết ${esc(p.range)}. Nếu đã bấm <b>Gửi</b> trên Google Form, chọn <b>ĐÃ NỘP XONG</b> để lưu vào “Hồ sơ của tôi”.`;
-  $('returnPrompt').classList.add('show');
+function renderSyncBanner(){
+  const box=$('syncBanner');
+  if(!pendingForm){box.classList.remove('show');return}
+  box.classList.add('show');
+  $('syncBannerText').innerHTML=pendingForm.done
+    ? `✅ <b>Đã nhận hồ sơ từ Google Form</b>: ${esc(pendingForm.lesson)} · Khối ${esc(pendingForm.grade)} · Tiết ${esc(pendingForm.range)}.`
+    : `🔄 Đang chờ hồ sơ <b>${esc(pendingForm.lesson)}</b> · Khối ${esc(pendingForm.grade)} · Tiết ${esc(pendingForm.range)}. Sau khi bấm <b>Gửi</b> trên Google Form, quay lại đây; app tự đồng bộ.`;
+  $('reopenFormBtn').style.display=pendingForm.done?'none':'block';
 }
-function reopenPending(){const p=getPending();if(p&&p.formUrl)window.open(p.formUrl,'_blank')}
-function confirmSubmitted(){
-  const p=getPending();if(!p)return;
-  const rows=getSubmissions();
-  const item={...p,submittedAt:Date.now(),status:'submitted'};
-  delete item.formUrl;delete item.openedAt;
-  rows.unshift(item);setSubmissions(rows);setPending(null);freshId=item.id;
-  renderSubmissions();renderPending();
-  showToast(`✅ <b>Đã ghi nhận hồ sơ vừa nộp</b><br>${esc(item.lesson)} · Khối ${esc(item.grade)} · Tiết ${esc(item.range)}`);
-  setTimeout(()=>{freshId='';renderSubmissions()},2400);
-}
+function reopenPendingForm(){if(pendingForm?.formUrl)window.open(pendingForm.formUrl,'_blank')}
 function renderSubmissions(){
-  const rows=getSubmissions().slice(0,5);
-  $('submissionCount').textContent=`${getSubmissions().length} hồ sơ`;
+  const all=teacherSubmissions(), rows=all.slice(0,5);
+  const approved=all.filter(x=>statusOf(x)==='approved').length;
+  const rejected=all.filter(x=>statusOf(x)==='rejected').length;
+  const pending=all.length-approved-rejected;
+  let count=`${all.length} hồ sơ · ${approved} đã duyệt · ${pending} chờ duyệt`;
+  if(rejected)count+=` · ${rejected} nộp lại`;
+  $('submissionCount').textContent=count;
+  const who=currentIdentity();
   $('emptySubmissions').style.display=rows.length?'none':'block';
+  if(!rows.length){$('emptySubmissions').textContent=who.name?'Chưa có hồ sơ nào của giáo viên này trong nguồn Minh chứng.':'Hãy thiết lập tên giáo viên ở hồ sơ Khối 10/11/12 để app nhận đúng dữ liệu.'}
   $('submissionRows').innerHTML=rows.map(x=>{
-    let pill='<span class="statusPill statusPending">● Đã nộp · chờ duyệt</span>';
-    if(x.status==='approved')pill='<span class="statusPill statusApproved">✓ Đã duyệt</span>';
-    if(x.status==='rejected')pill='<span class="statusPill statusRejected">↻ Nộp lại</span>';
-    return `<tr class="${x.id===freshId?'fresh':''}">
-      <td class="dateCell">${formatDateTime(x.submittedAt)}</td>
-      <td class="lessonCell" title="${esc(x.lesson)}">${esc(x.lesson)}</td>
-      <td>${esc(x.grade)}</td>
-      <td>${esc(x.periods)}</td>
-      <td>${esc(x.range)}</td>
-      <td>${pill}</td>
+    const st=statusOf(x), links=fileLinks(x), key=rowKey(x);
+    let pill='<span class="statusPill statusPending">● Chờ duyệt</span>';
+    if(st==='approved')pill='<span class="statusPill statusApproved">✓ Đã duyệt</span>';
+    if(st==='rejected')pill='<span class="statusPill statusRejected">↻ Nộp lại</span>';
+    const note=String(x.note||x.approvalDate||'').trim();
+    const statusHtml=pill+(note?`<span class="statusSub" title="${esc(note)}">${esc(note)}</span>`:'');
+    const range=x.periodRange||x.range||'';
+    const fileAttr=links[0]?` data-file="${esc(links[0])}" onclick="window.open(this.dataset.file,'_blank')" title="Bấm để mở tệp giáo án"`:'';
+    return `<tr class="${key===freshId?'fresh':''}"${fileAttr}>
+      <td class="dateCell">${formatRemoteDate(x.timestamp)}</td>
+      <td class="lessonCell" title="${esc(x.lesson||'')}">${esc(x.lesson||'—')}${links.length?'<span class="clip">📎</span>':''}</td>
+      <td>${esc(String(x.grade||x.clazz||''))}</td>
+      <td>${esc(String(x.periods||''))}</td>
+      <td>${esc(String(range))}</td>
+      <td>${statusHtml}</td>
     </tr>`
   }).join('');
 }
+async function syncSubmissions(force=false){
+  if(syncing)return false;syncing=true;setSyncBadge('loading','● Đang đồng bộ');
+  try{
+    const r=await fetch(SYNC_API+(force?'?refresh=1':''),{cache:'no-store'});
+    const j=await r.json().catch(()=>({ok:false,error:'Nguồn Minh chứng không trả dữ liệu hợp lệ.'}));
+    if(!r.ok||!j.ok)throw new Error(j.error||('Lỗi đồng bộ '+r.status));
+    REMOTE_SUBMISSIONS=Array.isArray(j.data?.submissions)?j.data.submissions:[];
+    renderSubmissions();setSyncBadge('ok','● Đã đồng bộ');return true;
+  }catch(e){
+    setSyncBadge('error','● Chưa kết nối');
+    const who=currentIdentity();
+    if(!teacherSubmissions().length){$('emptySubmissions').style.display='block';$('emptySubmissions').textContent='Chưa đọc được nguồn Minh chứng. Bấm ↻ để thử lại.'}
+    console.error(e);return false;
+  }finally{syncing=false}
+}
+function matchesPending(x,p){
+  if(norm(x.teacher)!==norm(p.name))return false;
+  if(String(x.grade||x.clazz||'')!==String(p.grade))return false;
+  const xr=norm(x.periodRange||x.range||''), pr=norm(p.range||'');
+  const xl=norm(x.lesson||''), pl=norm(p.lesson||'');
+  return (xr&&pr&&xr===pr)||(xl&&pl&&xl===pl);
+}
+async function pollForNewSubmission(){
+  if(!pendingForm||pendingForm.done)return;
+  const token=++pollToken, before=new Set(pendingForm.beforeKeys||[]);
+  for(let i=0;i<10;i++){
+    if(token!==pollToken||!pendingForm||pendingForm.done)return;
+    await syncSubmissions(true);
+    const found=teacherSubmissions().find(x=>!before.has(rowKey(x))&&matchesPending(x,pendingForm));
+    if(found){
+      freshId=rowKey(found);pendingForm.done=true;renderSubmissions();renderSyncBanner();
+      showToast(`✅ <b>Đã nhận hồ sơ vừa nộp từ Google Form</b><br>${esc(found.lesson||pendingForm.lesson)} · Khối ${esc(String(found.grade||pendingForm.grade))} · Tiết ${esc(String(found.periodRange||pendingForm.range))}`);
+      setTimeout(()=>{freshId='';renderSubmissions();pendingForm=null;renderSyncBanner()},5200);return;
+    }
+    await new Promise(r=>setTimeout(r,1800));
+  }
+  if(pendingForm&&!pendingForm.done){$('syncBannerText').innerHTML=`⏳ Chưa thấy hồ sơ mới trong nguồn Minh chứng. Nếu anh đã bấm <b>Gửi</b>, bấm nút <b>↻</b> để đồng bộ lại sau vài giây.`}
+}
 function openPrefilled(){
   const x=getProfiles()[selected];
-  if(!x.name||!x.subject||!x.team||!x.approver){
-    editProfile(selected);
-    return alert('Hãy thiết lập hồ sơ cho khối này trước.');
-  }
-  if(!$('lesson').value.trim()||!$('periods').value.trim()||!$('range').value.trim()){
-    return alert('Vui lòng nhập đủ Tên bài, Số tiết và Từ tiết đến tiết.');
-  }
-  const values={
-    name:x.name,
-    subject:x.subject,
-    team:x.team,
-    date:todayISO(),
-    lesson:$('lesson').value.trim(),
-    className:x.grade,
-    periods:$('periods').value.trim(),
-    range:$('range').value.trim(),
-    approver:x.approver
-  };
-  const u=new URL(FORM);
-  u.searchParams.set('usp','pp_url');
-  for(const [field,id] of Object.entries(ENTRY)){
-    if(values[field])u.searchParams.set('entry.'+id,values[field]);
-  }
-  const pending={
-    id:'GA-'+Date.now(),openedAt:Date.now(),formUrl:u.toString(),name:x.name,subject:x.subject,team:x.team,approver:x.approver,
-    grade:x.grade,lesson:values.lesson,periods:values.periods,range:values.range
-  };
-  setPending(pending);renderPending();
-  window.open(u.toString(),'_blank');
+  if(!x.name||!x.subject||!x.team||!x.approver){editProfile(selected);return alert('Hãy thiết lập hồ sơ cho khối này trước.');}
+  if(!$('lesson').value.trim()||!$('periods').value.trim()||!$('range').value.trim())return alert('Vui lòng nhập đủ Tên bài, Số tiết và Từ tiết đến tiết.');
+  const values={name:x.name,subject:x.subject,team:x.team,date:todayISO(),lesson:$('lesson').value.trim(),className:x.grade,periods:$('periods').value.trim(),range:$('range').value.trim(),approver:x.approver};
+  const u=new URL(FORM);u.searchParams.set('usp','pp_url');
+  for(const [field,id] of Object.entries(ENTRY))if(values[field])u.searchParams.set('entry.'+id,values[field]);
+  pendingForm={openedAt:Date.now(),formUrl:u.toString(),name:x.name,subject:x.subject,grade:x.grade,lesson:values.lesson,periods:values.periods,range:values.range,beforeKeys:teacherSubmissions().map(rowKey),done:false};
+  renderSyncBanner();window.open(u.toString(),'_blank');
 }
 
-window.addEventListener('focus',()=>{setTimeout(renderPending,150)});
-render();renderSubmissions();renderPending();
+window.addEventListener('focus',()=>{setTimeout(()=>{pendingForm&&!pendingForm.done?pollForNewSubmission():syncSubmissions(true)},300)});
+render();renderSubmissions();renderSyncBanner();syncSubmissions(false);
 </script>
 </body>
 </html>
