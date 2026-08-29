@@ -464,7 +464,7 @@ function resetLesson(){
   $('lesson').value='';$('periods').value='';$('range').value='';$('lesson').focus();
 }
 
-const SYNC_API='/minhchung-api/data';
+const SYNC_API='/api/minhchung';
 let REMOTE_SUBMISSIONS=[];
 let freshId='';
 let pendingForm=null;
@@ -560,7 +560,7 @@ async function syncSubmissions(force=false){
   if(syncing)return false;syncing=true;setSyncBadge('loading','● Đang đồng bộ');
   try{
     const r=await fetch(SYNC_API+(force?'?refresh=1':''),{cache:'no-store'});
-    const j=await r.json().catch(()=>({ok:false,error:'Nguồn Minh chứng không trả dữ liệu hợp lệ.'}));
+    const j=await r.json().catch(()=>({ok:false,error:'API đồng bộ không trả JSON. Hãy kiểm tra đã deploy cả thư mục api hay chưa.'}));
     if(!r.ok||!j.ok)throw new Error(j.error||('Lỗi đồng bộ '+r.status));
     REMOTE_SUBMISSIONS=Array.isArray(j.data?.submissions)?j.data.submissions:[];
     renderSubmissions();setSyncBadge('ok','● Đã đồng bộ');return true;

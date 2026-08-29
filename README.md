@@ -1,15 +1,24 @@
-# Nộp giáo án online - NTT v5.0
+# Nộp giáo án online - NTT v5.1 FIX ĐỒNG BỘ
 
-Bản v5.0 nâng cấp mục **3. HỒ SƠ CỦA TÔI**:
+Bản sửa lỗi `Chưa kết nối` của v5.0.
 
-- Đọc trực tiếp dữ liệu từ API của app **Minh chứng giáo án** qua Vercel external rewrite.
-- Không còn lưu lịch sử nộp trên `localStorage`.
-- Không cần nút **ĐÃ NỘP XONG**. Sau khi gửi Google Form và quay lại app, hệ thống tự kiểm tra hồ sơ mới.
-- Trạng thái hiển thị ngay: **Chờ duyệt / Đã duyệt / Nộp lại**.
-- Nếu hồ sơ có link tệp, bấm vào dòng để mở tệp giáo án.
-- Có nút `↻` để đồng bộ lại thủ công khi cần.
+## Thay đổi
+- Không dùng external rewrite `/minhchung-api/*` nữa.
+- Thêm Vercel Serverless Function: `api/minhchung.js`.
+- Frontend gọi cùng tên miền: `/api/minhchung`.
+- Server Vercel của app Nộp giáo án sẽ đọc `https://minhchunggiaoan.vercel.app/api/data` rồi trả JSON về trình duyệt.
+- Có thông báo lỗi rõ hơn nếu thiếu thư mục `api` khi deploy.
 
-## Triển khai Vercel
-Upload toàn bộ 3 file `index.html`, `vercel.json`, `README.md` vào project `nopgiaoan` và redeploy.
+## Deploy
+Phải upload **nguyên cả thư mục dự án**, gồm:
+- `index.html`
+- `api/minhchung.js`
+- `vercel.json`
+- `README.md`
 
-`vercel.json` dùng rewrite `/minhchung-api/*` → `https://minhchunggiaoan.vercel.app/api/*` để frontend đọc cùng nguồn dữ liệu với app Minh chứng mà không vướng CORS.
+Không chỉ thay riêng `index.html`.
+
+Sau deploy, kiểm tra trước URL:
+`https://nopgiaoan.vercel.app/api/minhchung`
+
+Nếu kết nối đúng, trang này phải trả JSON có `ok: true` và `data.submissions`.
