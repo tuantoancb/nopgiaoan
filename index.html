@@ -210,6 +210,54 @@ input:focus{
 .editorGrid input{height:43px;font-size:14px}.full{grid-column:1/-1}
 .editorActions{display:flex;justify-content:flex-end;gap:9px;margin-top:15px}
 .editorActions button{padding:9px 15px;border-radius:8px;border:0;font-weight:700;cursor:pointer}
+
+.submissionSection{flex:none;padding:10px 15px 12px}
+.submissionHead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.submissionHead .sectionTitle{margin:0}
+.submissionTools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.submissionCount{font-size:11.5px;color:#5b6f8d;font-weight:700}
+.evidenceBtn{
+  height:32px;padding:0 11px;border-radius:8px;border:1px solid #cfe0f5;background:#f7fbff;
+  color:#1769e8;font:inherit;font-size:11.5px;font-weight:800;cursor:pointer
+}
+.evidenceBtn:hover{background:#edf6ff}
+.returnPrompt{
+  display:none;margin:0 0 9px;padding:9px 10px;border:1px solid #f0cf7c;border-radius:10px;
+  background:linear-gradient(180deg,#fffaf0,#fff6df);box-shadow:0 5px 14px rgba(165,111,24,.08)
+}
+.returnPrompt.show{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.returnText{min-width:0;color:#67460d;font-size:12px;line-height:1.4}
+.returnText b{color:#8b5800}
+.returnActions{display:flex;gap:7px;flex:none}
+.returnActions button{height:31px;border-radius:8px;padding:0 10px;font:inherit;font-size:11px;font-weight:800;cursor:pointer}
+.confirmBtn{border:0;color:#fff;background:linear-gradient(180deg,#2db65c,#10953f);box-shadow:0 4px 10px rgba(16,149,63,.17)}
+.reopenBtn{border:1px solid #d7b862;color:#7a5400;background:#fff}
+.submissionTableWrap{border:1px solid #d9e5f1;border-radius:11px;overflow:hidden;background:#fff}
+.submissionTable{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11.5px}
+.submissionTable th{
+  padding:8px 8px;text-align:left;color:#536987;background:#f4f8fc;border-bottom:1px solid #d9e5f1;
+  font-size:10px;text-transform:uppercase;letter-spacing:.2px
+}
+.submissionTable td{padding:8px 8px;vertical-align:middle;border-bottom:1px solid #edf2f7;color:#20385e}
+.submissionTable tr:last-child td{border-bottom:0}
+.submissionTable .lessonCell{font-weight:800;color:#102d61;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.submissionTable .dateCell{color:#5f7089;font-size:10.8px;line-height:1.25}
+.statusPill{display:inline-flex;align-items:center;gap:4px;padding:4px 7px;border-radius:999px;font-size:10.5px;font-weight:850;white-space:nowrap}
+.statusPending{background:#fff1cf;color:#8a5900}
+.statusApproved{background:#dcf7e7;color:#0c7b37}
+.statusRejected{background:#ffe1e1;color:#a42727}
+.rowOpen{border:0;background:transparent;color:#1769e8;font:inherit;font-size:11px;font-weight:850;cursor:pointer;padding:4px}
+.emptySubmissions{padding:13px;text-align:center;color:#718096;font-size:11.5px;background:#fbfdff}
+.submissionTable tr.fresh{animation:freshPulse 2.3s ease}
+@keyframes freshPulse{0%{background:#fff3bf}35%{background:#e9fff1}100%{background:#fff}}
+.submissionNote{margin-top:7px;color:#6f7f95;font-size:10.5px;line-height:1.35}
+.toast{
+  display:none;position:fixed;right:20px;bottom:20px;z-index:30;max-width:380px;padding:12px 14px;border-radius:12px;
+  color:#115f31;background:#effcf4;border:1px solid #bde8cd;box-shadow:0 14px 34px rgba(23,93,52,.18);font-size:12px;line-height:1.4
+}
+.toast.show{display:block;animation:toastIn .18s ease}
+@keyframes toastIn{from{transform:translateY(8px);opacity:0}to{transform:translateY(0);opacity:1}}
+
 @media(max-height:760px) and (min-width:901px){
   .app{padding-top:5px}.shell{padding-top:6px;gap:6px}
   .header{height:76px}.brandIcon{width:54px;height:54px;font-size:34px}
@@ -233,7 +281,22 @@ input:focus{
   .profiles{grid-template-columns:1fr}.profile{min-height:86px}
   .field{padding-left:0}.field:before{display:none}
   .actions{grid-template-columns:1fr}.footer{height:auto;padding:6px}
+  .submissionSection{padding:10px}
+  .submissionHead{align-items:flex-start;flex-direction:column}
+  .submissionTools{width:100%;justify-content:space-between}
+  .returnPrompt.show{align-items:stretch;flex-direction:column}
+  .returnActions{width:100%}.returnActions button{flex:1}
+  .submissionTableWrap{border:0;background:transparent;overflow:visible}
+  .submissionTable,.submissionTable tbody{display:block}
+  .submissionTable thead{display:none}
+  .submissionTable tr{display:grid;grid-template-columns:72px 1fr auto;gap:4px 8px;padding:9px 10px;margin-bottom:8px;border:1px solid #d9e5f1;border-radius:10px;background:#fff}
+  .submissionTable td{display:block;padding:0;border:0}
+  .submissionTable td:nth-child(1){grid-row:1/3;align-self:center}
+  .submissionTable td:nth-child(2){grid-column:2/4}
+  .submissionTable td:nth-child(3),.submissionTable td:nth-child(4){font-size:10.5px}
+  .submissionTable td:nth-child(5){grid-column:2}.submissionTable td:nth-child(6){grid-column:3;grid-row:3;text-align:right}
 }
+
 
 @media(min-width:901px){
   body{overflow:auto;min-height:100vh}
@@ -289,6 +352,31 @@ input:focus{
     </div>
   </section>
 
+  <section class="card submissionSection" id="submissionSection">
+    <div class="submissionHead">
+      <h2 class="sectionTitle">📚 3. HỒ SƠ CỦA TÔI</h2>
+      <div class="submissionTools">
+        <span class="submissionCount" id="submissionCount">0 hồ sơ</span>
+        <button class="evidenceBtn" onclick="openEvidence()">↗ XEM TRẠNG THÁI DUYỆT</button>
+      </div>
+    </div>
+    <div class="returnPrompt" id="returnPrompt">
+      <div class="returnText" id="returnText"></div>
+      <div class="returnActions">
+        <button class="reopenBtn" onclick="reopenPending()">MỞ LẠI FORM</button>
+        <button class="confirmBtn" onclick="confirmSubmitted()">✓ ĐÃ NỘP XONG</button>
+      </div>
+    </div>
+    <div class="submissionTableWrap">
+      <table class="submissionTable">
+        <thead><tr><th style="width:13%">Ngày nộp</th><th style="width:36%">Tên bài / Nội dung</th><th style="width:8%">Khối</th><th style="width:9%">Số tiết</th><th style="width:19%">Tiết PPCT</th><th style="width:15%">Trạng thái</th></tr></thead>
+        <tbody id="submissionRows"></tbody>
+      </table>
+      <div class="emptySubmissions" id="emptySubmissions">Chưa có hồ sơ nào được xác nhận đã nộp trên thiết bị này.</div>
+    </div>
+    <div class="submissionNote">ℹ️ Sau khi bấm <b>Gửi</b> trên Google Form, quay lại tab này và chọn <b>ĐÃ NỘP XONG</b>. App sẽ lưu đúng thông tin anh vừa nhập để xem lại ngay. Trạng thái duyệt chính thức xem tại Minh chứng giáo án.</div>
+  </section>
+
   <footer class="footer">🏫 TRƯỜNG PT DTNT TỈNH CAO BẰNG</footer>
 </div></main>
 
@@ -307,6 +395,7 @@ input:focus{
     </div>
   </div>
 </div>
+<div class="toast" id="toast"></div>
 
 <script>
 const FORM="https://docs.google.com/forms/d/e/1FAIpQLSf20YrTDt_BOqmIrZ8oYp85Sd7eCEu2ugcJslLcKbNmCwrU2A/viewform";
@@ -383,6 +472,73 @@ function saveProfile(){
 function resetLesson(){
   $('lesson').value='';$('periods').value='';$('range').value='';$('lesson').focus();
 }
+
+const SUBMISSION_KEY='ntt_submissions_v49';
+const PENDING_KEY='ntt_pending_submission_v49';
+let freshId='';
+
+function getSubmissions(){
+  try{const x=JSON.parse(localStorage.getItem(SUBMISSION_KEY)||'[]');return Array.isArray(x)?x:[]}catch(e){return []}
+}
+function setSubmissions(x){localStorage.setItem(SUBMISSION_KEY,JSON.stringify(x.slice(0,60)))}
+function getPending(){try{return JSON.parse(localStorage.getItem(PENDING_KEY)||'null')}catch(e){return null}}
+function setPending(x){x?localStorage.setItem(PENDING_KEY,JSON.stringify(x)):localStorage.removeItem(PENDING_KEY)}
+function pad2(n){return String(n).padStart(2,'0')}
+function formatDateTime(ms){
+  const d=new Date(ms);return `${pad2(d.getDate())}/${pad2(d.getMonth()+1)}/${d.getFullYear()}<br><span>${pad2(d.getHours())}:${pad2(d.getMinutes())}</span>`;
+}
+function slugName(s){
+  return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase().trim().replace(/\s+/g,' ');
+}
+function evidenceUrl(){
+  const p=getProfiles();
+  const x=p.find(a=>a.name)||p[selected]||{};
+  const u=new URL('https://minhchunggiaoan.vercel.app/');
+  u.searchParams.set('mode','teacher');u.searchParams.set('from','nopgiaoan');
+  if(x.name){u.searchParams.set('teacher',x.name);u.searchParams.set('teacherKey',slugName(x.name))}
+  if(x.subject)u.searchParams.set('subject',x.subject);
+  u.searchParams.set('grade','ALL');
+  return u.toString();
+}
+function openEvidence(){window.open(evidenceUrl(),'_blank')}
+function showToast(html){
+  const t=$('toast');t.innerHTML=html;t.classList.add('show');clearTimeout(showToast._t);showToast._t=setTimeout(()=>t.classList.remove('show'),3600);
+}
+function renderPending(){
+  const p=getPending();
+  if(!p){$('returnPrompt').classList.remove('show');return}
+  $('returnText').innerHTML=`📌 Anh vừa mở Google Form cho <b>${esc(p.lesson)}</b> · Khối ${esc(p.grade)} · Tiết ${esc(p.range)}. Nếu đã bấm <b>Gửi</b> trên Google Form, chọn <b>ĐÃ NỘP XONG</b> để lưu vào “Hồ sơ của tôi”.`;
+  $('returnPrompt').classList.add('show');
+}
+function reopenPending(){const p=getPending();if(p&&p.formUrl)window.open(p.formUrl,'_blank')}
+function confirmSubmitted(){
+  const p=getPending();if(!p)return;
+  const rows=getSubmissions();
+  const item={...p,submittedAt:Date.now(),status:'submitted'};
+  delete item.formUrl;delete item.openedAt;
+  rows.unshift(item);setSubmissions(rows);setPending(null);freshId=item.id;
+  renderSubmissions();renderPending();
+  showToast(`✅ <b>Đã ghi nhận hồ sơ vừa nộp</b><br>${esc(item.lesson)} · Khối ${esc(item.grade)} · Tiết ${esc(item.range)}`);
+  setTimeout(()=>{freshId='';renderSubmissions()},2400);
+}
+function renderSubmissions(){
+  const rows=getSubmissions().slice(0,5);
+  $('submissionCount').textContent=`${getSubmissions().length} hồ sơ`;
+  $('emptySubmissions').style.display=rows.length?'none':'block';
+  $('submissionRows').innerHTML=rows.map(x=>{
+    let pill='<span class="statusPill statusPending">● Đã nộp · chờ duyệt</span>';
+    if(x.status==='approved')pill='<span class="statusPill statusApproved">✓ Đã duyệt</span>';
+    if(x.status==='rejected')pill='<span class="statusPill statusRejected">↻ Nộp lại</span>';
+    return `<tr class="${x.id===freshId?'fresh':''}">
+      <td class="dateCell">${formatDateTime(x.submittedAt)}</td>
+      <td class="lessonCell" title="${esc(x.lesson)}">${esc(x.lesson)}</td>
+      <td>${esc(x.grade)}</td>
+      <td>${esc(x.periods)}</td>
+      <td>${esc(x.range)}</td>
+      <td>${pill}</td>
+    </tr>`
+  }).join('');
+}
 function openPrefilled(){
   const x=getProfiles()[selected];
   if(!x.name||!x.subject||!x.team||!x.approver){
@@ -408,9 +564,16 @@ function openPrefilled(){
   for(const [field,id] of Object.entries(ENTRY)){
     if(values[field])u.searchParams.set('entry.'+id,values[field]);
   }
+  const pending={
+    id:'GA-'+Date.now(),openedAt:Date.now(),formUrl:u.toString(),name:x.name,subject:x.subject,team:x.team,approver:x.approver,
+    grade:x.grade,lesson:values.lesson,periods:values.periods,range:values.range
+  };
+  setPending(pending);renderPending();
   window.open(u.toString(),'_blank');
 }
-render();
+
+window.addEventListener('focus',()=>{setTimeout(renderPending,150)});
+render();renderSubmissions();renderPending();
 </script>
 </body>
 </html>
