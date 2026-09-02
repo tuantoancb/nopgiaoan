@@ -65,3 +65,15 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Chờ 220ms để trình duyệt bố cục xong trước khi html2canvas chụp.
 - Sau khi tải PDF, vùng tạm tự xóa và trang trở lại bình thường.
 - Không mở tab mới; A4 dọc 210 × 297 mm.
+
+- V5.20: Bỏ hoàn toàn html2canvas/html2pdf cho chức năng minh chứng.
+- Chuyển sang pdfMake tạo PDF trực tiếp từ dữ liệu: tránh lỗi trang PDF trắng.
+- PDF A4 dọc, tải trực tiếp, không mở tab trắng.
+- Bố trí lại cụm công cụ cân đối: Hồ sơ | Tháng | Xuất PDF | Cập nhật, khoảng cách 18px trên desktop.
+- Nút Xuất PDF là nút chính; Cập nhật là nút phụ.
+- Có đọc Ghi chú để hiện ngày duyệt nếu nguồn dữ liệu có ngày.
+
+- V5.21: Chốt font Roboto toàn bộ PDF.
+- Bổ sung đầy đủ thông tin phần đầu: tên trường, năm học, giáo viên, môn/HĐGD, tổ chuyên môn, khối, người duyệt, thời gian lọc.
+- Giữ tổng hồ sơ/số tiết, trạng thái, bảng chi tiết, tổng cộng và ngày xuất.
+- PDF A4 dọc, tạo bằng pdfMake, tải trực tiếp.
