@@ -35,3 +35,8 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - V5.11: Chuyển mẫu PDF minh chứng sang khổ A4 dọc (portrait), tối ưu bảng và thẻ tổng hợp để vừa trang.
 
 - V5.12: Tăng khoảng cách giữa bộ lọc tháng, nút Xuất PDF và Cập nhật để giao diện thoáng hơn.
+
+- V5.13: Nút Xuất PDF tải trực tiếp file PDF xuống máy, không mở tab about:blank / cửa sổ in trung gian.
+- PDF vẫn là A4 dọc, giữ bộ lọc theo tháng và tên file đầy đủ họ tên giáo viên.
+
+- V5.14: Giãn mạnh cụm Hồ sơ – Tháng – Xuất PDF – Cập nhật; tăng khoảng cách và độ rộng các nút.
