@@ -33,3 +33,5 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Tên file PDF tự có đầy đủ họ tên và tháng nếu xuất theo tháng.
 
 - V5.11: Chuyển mẫu PDF minh chứng sang khổ A4 dọc (portrait), tối ưu bảng và thẻ tổng hợp để vừa trang.
+
+- V5.12: Tăng khoảng cách giữa bộ lọc tháng, nút Xuất PDF và Cập nhật để giao diện thoáng hơn.
