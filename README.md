@@ -161,3 +161,17 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Ô Chọn giáo viên kéo sát phần NỘP GIÁO ÁN hơn.
 - Giảm khoảng cách ngang, thu gọn kích thước, tăng độ nổi bằng viền/bóng nhẹ.
 - Giữ phong cách tối giản và responsive.
+
+- V5.39: Theme tự động theo giáo viên.
+- 6 giáo viên Nam đã xác nhận: giao diện xanh dương.
+- 26 giáo viên Nữ còn lại: giao diện hồng pastel.
+- Giới tính được lưu cố định trong STAFF_DIRECTORY, không suy đoán theo tên.
+- Theme đổi ngay khi chọn giáo viên và vẫn giữ khi mở lại app.
+- Các điểm nhấn đổi màu: nền app, Header, ô chọn giáo viên, tiêu đề khối, nút Google Form, nút PDF/Cập nhật và trạng thái focus.
+- Trạng thái Duyệt/Chờ duyệt giữ màu ngữ nghĩa xanh lá/vàng.
+- Đồng thời sửa logic Header cũ còn tham chiếu các phần tử đã bỏ để app hoạt động ổn định.
+
+- V5.40: Hoàn thiện Header theo giao diện đã chốt.
+- Thêm nhãn CHỌN GIÁO VIÊN phía trên dropdown để người dùng nhận biết rõ vùng thao tác.
+- Nhãn tự đổi màu theo theme: Nam xanh / Nữ hồng.
+- Giữ toàn bộ logic theme tự động, PPCT và minh chứng từ V5.39.
