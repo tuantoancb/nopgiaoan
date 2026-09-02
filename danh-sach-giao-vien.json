@@ -1,0 +1,258 @@
+[
+  {
+    "id": "staff_1",
+    "name": "Lê Thị Lan Phương",
+    "subject": "Ngữ văn",
+    "team": "KHXH",
+    "approver": "Lương Thị Thanh Thủy",
+    "position": "Hiệu trưởng"
+  },
+  {
+    "id": "staff_2",
+    "name": "Nguyễn Thế Phong",
+    "subject": "Toán",
+    "team": "KHTN",
+    "approver": "Nguyễn Hồng Quyên",
+    "position": "Phó hiệu trưởng"
+  },
+  {
+    "id": "staff_3",
+    "name": "Hà Thị Thu Oanh",
+    "subject": "Toán",
+    "team": "KHTN",
+    "approver": "Nguyễn Hồng Quyên",
+    "position": "Phó hiệu trưởng"
+  },
+  {
+    "id": "staff_4",
+    "name": "Lưu Công Tuấn",
+    "subject": "Vật lí",
+    "team": "KHTN",
+    "approver": "Nguyễn Hồng Quyên",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_5",
+    "name": "Hoàng Thị Lan",
+    "subject": "Toán",
+    "team": "KHTN",
+    "approver": "Nguyễn Hồng Quyên",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_6",
+    "name": "Đàm Thị Diệp",
+    "subject": "Ngữ văn",
+    "team": "KHXH",
+    "approver": "Lương Thị Thanh Thủy",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_7",
+    "name": "Triệu Thị Đàn",
+    "subject": "Tiếng Anh",
+    "team": "KHXH",
+    "approver": "Lương Thị Thanh Thủy",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_8",
+    "name": "Nguyễn Thị Ngọc Liễu",
+    "subject": "GDTC",
+    "team": "QLHS",
+    "approver": "",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_9",
+    "name": "Hoàng Khánh Diệp",
+    "subject": "Ngữ văn",
+    "team": "KHXH",
+    "approver": "Lương Thị Thanh Thủy",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_10",
+    "name": "Hoàng Thị Ngọc Hà",
+    "subject": "GDKT&PL",
+    "team": "KHXH",
+    "approver": "Lương Thị Thanh Thủy",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_11",
+    "name": "Nông Thị Thu Bằng",
+    "subject": "Ngữ văn",
+    "team": "KHXH",
+    "approver": "Lương Thị Thanh Thủy",
+    "position": "TP"
+  },
+  {
+    "id": "staff_12",
+    "name": "Lương Thị Thanh Thủy",
+    "subject": "Địa lí",
+    "team": "KHXH",
+    "approver": "Lương Thị Thanh Thủy",
+    "position": "TTCM"
+  },
+  {
+    "id": "staff_13",
+    "name": "Trần Thị Vân Anh",
+    "subject": "Ngữ văn",
+    "team": "KHXH",
+    "approver": "Lương Thị Thanh Thủy",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_14",
+    "name": "Hà Thị Phương Dung",
+    "subject": "Tiếng Anh",
+    "team": "KHXH",
+    "approver": "Lương Thị Thanh Thủy",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_15",
+    "name": "Nguyễn Hồng Quyên",
+    "subject": "Sinh học",
+    "team": "KHTN",
+    "approver": "Nguyễn Hồng Quyên",
+    "position": "TTCM"
+  },
+  {
+    "id": "staff_16",
+    "name": "Ma Thị Anh",
+    "subject": "Tin học",
+    "team": "QLHS",
+    "approver": "",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_17",
+    "name": "Nông Thị Huệ",
+    "subject": "Sinh học",
+    "team": "KHTN",
+    "approver": "Nguyễn Hồng Quyên",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_18",
+    "name": "Trương Thị Mỹ Ngọc",
+    "subject": "Vật lí",
+    "team": "KHTN",
+    "approver": "Nguyễn Hồng Quyên",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_19",
+    "name": "Vi Thị Diệp",
+    "subject": "Toán",
+    "team": "KHTN",
+    "approver": "Nguyễn Hồng Quyên",
+    "position": "TPCM"
+  },
+  {
+    "id": "staff_20",
+    "name": "Nguyễn Thanh Tuấn",
+    "subject": "Toán",
+    "team": "KHTN",
+    "approver": "Nguyễn Hồng Quyên",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_21",
+    "name": "Nông Trung Hiếu",
+    "subject": "GDQPAN",
+    "team": "QLHS",
+    "approver": "",
+    "position": "TTQLHS"
+  },
+  {
+    "id": "staff_22",
+    "name": "Trần Chiến Thắng",
+    "subject": "GDTC",
+    "team": "QLHS",
+    "approver": "",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_23",
+    "name": "Nguyễn Thị Na",
+    "subject": "Hóa học",
+    "team": "KHTN",
+    "approver": "Nguyễn Hồng Quyên",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_24",
+    "name": "Vũ Huyền Chi",
+    "subject": "Hóa học",
+    "team": "KHTN",
+    "approver": "Nguyễn Hồng Quyên",
+    "position": "TPCM"
+  },
+  {
+    "id": "staff_25",
+    "name": "Lê Kim Thoa",
+    "subject": "Lịch sử",
+    "team": "KHXH",
+    "approver": "Lương Thị Thanh Thủy",
+    "position": "TPCM"
+  },
+  {
+    "id": "staff_26",
+    "name": "Lý Thu Hiền",
+    "subject": "Ngữ văn",
+    "team": "KHXH",
+    "approver": "Lương Thị Thanh Thủy",
+    "position": "TPCM"
+  },
+  {
+    "id": "staff_27",
+    "name": "Lê Thị Mai",
+    "subject": "Tiếng Anh",
+    "team": "KHXH",
+    "approver": "Lương Thị Thanh Thủy",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_28",
+    "name": "Lương Vũ Long",
+    "subject": "Công nghệ",
+    "team": "QLHS",
+    "approver": "",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_29",
+    "name": "Lâm Thị Thu Hường",
+    "subject": "Toán",
+    "team": "KHTN",
+    "approver": "Nguyễn Hồng Quyên",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_30",
+    "name": "Trần Thị Kim Oanh",
+    "subject": "Địa lí",
+    "team": "KHXH",
+    "approver": "Lương Thị Thanh Thủy",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_31",
+    "name": "Hoàng Thị Thanh Vân",
+    "subject": "Tiếng Anh",
+    "team": "KHXH",
+    "approver": "Lương Thị Thanh Thủy",
+    "position": "Giáo viên"
+  },
+  {
+    "id": "staff_32",
+    "name": "Nguyễn Thị Liễu",
+    "subject": "Lịch sử",
+    "team": "KHXH",
+    "approver": "Lương Thị Thanh Thủy",
+    "position": "Giáo viên"
+  }
+]

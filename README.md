@@ -1,9 +1,6 @@
-NỘP GIÁO ÁN ONLINE - NTT V5.2
-
-Bản vá chức năng chọn giáo viên:
-- Ô chọn giáo viên luôn có mục “＋ Thêm giáo viên mới…”.
-- Khi chưa có giáo viên, hiển thị hướng dẫn rõ ràng thay vì dropdown rỗng.
-- Chặn sự kiện thẻ Khối làm đóng dropdown.
-- Sau khi thêm giáo viên, tên xuất hiện ngay trong cả 3 ô chọn.
-- Mỗi khối nhớ giáo viên được chọn gần nhất bằng localStorage.
-- Giữ nguyên PPCT đa môn và điền Google Form.
+V5.3 ONE-CLICK TEACHER
+- Tích hợp 32 hồ sơ từ DTNT - Thông tin đội ngũ.
+- Chỉ chọn tên giáo viên; app tự lấy môn, tổ, người duyệt và PPCT.
+- KHTN: người duyệt Nguyễn Hồng Quyên.
+- KHXH: người duyệt Lương Thị Thanh Thủy.
+- Ghi nhớ lựa chọn riêng cho Khối 10/11/12 trên thiết bị.
