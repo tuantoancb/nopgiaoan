@@ -19,3 +19,7 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - V5.8: Sửa lỗi bảng Minh chứng có số lượng hồ sơ nhưng không render dòng.
 - Nguyên nhân: dữ liệu Khối/Số tiết từ Google Sheet là kiểu số, hàm escape cũ chỉ xử lý chuỗi.
 - Đã sửa để hiển thị đầy đủ các hồ sơ đã nộp.
+
+- V5.9: Thêm nút Xuất PDF trong phần Minh chứng đã nộp.
+- PDF nhóm hồ sơ theo khối, có tổng hồ sơ/số tiết/trạng thái.
+- Tiêu đề tài liệu và tên mặc định khi Lưu PDF có đầy đủ họ tên giáo viên, ví dụ: “Lương Vũ Long - Minh chứng giáo án - Khối 10-11-12 - 2026-2027.pdf”.

@@ -320,7 +320,7 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
 .evTools{display:flex;align-items:center;gap:7px}
 .evCount{font-size:10.5px;color:#68778d;background:#f2f6fb;border-radius:999px;padding:5px 8px}
 .evRefresh{border:1px solid #c8daf0;background:#f7fbff;color:#1769e8;border-radius:8px;padding:6px 9px;font-size:11px;font-weight:750;cursor:pointer}
-.evRefresh:hover{background:#edf6ff}
+.evRefresh:hover{background:#edf6ff}.evPdf{background:#1769e8;color:#fff;border-color:#1769e8}.evPdf:hover{background:#0f5ed6}
 .evStatusLine{font-size:10.5px;color:#66758b;margin-bottom:7px}
 .evTableWrap{overflow:auto;border:1px solid #e2eaf3;border-radius:9px}
 .evTable{width:100%;border-collapse:collapse;min-width:780px;font-size:10.8px}
@@ -415,6 +415,7 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
       <div class="evTitle">✅ 3. MINH CHỨNG ĐÃ NỘP</div>
       <div class="evTools">
         <span class="evCount" id="evCount">0 hồ sơ</span>
+        <button class="evRefresh evPdf" type="button" onclick="exportEvidencePDF()">📄 Xuất PDF</button>
         <button class="evRefresh" type="button" onclick="loadEvidence(true)">↻ Cập nhật</button>
       </div>
     </div>
@@ -865,6 +866,7 @@ function handleEvidenceGviz(resp){
     const findCol=(needles)=>cols.findIndex(x=>needles.some(n=>normalizeName(x).includes(normalizeName(n))));
     const iTime=findCol(['Dấu thời gian']);
     const iName=findCol(['Họ và tên']);
+    const iSubject=findCol(['Môn/HĐGD']);
     const iLesson=findCol(['Tên bài học']);
     const iGrade=findCol(['Lớp']);
     const iPeriods=findCol(['Số tiết']);
@@ -878,6 +880,7 @@ function handleEvidenceGviz(resp){
         rawTime: rawTime,
         time: fmtSubmissionDate(rawTime),
         name: gvizVal(c[iName]),
+        subject: gvizVal(c[iSubject]),
         lesson: gvizVal(c[iLesson]),
         grade: gvizVal(c[iGrade]),
         periods: gvizVal(c[iPeriods]),
@@ -921,6 +924,86 @@ function loadEvidence(manual=false){
   };
   document.head.appendChild(s);
 }
+
+function exportEvidencePDF(){
+  const name=currentTeacherName();
+  if(!name){alert('Vui lòng chọn giáo viên trước khi xuất PDF.');return}
+  const rows=evidenceRows.filter(r=>normalizeName(r.name)===normalizeName(name))
+    .sort((a,b)=>new Date(a.rawTime)-new Date(b.rawTime));
+  if(!rows.length){alert('Chưa có minh chứng để xuất PDF cho giáo viên này.');return}
+
+  const byGrade={};
+  rows.forEach(r=>{
+    const g=String(r.grade||'Khác');
+    (byGrade[g]||(byGrade[g]=[])).push(r);
+  });
+  const grades=Object.keys(byGrade).sort((a,b)=>Number(a)-Number(b));
+  const approved=rows.filter(r=>normalizeText(r.approval)).length;
+  const totalPeriods=rows.reduce((s,r)=>s+(Number(r.periods)||0),0);
+  const gradeLabel=grades.length?grades.join(' + '):'—';
+  const safeTitle=`${name} - Minh chứng giáo án - Khối ${grades.join('-')} - 2026-2027`;
+  const now=new Date();
+  const printed=now.toLocaleString('vi-VN',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit',year:'2-digit'});
+  const escP=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+  const sections=grades.map(g=>{
+    const rs=byGrade[g];
+    const ap=rs.filter(r=>normalizeText(r.approval)).length;
+    const ps=rs.reduce((s,r)=>s+(Number(r.periods)||0),0);
+    return `<tr class="group"><td colspan="7">KHỐI ${escP(g)} · ${rs.length} hồ sơ · ${ps} tiết · ${ap} đã duyệt</td></tr>`+
+      rs.map(r=>{
+        const ok=!!normalizeText(r.approval);
+        let approveDate='';
+        if(ok){
+          // If Ghi chú/date is unavailable in live dataset, keep status only.
+          approveDate='';
+        }
+        return `<tr>
+          <td>${escP(r.time)}</td>
+          <td>${escP(r.subject||'')}</td>
+          <td style="text-align:center">${escP(r.grade)}</td>
+          <td class="lesson">${escP(r.lesson)}</td>
+          <td style="text-align:center">${escP(r.periods)}</td>
+          <td style="text-align:center">${escP(r.range)}</td>
+          <td style="text-align:center"><span class="status ${ok?'ok':'wait'}">${ok?'✓ Đã duyệt':'Chờ duyệt'}</span>${approveDate?`<div class="approveDate">${escP(approveDate)}</div>`:''}</td>
+        </tr>`;
+      }).join('');
+  }).join('');
+
+  const w=window.open('','_blank');
+  if(!w){alert('Trình duyệt đang chặn cửa sổ xuất PDF. Vui lòng cho phép popup rồi thử lại.');return}
+  w.document.open();
+  w.document.write(`<!doctype html><html lang="vi"><head><meta charset="utf-8"><title>${escP(safeTitle)}</title>
+  <style>
+    @page{size:A4 landscape;margin:12mm}
+    *{box-sizing:border-box}body{font-family:Arial,"Segoe UI",sans-serif;color:#12233f;margin:0;font-size:11px}
+    .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}.stamp{font-size:10px;color:#111}
+    .docname{font-size:10px;font-weight:700;text-align:right}.title{font-size:18px;font-weight:900;color:#123f7a;margin:4px 0 4px}
+    .sub{font-size:11px;color:#4d6685;margin-bottom:8px}.rule{height:2px;background:#204f8a;margin-bottom:9px}
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:8px}.card{border:1px solid #b8c9dd;border-radius:6px;padding:7px 8px}
+    .label{font-size:8px;font-weight:800;color:#55708f;text-transform:uppercase;margin-bottom:4px}.value{font-size:11px;font-weight:800;color:#162d4e}
+    table{width:100%;border-collapse:collapse;font-size:9.5px}th,td{border:1px solid #8f969e;padding:5px 6px;vertical-align:top}th{background:#f2f5f9;color:#254a78;text-align:left;font-weight:800}
+    .lesson{font-weight:700}.group td{background:#e9f2ff;color:#15467d;font-weight:900;font-size:10.5px}.status{display:inline-block;border-radius:999px;padding:3px 6px;font-weight:800;font-size:8.5px}.ok{background:#dff6e8;color:#08743a}.wait{background:#fff2cf;color:#8a6300}.approveDate{font-size:8px;color:#66809b;margin-top:3px}
+    .foot{margin-top:7px;font-size:8.5px;color:#6b7786}.printHelp{position:fixed;right:12px;top:12px;background:#1769e8;color:#fff;border:0;border-radius:7px;padding:7px 10px;font-weight:700;cursor:pointer}
+    @media print{.printHelp{display:none}}
+  </style></head><body>
+  <button class="printHelp" onclick="window.print()">🖨 In / Lưu PDF</button>
+  <div class="top"><div class="stamp">${escP(printed)}</div><div class="docname">${escP(safeTitle)}</div></div>
+  <div class="title">DANH SÁCH HỒ SƠ NỘP GIÁO ÁN</div>
+  <div class="sub">${escP(name)} · Khối ${escP(gradeLabel)}</div><div class="rule"></div>
+  <div class="cards">
+    <div class="card"><div class="label">Giáo viên</div><div class="value">${escP(name)}</div></div>
+    <div class="card"><div class="label">Khối</div><div class="value">Khối ${escP(gradeLabel)}</div></div>
+    <div class="card"><div class="label">Hồ sơ / Số tiết</div><div class="value">${rows.length} hồ sơ · ${totalPeriods} tiết</div></div>
+    <div class="card"><div class="label">Trạng thái</div><div class="value">${approved} đã duyệt · ${rows.length-approved} chờ duyệt</div></div>
+  </div>
+  <table><thead><tr><th>NGÀY NỘP</th><th>MÔN</th><th>KHỐI</th><th>TÊN BÀI / NỘI DUNG</th><th>SỐ TIẾT</th><th>TIẾT</th><th>TRẠNG THÁI</th></tr></thead><tbody>${sections}</tbody></table>
+  <div class="foot">Minh chứng được tổng hợp từ dữ liệu nộp giáo án trực tuyến năm học 2026-2027.</div>
+  <script>window.onload=()=>setTimeout(()=>window.print(),300);<\/script>
+  </body></html>`);
+  w.document.close();
+}
+
 function scheduleEvidenceRefresh(){
   setTimeout(()=>loadEvidence(false),1200);
 }
