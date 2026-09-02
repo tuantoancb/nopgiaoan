@@ -285,6 +285,23 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
   .addTeacherBtn{padding:6px 8px}
 }
 
+
+/* V5.4 - One teacher for all grades */
+.globalTeacher{
+  display:flex;align-items:center;gap:10px;padding:10px 12px;margin-bottom:10px;
+  border:1px solid #cfe0f3;border-radius:11px;background:linear-gradient(180deg,#f9fcff,#f2f8ff)
+}
+.globalTeacher .gtLabel{font-size:12px;font-weight:800;color:#173f7c;white-space:nowrap}
+.globalTeacher select{height:36px;flex:1;min-width:220px;font-weight:750;color:#183b70}
+.globalTeacher .gtMeta{font-size:10.5px;color:#66758b;white-space:nowrap}
+.globalTeacher .gtSaved{font-size:10px;color:#178847;font-weight:750;white-space:nowrap}
+@media(max-width:900px){
+ .globalTeacher{flex-wrap:wrap}
+ .globalTeacher .gtLabel{width:100%}
+ .globalTeacher select{min-width:0;width:100%}
+ .globalTeacher .gtMeta{white-space:normal}
+}
+
 </style>
 </head>
 <body>
@@ -306,11 +323,16 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
 
   <section class="card profileSection">
     <div class="sectionTitleRow">
-      <h2 class="sectionTitle">👥 1. CHỌN GIÁO VIÊN NHANH</h2>
-      <button class="addTeacherBtn" onclick="addTeacher()">＋ Thêm giáo viên mới</button>
+      <h2 class="sectionTitle">👥 1. CHỌN GIÁO VIÊN</h2>
+    </div>
+    <div class="globalTeacher">
+      <div class="gtLabel">👤 Giáo viên đang dùng</div>
+      <select id="globalTeacherSelect" onchange="chooseGlobalTeacher(this.value)"></select>
+      <div class="gtMeta" id="globalTeacherMeta">Chưa chọn giáo viên</div>
+      <div class="gtSaved" id="globalTeacherSaved"></div>
     </div>
     <div class="profiles" id="profiles"></div>
-    <div class="info">ℹ️ Chỉ cần chọn tên giáo viên. App tự nhận Môn/HĐGD, Tổ chuyên môn, Người duyệt và PPCT; đồng thời ghi nhớ lựa chọn trên thiết bị.</div>
+    <div class="info">ℹ️ Chọn giáo viên một lần để áp dụng cho cả Khối 10, 11, 12. Nếu cần, vẫn có thể đổi riêng giáo viên ở từng khối.</div>
   </section>
 
   <section class="card lessonCard">
@@ -453,6 +475,41 @@ function applyTeacherToGrade(i,id){
 }
 
 function esc(s){return (s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+
+
+function getGlobalTeacherId(){return localStorage.getItem('ntt_global_teacher_v54')||''}
+function renderGlobalTeacher(){
+  const el=$('globalTeacherSelect'); if(!el)return;
+  const teachers=getTeachers(), gid=getGlobalTeacherId();
+  el.innerHTML='<option value="">— Chọn giáo viên —</option>'+
+    teachers.map(t=>`<option value="${esc(t.id)}" ${t.id===gid?'selected':''}>${esc(t.name)}</option>`).join('');
+  const t=teacherById(gid);
+  $('globalTeacherMeta').textContent=t?`${t.subject} • ${t.team}${t.approver?' • '+t.approver:''}`:'Chưa chọn giáo viên';
+  $('globalTeacherSaved').textContent=t?'✓ Đã lưu':'';
+}
+function chooseGlobalTeacher(id){
+  if(!id)return;
+  localStorage.setItem('ntt_global_teacher_v54',id);
+  const s=getSelections();
+  [0,1,2].forEach(i=>{
+    applyTeacherToGrade(i,id);
+    s[String(10+i)]=id;
+  });
+  setSelections(s);
+  render();
+  renderGlobalTeacher();
+  const t=teacherById(id);
+  if(t){
+    $('subjectSelect').value=SUBJECTS.includes(t.subject)?t.subject:'Toán';
+    refreshPPCT();
+  }
+}
+function migrateGlobalTeacher(){
+  if(getGlobalTeacherId())return;
+  const s=getSelections();
+  const first=s['10']||s['11']||s['12']||'';
+  if(first && teacherById(first)) localStorage.setItem('ntt_global_teacher_v54',first);
+}
 
 function render(){
   const p=getProfiles(), teachers=getTeachers(), selections=getSelections();

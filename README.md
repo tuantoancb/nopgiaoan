@@ -1,6 +1,10 @@
-V5.3 ONE-CLICK TEACHER
-- Tích hợp 32 hồ sơ từ DTNT - Thông tin đội ngũ.
-- Chỉ chọn tên giáo viên; app tự lấy môn, tổ, người duyệt và PPCT.
-- KHTN: người duyệt Nguyễn Hồng Quyên.
-- KHXH: người duyệt Lương Thị Thanh Thủy.
-- Ghi nhớ lựa chọn riêng cho Khối 10/11/12 trên thiết bị.
+NỘP GIÁO ÁN ONLINE - NTT V5.4
+
+Nâng cấp:
+- Bỏ nút "Thêm giáo viên mới" khỏi giao diện chính.
+- Thêm một ô "Giáo viên đang dùng" chung.
+- Chọn giáo viên một lần -> tự áp dụng cho Khối 10, 11, 12.
+- Tự lưu giáo viên chung trên thiết bị.
+- Mỗi thẻ khối vẫn giữ dropdown để đổi riêng khi thật sự cần.
+- Tự nhận Môn/HĐGD, Tổ chuyên môn, Người duyệt và PPCT.
+- Giữ nguyên dữ liệu giáo viên từ DTNT - Thông tin đội ngũ.
