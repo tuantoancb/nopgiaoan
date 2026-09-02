@@ -1766,6 +1766,177 @@ body.theme-female .minimalTeacherLabel{
   }
 }
 
+
+/* =========================================================
+   V5.41
+   - Theme mặc định: tím lavender trung tính
+   - Giáo viên gần tiêu đề hơn
+   - Nút Xuất PDF sáng hơn
+   ========================================================= */
+
+/* Header compact hơn: kéo khối giáo viên sát NỘP GIÁO ÁN */
+.header.minimalHeader{
+  grid-template-columns:minmax(260px,390px) minmax(260px,340px) !important;
+  column-gap:8px !important;
+  justify-content:start !important;
+}
+.minimalTeacher{
+  justify-self:start !important;
+  max-width:340px !important;
+}
+
+/* ---------- THEME MẶC ĐỊNH / CHƯA CHỌN GIÁO VIÊN ---------- */
+body:not(.theme-male):not(.theme-female){
+  background:
+    radial-gradient(circle at 8% 88%, rgba(183,160,255,.18) 0 15%, transparent 16%),
+    radial-gradient(circle at 91% 78%, rgba(160,145,245,.15) 0 18%, transparent 19%),
+    linear-gradient(135deg,#fcfbff 0%,#f5f0ff 44%,#fdfcff 100%) !important;
+}
+body:not(.theme-male):not(.theme-female) .shell{
+  border-color:rgba(205,191,241,.88) !important;
+  box-shadow:0 18px 45px rgba(104,80,170,.11), inset 0 1px 0 #fff !important;
+}
+body:not(.theme-male):not(.theme-female) .header.minimalHeader{
+  border-color:#d8caf4 !important;
+  background:
+    radial-gradient(circle at 14% 0%,rgba(137,101,230,.11),transparent 43%),
+    linear-gradient(180deg,#ffffff 0%,#faf7ff 100%) !important;
+  box-shadow:0 9px 24px rgba(96,72,158,.10), inset 0 1px 0 rgba(255,255,255,.97) !important;
+}
+body:not(.theme-male):not(.theme-female) .minimalBrand h1{
+  color:#4c2f9c !important;
+}
+body:not(.theme-male):not(.theme-female) .minimalBrand p{
+  color:#7d709c !important;
+}
+body:not(.theme-male):not(.theme-female) .minimalBrand .brandIcon{
+  background:linear-gradient(145deg,#ffffff,#f4efff) !important;
+  box-shadow:0 5px 13px rgba(105,77,181,.12), inset 0 0 0 1px #ded2f5 !important;
+}
+body:not(.theme-male):not(.theme-female) .minimalTeacherLabel{
+  color:#684cb0 !important;
+}
+body:not(.theme-male):not(.theme-female) .minimalTeacherSelectWrap{
+  border-color:#cdbcf0 !important;
+  background:linear-gradient(180deg,#ffffff,#fcfaff) !important;
+  box-shadow:0 5px 14px rgba(97,73,161,.08) !important;
+}
+body:not(.theme-male):not(.theme-female) .minimalTeacherIcon{
+  background:#f2edff !important;
+  color:#6848c6 !important;
+}
+body:not(.theme-male):not(.theme-female) .minimalTeacher select{
+  color:#4e377f !important;
+}
+body:not(.theme-male):not(.theme-female) .minimalTeacherSelectWrap:focus-within,
+body:not(.theme-male):not(.theme-female) input:focus,
+body:not(.theme-male):not(.theme-female) select:focus{
+  border-color:#8c6de0 !important;
+  box-shadow:0 0 0 3px rgba(140,109,224,.11) !important;
+}
+body:not(.theme-male):not(.theme-female) .sectionHeadLesson,
+body:not(.theme-male):not(.theme-female) .sectionHeadEvidence{
+  background:linear-gradient(90deg,#f3efff 0%,#fbf9ff 78%,#ffffff 100%) !important;
+  border-color:#ded3f4 !important;
+  box-shadow:0 5px 14px rgba(104,78,171,.06) !important;
+}
+body:not(.theme-male):not(.theme-female) .sectionHeadLesson .sectionBadge,
+body:not(.theme-male):not(.theme-female) .sectionHeadEvidence .sectionBadge{
+  background:linear-gradient(180deg,#8c6ce4,#6848c8) !important;
+}
+body:not(.theme-male):not(.theme-female) .sectionHeadLesson .sectionHeadText,
+body:not(.theme-male):not(.theme-female) .sectionHeadEvidence .sectionHeadText{
+  color:#60409e !important;
+}
+
+/* ---------- XUẤT PDF: nền sáng, nhẹ hơn ở mọi theme ---------- */
+.evPdf{
+  background:#ffffff !important;
+  color:#2d5f9e !important;
+  border:1px solid #c9d9ec !important;
+  box-shadow:0 4px 10px rgba(50,88,135,.07) !important;
+}
+.evPdf:hover{
+  background:#f6faff !important;
+  border-color:#afc9e6 !important;
+}
+body.theme-female .evPdf{
+  background:#fffafd !important;
+  color:#b44175 !important;
+  border-color:#edc6d7 !important;
+  box-shadow:0 4px 10px rgba(169,73,116,.07) !important;
+}
+body.theme-female .evPdf:hover{
+  background:#fff3f8 !important;
+  border-color:#e5abc4 !important;
+}
+body.theme-male .evPdf{
+  background:#fafdff !important;
+  color:#2869b8 !important;
+  border-color:#c6dcef !important;
+  box-shadow:0 4px 10px rgba(43,98,164,.07) !important;
+}
+body.theme-male .evPdf:hover{
+  background:#f1f8ff !important;
+  border-color:#aac9e8 !important;
+}
+body:not(.theme-male):not(.theme-female) .evPdf{
+  background:#fdfbff !important;
+  color:#6547ad !important;
+  border-color:#d8cdf0 !important;
+  box-shadow:0 4px 10px rgba(99,74,160,.06) !important;
+}
+body:not(.theme-male):not(.theme-female) .evPdf:hover{
+  background:#f7f2ff !important;
+  border-color:#c8b7e9 !important;
+}
+
+/* Responsive: vẫn ưu tiên gọn */
+@media(max-width:900px){
+  .header.minimalHeader{
+    grid-template-columns:minmax(250px,360px) minmax(250px,320px) !important;
+    column-gap:6px !important;
+  }
+}
+@media(max-width:700px){
+  .header.minimalHeader{
+    grid-template-columns:1fr !important;
+    gap:8px !important;
+  }
+  .minimalTeacher{
+    max-width:none !important;
+  }
+}
+
+
+/* V5.42 - CTA chính theo đúng nghiệp vụ Nộp giáo án */
+.leftOpenBtn{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:2px !important;
+  min-height:58px !important;
+  text-align:center !important;
+  line-height:1.15 !important;
+}
+.leftOpenBtn .openBtnTitle{
+  display:block !important;
+  font-size:16px !important;
+  font-weight:900 !important;
+  letter-spacing:.1px !important;
+}
+.leftOpenBtn .openBtnSub{
+  display:block !important;
+  font-size:10.5px !important;
+  font-weight:650 !important;
+  opacity:.92 !important;
+}
+@media(max-width:700px){
+  .leftOpenBtn .openBtnTitle{font-size:15px !important}
+  .leftOpenBtn .openBtnSub{font-size:10px !important}
+}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.js"></script>
@@ -1825,8 +1996,7 @@ body.theme-female .minimalTeacherLabel{
 
         <div class="leftOpenRow">
           <button class="leftOpenBtn" type="button" onclick="openPrefilled()">
-            🚀 MỞ GOOGLE FORM ĐÃ ĐIỀN
-            <small>Tự động điền thông tin vào Google Form</small>
+            <span class="openBtnTitle">📤 NỘP GIÁO ÁN</span><span class="openBtnSub">Thông tin đã điền sẵn • Chỉ cần tải file giáo án lên</span>
           </button>
         </div>
       </div>

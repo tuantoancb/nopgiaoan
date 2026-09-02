@@ -175,3 +175,13 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Thêm nhãn CHỌN GIÁO VIÊN phía trên dropdown để người dùng nhận biết rõ vùng thao tác.
 - Nhãn tự đổi màu theo theme: Nam xanh / Nữ hồng.
 - Giữ toàn bộ logic theme tự động, PPCT và minh chứng từ V5.39.
+
+- V5.41: Theme mặc định chuyển sang tím lavender trung tính.
+- Chưa chọn giáo viên: tím lavender.
+- Nam: xanh dương; Nữ: hồng pastel.
+- Kéo khối Chọn giáo viên lại gần NỘP GIÁO ÁN hơn.
+- Nút Xuất PDF chuyển sang nền sáng ở cả 3 theme.
+
+- V5.42: Đổi nút thao tác chính từ “Mở Google Form đã điền” thành “Nộp giáo án”.
+- Dòng phụ: “Thông tin đã điền sẵn • Chỉ cần tải file giáo án lên”.
+- Giữ nguyên hành vi mở Google Form đã điền sẵn và toàn bộ logic V5.41.
