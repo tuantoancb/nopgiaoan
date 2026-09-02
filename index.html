@@ -336,6 +336,19 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
 .evFoot{margin-top:7px;padding:7px 9px;background:#f6faff;border-radius:8px;color:#627188;font-size:10.2px}
 @media(max-width:720px){.evHead{align-items:flex-start;flex-direction:column}.evTools{width:100%;justify-content:flex-end}}
 
+
+/* V5.10 - Lọc tháng + PDF khoa học */
+.evMonth{
+  height:31px;min-width:132px;padding:0 28px 0 9px;
+  border:1px solid #c8daf0;border-radius:8px;background:#fff;
+  color:#31547f;font-size:10.8px;font-weight:750;outline:none
+}
+.evMonth:focus{border-color:#4b8df0;box-shadow:0 0 0 2px rgba(75,141,240,.10)}
+@media(max-width:720px){
+  .evTools{flex-wrap:wrap}
+  .evMonth{min-width:145px}
+}
+
 </style>
 </head>
 <body>
@@ -415,6 +428,19 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
       <div class="evTitle">✅ 3. MINH CHỨNG ĐÃ NỘP</div>
       <div class="evTools">
         <span class="evCount" id="evCount">0 hồ sơ</span>
+        <select class="evMonth" id="evMonthFilter" onchange="onEvidenceMonthChange()">
+          <option value="all">Tất cả năm học</option>
+          <option value="2026-08">Tháng 08/2026</option>
+          <option value="2026-09">Tháng 09/2026</option>
+          <option value="2026-10">Tháng 10/2026</option>
+          <option value="2026-11">Tháng 11/2026</option>
+          <option value="2026-12">Tháng 12/2026</option>
+          <option value="2027-01">Tháng 01/2027</option>
+          <option value="2027-02">Tháng 02/2027</option>
+          <option value="2027-03">Tháng 03/2027</option>
+          <option value="2027-04">Tháng 04/2027</option>
+          <option value="2027-05">Tháng 05/2027</option>
+        </select>
         <button class="evRefresh evPdf" type="button" onclick="exportEvidencePDF()">📄 Xuất PDF</button>
         <button class="evRefresh" type="button" onclick="loadEvidence(true)">↻ Cập nhật</button>
       </div>
@@ -571,6 +597,7 @@ function chooseGlobalTeacher(id){
   setSelections(s);
   render();
   renderGlobalTeacher();
+initEvidenceMonth();
 renderEvidence();
 loadEvidence(false);
   $('subjectSelect').value=SUBJECTS.includes(t.subject)?t.subject:'Toán';
@@ -823,6 +850,41 @@ function currentTeacherName(){
   if(t&&t.name)return t.name;
   try{const p=getProfiles()[selected];return p&&p.name?p.name:''}catch(e){return ''}
 }
+
+function evidenceMonthKey(v){
+  const s=String(v??'');
+  let d=new Date(s);
+  if(!isNaN(d)) return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+  const m=s.match(/^Date\((\d+),(\d+),/);
+  if(m) return `${m[1]}-${String(Number(m[2])+1).padStart(2,'0')}`;
+  return '';
+}
+function currentEvidenceMonth(){
+  const el=$('evMonthFilter');
+  return el?el.value:'all';
+}
+function filterEvidenceRowsByMonth(rows){
+  const f=currentEvidenceMonth();
+  if(!f || f==='all') return rows;
+  return rows.filter(r=>evidenceMonthKey(r.rawTime)===f);
+}
+function evidencePeriodLabel(){
+  const f=currentEvidenceMonth();
+  if(!f || f==='all') return 'Năm học 2026–2027';
+  const [y,m]=f.split('-');
+  return `Tháng ${m}/${y}`;
+}
+function onEvidenceMonthChange(){
+  localStorage.setItem('ntt_ev_month_v510', currentEvidenceMonth());
+  renderEvidence();
+}
+function initEvidenceMonth(){
+  const el=$('evMonthFilter');
+  if(!el)return;
+  const saved=localStorage.getItem('ntt_ev_month_v510');
+  if(saved && [...el.options].some(o=>o.value===saved)) el.value=saved;
+}
+
 function renderEvidence(){
   const body=$('evBody'), line=$('evStatusLine'), count=$('evCount');
   if(!body)return;
@@ -833,13 +895,15 @@ function renderEvidence(){
     body.innerHTML='<tr><td colspan="7" class="evEmpty">Chưa chọn giáo viên.</td></tr>';
     return;
   }
-  const rows=evidenceRows.filter(r=>normalizeName(r.name)===normalizeName(name))
-    .sort((a,b)=>new Date(b.rawTime)-new Date(a.rawTime));
+  const rows=filterEvidenceRowsByMonth(
+    evidenceRows.filter(r=>normalizeName(r.name)===normalizeName(name))
+  ).sort((a,b)=>new Date(b.rawTime)-new Date(a.rawTime));
   const approved=rows.filter(r=>normalizeText(r.approval)).length;
   count.textContent=`${rows.length} hồ sơ`;
+  const period=evidencePeriodLabel();
   line.textContent=rows.length
-    ? `${name} · ${approved} đã duyệt · ${rows.length-approved} chờ duyệt`
-    : `${name} · chưa tìm thấy hồ sơ đã nộp trong nguồn.`;
+    ? `${name} · ${period} · ${approved} đã duyệt · ${rows.length-approved} chờ duyệt`
+    : `${name} · ${period} · chưa tìm thấy hồ sơ đã nộp.`;
   if(!rows.length){
     body.innerHTML='<tr><td colspan="7" class="evEmpty">Chưa có minh chứng nộp giáo án cho giáo viên này.</td></tr>';
     return;
@@ -872,6 +936,7 @@ function handleEvidenceGviz(resp){
     const iPeriods=findCol(['Số tiết']);
     const iRange=findCol(['Từ tiết đến tiết']);
     const iFile=findCol(['Tải file giáo án']);
+    const iApprover=findCol(['Tên người duyệt']);
     const iApproval=findCol(['Duyệt giáo án']);
     evidenceRows=(resp.table.rows||[]).map(row=>{
       const c=row.c||[];
@@ -886,6 +951,7 @@ function handleEvidenceGviz(resp){
         periods: gvizVal(c[iPeriods]),
         range: gvizVal(c[iRange]),
         file: gvizVal(c[iFile]),
+        approver: gvizVal(c[iApprover]),
         approval: gvizVal(c[iApproval])
       };
     }).filter(r=>normalizeText(r.name));
@@ -928,78 +994,135 @@ function loadEvidence(manual=false){
 function exportEvidencePDF(){
   const name=currentTeacherName();
   if(!name){alert('Vui lòng chọn giáo viên trước khi xuất PDF.');return}
-  const rows=evidenceRows.filter(r=>normalizeName(r.name)===normalizeName(name))
-    .sort((a,b)=>new Date(a.rawTime)-new Date(b.rawTime));
-  if(!rows.length){alert('Chưa có minh chứng để xuất PDF cho giáo viên này.');return}
+
+  const rows=filterEvidenceRowsByMonth(
+    evidenceRows.filter(r=>normalizeName(r.name)===normalizeName(name))
+  ).sort((a,b)=>new Date(a.rawTime)-new Date(b.rawTime));
+
+  if(!rows.length){
+    alert(`Chưa có minh chứng để xuất PDF cho ${evidencePeriodLabel().toLowerCase()}.`);
+    return;
+  }
 
   const byGrade={};
   rows.forEach(r=>{
     const g=String(r.grade||'Khác');
     (byGrade[g]||(byGrade[g]=[])).push(r);
   });
+
   const grades=Object.keys(byGrade).sort((a,b)=>Number(a)-Number(b));
   const approved=rows.filter(r=>normalizeText(r.approval)).length;
   const totalPeriods=rows.reduce((s,r)=>s+(Number(r.periods)||0),0);
-  const gradeLabel=grades.length?grades.join(' + '):'—';
-  const safeTitle=`${name} - Minh chứng giáo án - Khối ${grades.join('-')} - 2026-2027`;
+  const gradeLabel=grades.length?grades.join(', '):'—';
+  const subjects=[...new Set(rows.map(r=>normalizeText(r.subject)).filter(Boolean))];
+  const subjectLabel=subjects.length?subjects.join(', '):'—';
+  const approvers=[...new Set(rows.map(r=>normalizeText(r.approver)).filter(Boolean))];
+  const approverLabel=approvers.length?approvers.join(', '):'—';
+  const period=evidencePeriodLabel();
+
+  const filter=currentEvidenceMonth();
+  const monthFile=(filter && filter!=='all') ? ` - Tháng ${filter.slice(5,7)}-${filter.slice(0,4)}` : '';
+  const safeTitle=`${name} - Minh chứng giáo án${monthFile} - 2026-2027`;
+
   const now=new Date();
-  const printed=now.toLocaleString('vi-VN',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit',year:'2-digit'});
+  const exportDate=now.toLocaleDateString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric'});
   const escP=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
   const sections=grades.map(g=>{
     const rs=byGrade[g];
     const ap=rs.filter(r=>normalizeText(r.approval)).length;
     const ps=rs.reduce((s,r)=>s+(Number(r.periods)||0),0);
-    return `<tr class="group"><td colspan="7">KHỐI ${escP(g)} · ${rs.length} hồ sơ · ${ps} tiết · ${ap} đã duyệt</td></tr>`+
+    return `<tr class="group"><td colspan="7">KHỐI ${escP(g)} · ${rs.length} hồ sơ · ${ps} tiết · ${ap} đã duyệt · ${rs.length-ap} chờ duyệt</td></tr>`+
       rs.map(r=>{
         const ok=!!normalizeText(r.approval);
-        let approveDate='';
-        if(ok){
-          // If Ghi chú/date is unavailable in live dataset, keep status only.
-          approveDate='';
-        }
         return `<tr>
           <td>${escP(r.time)}</td>
-          <td>${escP(r.subject||'')}</td>
-          <td style="text-align:center">${escP(r.grade)}</td>
+          <td class="center">${escP(r.grade)}</td>
           <td class="lesson">${escP(r.lesson)}</td>
-          <td style="text-align:center">${escP(r.periods)}</td>
-          <td style="text-align:center">${escP(r.range)}</td>
-          <td style="text-align:center"><span class="status ${ok?'ok':'wait'}">${ok?'✓ Đã duyệt':'Chờ duyệt'}</span>${approveDate?`<div class="approveDate">${escP(approveDate)}</div>`:''}</td>
+          <td class="center">${escP(r.periods)}</td>
+          <td class="center">${escP(r.range)}</td>
+          <td>${escP(r.approver||'—')}</td>
+          <td class="center"><span class="status ${ok?'ok':'wait'}">${ok?'✓ Đã duyệt':'Chờ duyệt'}</span></td>
         </tr>`;
       }).join('');
   }).join('');
 
   const w=window.open('','_blank');
-  if(!w){alert('Trình duyệt đang chặn cửa sổ xuất PDF. Vui lòng cho phép popup rồi thử lại.');return}
+  if(!w){
+    alert('Trình duyệt đang chặn cửa sổ xuất PDF. Vui lòng cho phép popup rồi thử lại.');
+    return;
+  }
+
   w.document.open();
   w.document.write(`<!doctype html><html lang="vi"><head><meta charset="utf-8"><title>${escP(safeTitle)}</title>
   <style>
-    @page{size:A4 landscape;margin:12mm}
-    *{box-sizing:border-box}body{font-family:Arial,"Segoe UI",sans-serif;color:#12233f;margin:0;font-size:11px}
-    .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}.stamp{font-size:10px;color:#111}
-    .docname{font-size:10px;font-weight:700;text-align:right}.title{font-size:18px;font-weight:900;color:#123f7a;margin:4px 0 4px}
-    .sub{font-size:11px;color:#4d6685;margin-bottom:8px}.rule{height:2px;background:#204f8a;margin-bottom:9px}
-    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:8px}.card{border:1px solid #b8c9dd;border-radius:6px;padding:7px 8px}
-    .label{font-size:8px;font-weight:800;color:#55708f;text-transform:uppercase;margin-bottom:4px}.value{font-size:11px;font-weight:800;color:#162d4e}
-    table{width:100%;border-collapse:collapse;font-size:9.5px}th,td{border:1px solid #8f969e;padding:5px 6px;vertical-align:top}th{background:#f2f5f9;color:#254a78;text-align:left;font-weight:800}
-    .lesson{font-weight:700}.group td{background:#e9f2ff;color:#15467d;font-weight:900;font-size:10.5px}.status{display:inline-block;border-radius:999px;padding:3px 6px;font-weight:800;font-size:8.5px}.ok{background:#dff6e8;color:#08743a}.wait{background:#fff2cf;color:#8a6300}.approveDate{font-size:8px;color:#66809b;margin-top:3px}
-    .foot{margin-top:7px;font-size:8.5px;color:#6b7786}.printHelp{position:fixed;right:12px;top:12px;background:#1769e8;color:#fff;border:0;border-radius:7px;padding:7px 10px;font-weight:700;cursor:pointer}
+    @page{size:A4 landscape;margin:10mm 10mm 9mm}
+    *{box-sizing:border-box}
+    body{font-family:"Times New Roman",Arial,sans-serif;color:#111827;margin:0;font-size:10.5px;background:#fff}
+    .school{text-align:center;font-weight:700;font-size:11px;text-transform:uppercase;margin-bottom:2px}
+    .title{text-align:center;font-size:18px;font-weight:800;color:#163f73;margin:4px 0 1px;text-transform:uppercase}
+    .year{text-align:center;font-size:11px;font-style:italic;margin-bottom:8px;color:#334155}
+    .rule{border-top:1.6px solid #234d80;margin-bottom:8px}
+    .summary{display:grid;grid-template-columns:1.35fr 1fr .8fr 1.15fr 1.15fr;gap:5px;margin-bottom:8px}
+    .box{border:1px solid #9fb2c7;border-radius:4px;padding:5px 6px;min-height:42px}
+    .label{font-size:7.8px;text-transform:uppercase;color:#536c88;font-weight:700;margin-bottom:3px}
+    .value{font-size:10.3px;font-weight:700;color:#172b4d;line-height:1.25}
+    table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:9.2px}
+    th,td{border:1px solid #7f8a96;padding:4.5px 5px;vertical-align:middle}
+    th{background:#edf3f8;color:#153e6e;font-weight:800;text-align:center}
+    th:nth-child(1){width:13%} th:nth-child(2){width:6%} th:nth-child(3){width:35%}
+    th:nth-child(4){width:7%} th:nth-child(5){width:9%} th:nth-child(6){width:18%} th:nth-child(7){width:12%}
+    .center{text-align:center}
+    .lesson{font-weight:600;line-height:1.25}
+    .group td{background:#e8f1fb;color:#123f73;font-weight:800;font-size:9.6px;padding:4px 6px}
+    .status{display:inline-block;border-radius:999px;padding:2.5px 5px;font-size:8.3px;font-weight:700;white-space:nowrap}
+    .ok{background:#e3f6e9;color:#116834}.wait{background:#fff1cf;color:#845c00}
+    .total{margin-top:7px;border:1.3px solid #6f8298;background:#f7f9fb;border-radius:4px;padding:6px 8px;font-weight:700;color:#1f3655}
+    .footer{margin-top:7px;display:flex;justify-content:space-between;gap:20px;font-size:8.6px;color:#566579}
+    .source{font-style:italic}.date{text-align:right;white-space:nowrap}
+    .printHelp{position:fixed;right:12px;top:12px;background:#1769e8;color:#fff;border:0;border-radius:7px;padding:7px 10px;font-weight:700;cursor:pointer}
     @media print{.printHelp{display:none}}
   </style></head><body>
   <button class="printHelp" onclick="window.print()">🖨 In / Lưu PDF</button>
-  <div class="top"><div class="stamp">${escP(printed)}</div><div class="docname">${escP(safeTitle)}</div></div>
-  <div class="title">DANH SÁCH HỒ SƠ NỘP GIÁO ÁN</div>
-  <div class="sub">${escP(name)} · Khối ${escP(gradeLabel)}</div><div class="rule"></div>
-  <div class="cards">
-    <div class="card"><div class="label">Giáo viên</div><div class="value">${escP(name)}</div></div>
-    <div class="card"><div class="label">Khối</div><div class="value">Khối ${escP(gradeLabel)}</div></div>
-    <div class="card"><div class="label">Hồ sơ / Số tiết</div><div class="value">${rows.length} hồ sơ · ${totalPeriods} tiết</div></div>
-    <div class="card"><div class="label">Trạng thái</div><div class="value">${approved} đã duyệt · ${rows.length-approved} chờ duyệt</div></div>
+
+  <div class="school">TRƯỜNG PT DTNT TỈNH CAO BẰNG</div>
+  <div class="title">MINH CHỨNG NỘP GIÁO ÁN</div>
+  <div class="year">${escP(period)} · Năm học 2026–2027</div>
+  <div class="rule"></div>
+
+  <div class="summary">
+    <div class="box"><div class="label">Giáo viên</div><div class="value">${escP(name)}</div></div>
+    <div class="box"><div class="label">Môn / HĐGD</div><div class="value">${escP(subjectLabel)}</div></div>
+    <div class="box"><div class="label">Khối</div><div class="value">${escP(gradeLabel)}</div></div>
+    <div class="box"><div class="label">Hồ sơ / Số tiết</div><div class="value">${rows.length} hồ sơ / ${totalPeriods} tiết</div></div>
+    <div class="box"><div class="label">Trạng thái</div><div class="value">${approved} đã duyệt / ${rows.length-approved} chờ duyệt</div></div>
   </div>
-  <table><thead><tr><th>NGÀY NỘP</th><th>MÔN</th><th>KHỐI</th><th>TÊN BÀI / NỘI DUNG</th><th>SỐ TIẾT</th><th>TIẾT</th><th>TRẠNG THÁI</th></tr></thead><tbody>${sections}</tbody></table>
-  <div class="foot">Minh chứng được tổng hợp từ dữ liệu nộp giáo án trực tuyến năm học 2026-2027.</div>
-  <script>window.onload=()=>setTimeout(()=>window.print(),300);<\/script>
+
+  <table>
+    <thead><tr>
+      <th>NGÀY NỘP</th>
+      <th>KHỐI</th>
+      <th>TÊN BÀI / NỘI DUNG</th>
+      <th>SỐ TIẾT</th>
+      <th>TIẾT PPCT</th>
+      <th>NGƯỜI DUYỆT</th>
+      <th>TRẠNG THÁI</th>
+    </tr></thead>
+    <tbody>${sections}</tbody>
+  </table>
+
+  <div class="total">TỔNG CỘNG: ${rows.length} hồ sơ · ${totalPeriods} tiết · ${approved} đã duyệt · ${rows.length-approved} chờ duyệt/nộp lại</div>
+  <div class="footer">
+    <div class="source">Dữ liệu được tổng hợp từ hệ thống Nộp giáo án trực tuyến.</div>
+    <div class="date">Ngày xuất minh chứng: ${escP(exportDate)}</div>
+  </div>
+
+  <script>
+    window.onload=()=>{
+      document.title=${JSON.stringify(safeTitle)};
+      setTimeout(()=>window.print(),350);
+    };
+  <\/script>
   </body></html>`);
   w.document.close();
 }

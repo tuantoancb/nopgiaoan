@@ -23,3 +23,11 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - V5.9: Thêm nút Xuất PDF trong phần Minh chứng đã nộp.
 - PDF nhóm hồ sơ theo khối, có tổng hồ sơ/số tiết/trạng thái.
 - Tiêu đề tài liệu và tên mặc định khi Lưu PDF có đầy đủ họ tên giáo viên, ví dụ: “Lương Vũ Long - Minh chứng giáo án - Khối 10-11-12 - 2026-2027.pdf”.
+
+- V5.10: Thêm bộ lọc xuất minh chứng theo tháng.
+- Có lựa chọn Tất cả năm học hoặc từng tháng 08/2026 đến 05/2027.
+- Bảng minh chứng trên app cũng lọc theo tháng đang chọn.
+- PDF A4 ngang theo mẫu khoa học: tên trường, giáo viên, môn, khối, hồ sơ/số tiết, trạng thái.
+- Bảng PDF gồm: Ngày nộp, Khối, Tên bài/Nội dung, Số tiết, Tiết PPCT, Người duyệt, Trạng thái.
+- Có tổng cộng cuối trang và ngày xuất minh chứng.
+- Tên file PDF tự có đầy đủ họ tên và tháng nếu xuất theo tháng.
