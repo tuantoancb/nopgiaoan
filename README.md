@@ -82,8 +82,17 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Lề trái/phải ~15 mm; lề trên/dưới giữ gọn.
 - Thu nhẹ bảng và đường kẻ để nội dung nằm cân đối giữa trang A4 dọc.
 
-- V5.23: Chỉ chọn giáo viên một lần ở mục “Giáo viên đang dùng”.
-- Ẩn dropdown giáo viên lặp lại trong Khối 10, 11, 12.
-- Thẻ khối chỉ dùng để bật/tắt khối đang dạy.
-- Khi đổi giáo viên ở ô trên cùng, app tự đồng bộ giáo viên đó xuống các khối.
-- Giữ nguyên logic PPCT, minh chứng và xuất PDF của V5.22.
+- V5.24: Sửa đúng cấu trúc thật của thẻ `.profile` / `.teacherPick`.
+- Xóa hẳn dropdown giáo viên khỏi Khối 10/11/12 trong hàm render().
+- Giáo viên chỉ chọn một lần tại “Giáo viên đang dùng”.
+- Các thẻ khối chỉ chọn khối đang thao tác và hiển thị thông tin giáo viên hiện tại.
+
+- V5.25: Bỏ ba thẻ Khối 10/11/12 khỏi mục 1.
+- Mục 1 chỉ còn chọn “Giáo viên đang dùng”.
+- Đưa ô chọn Khối xuống mục 2, theo thứ tự: Khối → Môn/HĐGD → Chọn bài từ PPCT.
+- Đổi khối sẽ cập nhật khối đang thao tác, đồng bộ giáo viên hiện tại và nạp lại PPCT tương ứng.
+
+- V5.26: Cân lại hai nút cuối mục 2 theo tỷ lệ khoảng 80/20.
+- “Mở Google Form đã điền” giữ là nút chính màu xanh, rộng.
+- “Làm mới” chuyển thành nút phụ nền trắng, viền xanh và bỏ dòng mô tả phụ.
+- Trên điện thoại hai nút tự xếp dọc.

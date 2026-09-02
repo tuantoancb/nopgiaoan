@@ -399,23 +399,63 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
 }
 
 
-/* V5.23 - Chỉ chọn giáo viên một lần; thẻ khối chỉ bật/tắt khối dạy */
-.gradeCard select{
+/* V5.24 - Giáo viên chọn một lần, thẻ khối không còn dropdown */
+.profile{min-height:112px;padding-top:12px;padding-bottom:12px}
+.profile .currentTeacherName{margin:5px 0 2px;font-size:12.4px;font-weight:800;color:#213b69;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.profile .meta{margin-top:0}
+.profile .savedBadge{margin-top:6px}
+
+
+/* V5.25 - Đưa chọn Khối xuống mục 2: Khối → Môn → PPCT */
+.ppctTools.ppctTools3{
+  display:grid !important;
+  grid-template-columns:180px 280px minmax(420px,1fr) !important;
+  gap:14px !important;
+  align-items:start;
+}
+.gradeSelectBox select{font-weight:800;color:#174b8f}
+@media(max-width:900px){
+  .ppctTools.ppctTools3{grid-template-columns:160px 1fr !important}
+  .ppctSelectBox{grid-column:1/-1}
+}
+@media(max-width:620px){
+  .ppctTools.ppctTools3{grid-template-columns:1fr !important}
+  .ppctSelectBox{grid-column:auto}
+}
+
+
+/* V5.26 - Phân cấp rõ nút thao tác chính/phụ */
+.lessonCard .actions{
+  display:grid !important;
+  grid-template-columns:minmax(0,4fr) minmax(150px,1fr) !important;
+  gap:16px !important;
+  align-items:stretch;
+}
+.lessonCard .openBtn{
+  width:100% !important;
+  min-height:62px;
+}
+.lessonCard .resetBtn{
+  width:100% !important;
+  min-height:62px;
+  background:#fff !important;
+  color:#2467c8 !important;
+  border:1.5px solid #b9d1f5 !important;
+  box-shadow:none !important;
+}
+.lessonCard .resetBtn:hover{
+  background:#f3f8ff !important;
+  border-color:#7aaaf0 !important;
+}
+.lessonCard .resetBtn small{
   display:none !important;
 }
-.gradeCard{
-  min-height:118px !important;
-  cursor:pointer;
-}
-.gradeCard .gradeToggleHint{
-  display:block;
-  margin-top:7px;
-  font-size:11px;
-  color:#6a7b91;
-  font-weight:600;
-}
-.gradeCard.active .gradeToggleHint{
-  color:#16884a;
+@media(max-width:680px){
+  .lessonCard .actions{
+    grid-template-columns:1fr !important;
+    gap:10px !important;
+  }
+  .lessonCard .openBtn,.lessonCard .resetBtn{min-height:54px}
 }
 
 </style>
@@ -455,22 +495,29 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
         <span class="gtSaved" id="globalTeacherSaved"></span>
       </div>
     </div>
-    <div class="profiles" id="profiles"></div>
-    <div class="info">ℹ️ Chọn giáo viên một lần để áp dụng cho cả Khối 10, 11, 12. Nếu cần, vẫn có thể đổi riêng giáo viên ở từng khối.</div>
+    <div id="profiles" style="display:none"></div>
   </section>
 
   <section class="card lessonCard">
     <h2 class="sectionTitle">📄 2. CHỌN BÀI DẠY</h2>
     <div class="lessonBody">
-      <div class="ppctTools">
-        <div class="ppctBox">
+      <div class="ppctTools ppctTools3">
+        <div class="ppctBox gradeSelectBox">
+          <label>🎓 Khối</label>
+          <select id="gradeSelect">
+            <option value="0">Khối 10</option>
+            <option value="1">Khối 11</option>
+            <option value="2">Khối 12</option>
+          </select>
+        </div>
+        <div class="ppctBox subjectSelectBox">
           <label>📚 Môn/HĐGD <span style="font-weight:500;color:#789">(tự nhận)</span></label>
           <select id="subjectSelect"></select>
         </div>
-        <div class="ppctBox">
+        <div class="ppctBox ppctSelectBox">
           <label>🔎 Chọn bài từ PPCT</label>
           <select id="ppctSelect"><option value="">— Chọn bài để tự điền —</option></select>
-          <div class="ppctHint" id="ppctHint">Chọn bài → tự điền Tên bài, Số tiết và Từ tiết đến tiết.</div>
+          <div class="ppctHint" id="ppctHint">Chọn Khối → Môn → bài PPCT để tự điền.</div>
         </div>
       </div>
       <div class="field">
@@ -683,30 +730,53 @@ function migrateGlobalTeacher(){
   if(first && teacherById(first)) localStorage.setItem('ntt_global_teacher_v54',first);
 }
 
+
+function syncGradeSelect(){
+  const gs=$('gradeSelect');
+  if(gs) gs.value=String(selected);
+}
+function changeGradeFromLesson(){
+  const gs=$('gradeSelect');
+  if(!gs)return;
+  const i=Number(gs.value);
+  if(!Number.isInteger(i)||i<0||i>2)return;
+  selected=i;
+  localStorage.setItem('ntt_active_grade_v51',String(i));
+  const gid=getGlobalTeacherId();
+  if(gid) applyTeacherToGrade(i,gid);
+  render();
+  const t=teacherById(gid);
+  const p=getProfiles()[i];
+  const preferred=(t&&SUBJECTS.includes(t.subject))?t.subject:(SUBJECTS.includes(p.subject)?p.subject:'Toán');
+  $('subjectSelect').value=preferred;
+  refreshPPCT();
+  renderEvidence();
+  loadEvidence(false);
+}
+
 function render(){
-  const p=getProfiles(), teachers=getTeachers(), selections=getSelections();
+  syncGradeSelect();
+  const p=getProfiles();
+  const gid=getGlobalTeacherId();
+  const globalTeacher=teacherById(gid);
+
   $('profiles').innerHTML=p.map((x,i)=>{
     const grade=String(10+i);
-    const sid=selections[grade]||'';
-    const saved=!!teacherById(sid);
-    const opts=['<option value="">— Chọn giáo viên —</option>']
-      .concat(teachers.map(t=>`<option value="${esc(t.id)}" ${t.id===sid?'selected':''}>${esc(t.name)}</option>`))
-      .join('');
+    const teacherName=globalTeacher?globalTeacher.name:(x.name||'');
+    const subject=globalTeacher?globalTeacher.subject:(x.subject||'');
+    const team=globalTeacher?globalTeacher.team:(x.team||'');
+    const approver=globalTeacher?globalTeacher.approver:(x.approver||'');
+
     return `
-    <div class="profile ${i===selected?'active':''}" onclick="selectProfile(${i})">
+    <div class="profile ${i===selected?'active':''}" onclick="selectProfile(${i})" role="button" aria-label="Chọn Khối ${grade}">
       <div class="gradeIcon">🎓</div>
       <div style="min-width:0;flex:1">
         <h3>KHỐI ${grade}</h3>
-        <div class="teacherPickWrap">
-          <select class="teacherPick ${teachers.length?'':'empty'}" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation()" onchange="chooseTeacher(${i},this.value,event)">
-            ${opts}
-          </select>
-        </div>
-        <div class="meta">${x.name?esc(x.subject)+(x.team?' • '+esc(x.team):'')+(x.approver?' • '+esc(x.approver):''):'Chưa chọn giáo viên'}</div>
-        ${saved?'<div class="savedBadge">✓ Dùng giáo viên đang chọn</div>':''}
+        <div class="teacher currentTeacherName">${teacherName?esc(teacherName):'Chưa chọn giáo viên'}</div>
+        <div class="meta">${subject?esc(subject)+(team?' • '+esc(team):'')+(approver?' • '+esc(approver):''):'Chọn giáo viên ở phía trên'}</div>
+        ${teacherName?'<div class="savedBadge">✓ Dùng giáo viên đang chọn</div>':''}
       </div>
-      <div class="check">${i===selected?'●':'○'}</div>
-      ${sid&&String(sid).startsWith("staff_")?"":`<button class="edit" onclick="event.stopPropagation();editProfile(${i})">⚙ ${x.name?'Sửa hồ sơ':'Thiết lập'}</button>`}
+      <div class="check" title="Chọn khối đang thao tác">${i===selected?'●':'○'}</div>
     </div>`;
   }).join('');
 }
@@ -1451,87 +1521,15 @@ function scheduleEvidenceRefresh(){
 window.addEventListener('focus',scheduleEvidenceRefresh);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)scheduleEvidenceRefresh()});
 
-
-function applyGlobalTeacherToAllGrades(){
-  const globalSelect =
-    document.getElementById('globalTeacherSelect') ||
-    document.querySelector('[data-global-teacher]') ||
-    document.querySelector('.globalTeacherSelect') ||
-    document.querySelector('.globalTeacher select');
-
-  if(!globalSelect) return;
-
-  const teacherName = globalSelect.value || '';
-  if(!teacherName) return;
-
-  document.querySelectorAll('.gradeCard').forEach(card=>{
-    const sel = card.querySelector('select');
-    if(sel){
-      const opt=[...sel.options].find(o=>normalizeName(o.value||o.textContent)===normalizeName(teacherName));
-      if(opt){
-        sel.value=opt.value;
-        sel.dispatchEvent(new Event('change',{bubbles:true}));
-      }
-    }
-
-    if(!card.querySelector('.gradeToggleHint')){
-      const hint=document.createElement('div');
-      hint.className='gradeToggleHint';
-      hint.textContent='Bấm thẻ để bật/tắt khối đang dạy';
-      card.appendChild(hint);
-    }
-  });
-}
-
-function initGradeToggleOnlyMode(){
-  const cards=[...document.querySelectorAll('.gradeCard')];
-  cards.forEach(card=>{
-    if(card.dataset.toggleOnlyBound==='1') return;
-    card.dataset.toggleOnlyBound='1';
-
-    card.addEventListener('click',e=>{
-      if(e.target.closest('select,button,a,input,label')) return;
-
-      const radio =
-        card.querySelector('input[type="radio"]') ||
-        card.querySelector('input[type="checkbox"]');
-
-      if(radio){
-        if(radio.type==='checkbox'){
-          radio.checked=!radio.checked;
-        }else{
-          radio.checked=true;
-        }
-        radio.dispatchEvent(new Event('change',{bubbles:true}));
-      }else{
-        card.classList.toggle('active');
-      }
-    });
-  });
-
-  const globalSelect =
-    document.getElementById('globalTeacherSelect') ||
-    document.querySelector('[data-global-teacher]') ||
-    document.querySelector('.globalTeacherSelect') ||
-    document.querySelector('.globalTeacher select');
-
-  if(globalSelect && !globalSelect.dataset.syncGradesBound){
-    globalSelect.dataset.syncGradesBound='1';
-    globalSelect.addEventListener('change',()=>{
-      setTimeout(applyGlobalTeacherToAllGrades,0);
-    });
-  }
-
-  applyGlobalTeacherToAllGrades();
-}
-
 </script>
-
 <script>
 window.addEventListener('DOMContentLoaded',()=>{
-  setTimeout(initGradeToggleOnlyMode,150);
+  const gs=$('gradeSelect');
+  if(gs){
+    gs.value=String(selected);
+    gs.addEventListener('change',changeGradeFromLesson);
+  }
 });
 </script>
-
 </body>
 </html>
