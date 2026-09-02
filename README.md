@@ -1,10 +1,9 @@
-NỘP GIÁO ÁN ONLINE - NTT V5.4
+NỘP GIÁO ÁN ONLINE - NTT V5.5
 
-Nâng cấp:
-- Bỏ nút "Thêm giáo viên mới" khỏi giao diện chính.
-- Thêm một ô "Giáo viên đang dùng" chung.
-- Chọn giáo viên một lần -> tự áp dụng cho Khối 10, 11, 12.
-- Tự lưu giáo viên chung trên thiết bị.
-- Mỗi thẻ khối vẫn giữ dropdown để đổi riêng khi thật sự cần.
-- Tự nhận Môn/HĐGD, Tổ chuyên môn, Người duyệt và PPCT.
-- Giữ nguyên dữ liệu giáo viên từ DTNT - Thông tin đội ngũ.
+- Sửa ô Giáo viên đang dùng để có thể đổi qua giáo viên khác bình thường.
+- Danh sách giáo viên được nhúng sẵn trực tiếp trong HTML.
+- Thu gọn ô chọn chung về phía trái, rộng tối đa khoảng 560px.
+- Bỏ nút và lựa chọn "Thêm giáo viên mới" khỏi giao diện sử dụng.
+- Chọn giáo viên chung áp dụng cho Khối 10, 11, 12.
+- Vẫn có thể đổi riêng giáo viên từng khối.
+- Tự nhận môn, tổ, người duyệt, PPCT và ghi nhớ trên thiết bị.

@@ -302,6 +302,16 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
  .globalTeacher .gtMeta{white-space:normal}
 }
 
+
+/* V5.5 compact teacher selector */
+.compactGlobal{width:min(560px,100%);margin:0 0 10px 0;padding:8px 10px;display:block;border:1px solid #cfe0f3;border-radius:11px;background:linear-gradient(180deg,#f9fcff,#f3f8ff)}
+.globalTeacherMain{display:grid;grid-template-columns:165px minmax(240px,360px);gap:8px;align-items:center}
+.globalTeacherMain .gtLabel{font-size:12px;font-weight:800;color:#173f7c;white-space:nowrap}
+.globalTeacherMain select{width:100%;height:35px;min-width:0;padding:0 30px 0 10px;border:1px solid #c8d9ee;border-radius:8px;background:#fff;color:#183b70;font-size:12px;font-weight:750}
+.globalTeacherInfo{margin-left:173px;margin-top:4px;display:flex;gap:8px;align-items:center;font-size:10px}
+.globalTeacherInfo .gtMeta{color:#67768b}.globalTeacherInfo .gtSaved{color:#168847;font-weight:750}
+@media(max-width:720px){.compactGlobal{width:100%}.globalTeacherMain{grid-template-columns:1fr}.globalTeacherInfo{margin-left:0}}
+
 </style>
 </head>
 <body>
@@ -325,11 +335,17 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
     <div class="sectionTitleRow">
       <h2 class="sectionTitle">👥 1. CHỌN GIÁO VIÊN</h2>
     </div>
-    <div class="globalTeacher">
-      <div class="gtLabel">👤 Giáo viên đang dùng</div>
-      <select id="globalTeacherSelect" onchange="chooseGlobalTeacher(this.value)"></select>
-      <div class="gtMeta" id="globalTeacherMeta">Chưa chọn giáo viên</div>
-      <div class="gtSaved" id="globalTeacherSaved"></div>
+    <div class="globalTeacher compactGlobal">
+      <div class="globalTeacherMain">
+        <div class="gtLabel">👤 Giáo viên đang dùng</div>
+        <select id="globalTeacherSelect" onchange="chooseGlobalTeacher(this.value)">
+          <option value="">— Chọn giáo viên —</option><option value="staff_9">Hoàng Khánh Diệp</option><option value="staff_5">Hoàng Thị Lan</option><option value="staff_10">Hoàng Thị Ngọc Hà</option><option value="staff_31">Hoàng Thị Thanh Vân</option><option value="staff_14">Hà Thị Phương Dung</option><option value="staff_3">Hà Thị Thu Oanh</option><option value="staff_29">Lâm Thị Thu Hường</option><option value="staff_25">Lê Kim Thoa</option><option value="staff_1">Lê Thị Lan Phương</option><option value="staff_27">Lê Thị Mai</option><option value="staff_26">Lý Thu Hiền</option><option value="staff_4">Lưu Công Tuấn</option><option value="staff_12">Lương Thị Thanh Thủy</option><option value="staff_28">Lương Vũ Long</option><option value="staff_16">Ma Thị Anh</option><option value="staff_15">Nguyễn Hồng Quyên</option><option value="staff_20">Nguyễn Thanh Tuấn</option><option value="staff_2">Nguyễn Thế Phong</option><option value="staff_32">Nguyễn Thị Liễu</option><option value="staff_23">Nguyễn Thị Na</option><option value="staff_8">Nguyễn Thị Ngọc Liễu</option><option value="staff_17">Nông Thị Huệ</option><option value="staff_11">Nông Thị Thu Bằng</option><option value="staff_21">Nông Trung Hiếu</option><option value="staff_7">Triệu Thị Đàn</option><option value="staff_18">Trương Thị Mỹ Ngọc</option><option value="staff_22">Trần Chiến Thắng</option><option value="staff_30">Trần Thị Kim Oanh</option><option value="staff_13">Trần Thị Vân Anh</option><option value="staff_19">Vi Thị Diệp</option><option value="staff_24">Vũ Huyền Chi</option><option value="staff_6">Đàm Thị Diệp</option>
+        </select>
+      </div>
+      <div class="globalTeacherInfo">
+        <span class="gtMeta" id="globalTeacherMeta">Chưa chọn giáo viên</span>
+        <span class="gtSaved" id="globalTeacherSaved"></span>
+      </div>
     </div>
     <div class="profiles" id="profiles"></div>
     <div class="info">ℹ️ Chọn giáo viên một lần để áp dụng cho cả Khối 10, 11, 12. Nếu cần, vẫn có thể đổi riêng giáo viên ở từng khối.</div>
@@ -480,15 +496,16 @@ function esc(s){return (s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>
 function getGlobalTeacherId(){return localStorage.getItem('ntt_global_teacher_v54')||''}
 function renderGlobalTeacher(){
   const el=$('globalTeacherSelect'); if(!el)return;
-  const teachers=getTeachers(), gid=getGlobalTeacherId();
-  el.innerHTML='<option value="">— Chọn giáo viên —</option>'+
-    teachers.map(t=>`<option value="${esc(t.id)}" ${t.id===gid?'selected':''}>${esc(t.name)}</option>`).join('');
+  const gid=getGlobalTeacherId();
+  el.value=teacherById(gid)?gid:'';
   const t=teacherById(gid);
   $('globalTeacherMeta').textContent=t?`${t.subject} • ${t.team}${t.approver?' • '+t.approver:''}`:'Chưa chọn giáo viên';
   $('globalTeacherSaved').textContent=t?'✓ Đã lưu':'';
 }
 function chooseGlobalTeacher(id){
   if(!id)return;
+  const t=teacherById(id);
+  if(!t)return;
   localStorage.setItem('ntt_global_teacher_v54',id);
   const s=getSelections();
   [0,1,2].forEach(i=>{
@@ -498,11 +515,8 @@ function chooseGlobalTeacher(id){
   setSelections(s);
   render();
   renderGlobalTeacher();
-  const t=teacherById(id);
-  if(t){
-    $('subjectSelect').value=SUBJECTS.includes(t.subject)?t.subject:'Toán';
-    refreshPPCT();
-  }
+  $('subjectSelect').value=SUBJECTS.includes(t.subject)?t.subject:'Toán';
+  refreshPPCT();
 }
 function migrateGlobalTeacher(){
   if(getGlobalTeacherId())return;
@@ -519,7 +533,7 @@ function render(){
     const saved=!!teacherById(sid);
     const opts=['<option value="">— Chọn giáo viên —</option>']
       .concat(teachers.map(t=>`<option value="${esc(t.id)}" ${t.id===sid?'selected':''}>${esc(t.name)}</option>`))
-      .concat(['<option value="__add__">＋ Thêm giáo viên mới…</option>']).join('');
+      .join('');
     return `
     <div class="profile ${i===selected?'active':''}" onclick="selectProfile(${i})">
       <div class="gradeIcon">🎓</div>
@@ -541,7 +555,7 @@ function render(){
 function ensureTeacherHint(){
   if(getTeachers().length===0){
     const hint=document.querySelector('.info');
-    if(hint) hint.innerHTML='ℹ️ Chưa có giáo viên đã lưu. Bấm <b>＋ Thêm giáo viên mới</b> hoặc chọn mục <b>＋ Thêm giáo viên mới…</b> trong ô chọn. Sau lần đầu, app sẽ tự nhớ trên thiết bị.';
+    if(hint) hint.textContent='ℹ️ Chọn tên giáo viên trong danh sách để app tự nhận hồ sơ.';
   }
 }
 function selectProfile(i){
@@ -555,7 +569,7 @@ function selectProfile(i){
 
 function chooseTeacher(i,id,event){
   if(event) event.stopPropagation();
-  if(id==='__add__'){addTeacher(i);return}
+  if(!id)return
   if(!id){return}
   applyTeacherToGrade(i,id);
   selected=i;localStorage.setItem('ntt_active_grade_v51',String(i));
