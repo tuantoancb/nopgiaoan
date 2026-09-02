@@ -40,3 +40,18 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - PDF vẫn là A4 dọc, giữ bộ lọc theo tháng và tên file đầy đủ họ tên giáo viên.
 
 - V5.14: Giãn mạnh cụm Hồ sơ – Tháng – Xuất PDF – Cập nhật; tăng khoảng cách và độ rộng các nút.
+
+- V5.15: PDF theo đúng mẫu bảng minh chứng chốt.
+- 4 thẻ: Giáo viên, Khối, Hồ sơ/Số tiết, Trạng thái.
+- Bảng: Ngày nộp, Môn, Khối, Tên bài/Nội dung, Số tiết, Tiết, Trạng thái.
+- Bỏ Người duyệt khỏi PDF.
+- Nếu dữ liệu có ngày duyệt trong Ghi chú/Duyệt giáo án, ngày duyệt hiển thị dưới nhãn Đã duyệt.
+- PDF tải trực tiếp, A4 dọc, hỗ trợ lọc theo tháng.
+
+- V5.16: Ép cứng PDF đúng kích thước A4 dọc 210 × 297 mm.
+- Không chỉ dùng orientation=portrait mà đặt trực tiếp format=[210,297].
+- Thu gọn nhẹ bảng để bảo đảm vừa chiều rộng trang dọc.
+
+- V5.17: Sửa dứt điểm nút Xuất PDF: không còn window.open()/tab trắng/about:blank.
+- PDF được tạo và tải trực tiếp ngay tại trang hiện tại bằng html2pdf.
+- Giữ A4 dọc 210 × 297 mm, lọc theo tháng và đúng mẫu minh chứng đã chốt.
