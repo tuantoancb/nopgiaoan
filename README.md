@@ -7,3 +7,5 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Chọn giáo viên chung áp dụng cho Khối 10, 11, 12.
 - Vẫn có thể đổi riêng giáo viên từng khối.
 - Tự nhận môn, tổ, người duyệt, PPCT và ghi nhớ trên thiết bị.
+
+- V5.6: Đổi tiêu đề mục 2 thành “CHỌN BÀI DẠY”.
