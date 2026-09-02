@@ -545,7 +545,7 @@ function applyTeacherToGrade(i,id){
   const s=getSelections();s[String(10+i)]=id;setSelections(s);
 }
 
-function esc(s){return (s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 
 
 function getGlobalTeacherId(){return localStorage.getItem('ntt_global_teacher_v54')||''}
@@ -849,9 +849,9 @@ function renderEvidence(){
     return `<tr>
       <td>${esc(r.time)}</td>
       <td class="evLesson">${esc(r.lesson)}</td>
-      <td>${esc(r.grade)}</td>
-      <td>${esc(r.periods)}</td>
-      <td>${esc(r.range)}</td>
+      <td>${esc(String(r.grade??''))}</td>
+      <td>${esc(String(r.periods??''))}</td>
+      <td>${esc(String(r.range??''))}</td>
       <td><span class="evBadge ${ok?'evApproved':'evPending'}">${ok?'✓ ĐÃ DUYỆT':'● ĐÃ NỘP · CHỜ DUYỆT'}</span></td>
       <td>${file?`<a class="evFile" href="${esc(file)}" target="_blank" rel="noopener">📎 Mở file</a>`:'—'}</td>
     </tr>`;

@@ -15,3 +15,7 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Hiển thị ngày nộp, tên bài, khối, số tiết, tiết PPCT, trạng thái chờ duyệt/đã duyệt và nút mở file.
 - Tự thử cập nhật khi người dùng quay lại tab sau khi gửi Google Form.
 - Có nút ↻ Cập nhật thủ công và bộ nhớ đệm localStorage.
+
+- V5.8: Sửa lỗi bảng Minh chứng có số lượng hồ sơ nhưng không render dòng.
+- Nguyên nhân: dữ liệu Khối/Số tiết từ Google Sheet là kiểu số, hàm escape cũ chỉ xử lý chuỗi.
+- Đã sửa để hiển thị đầy đủ các hồ sơ đã nộp.
