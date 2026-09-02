@@ -1015,6 +1015,7 @@ async function exportEvidencePDF(){
   if(btn){btn.disabled=true;btn.innerHTML='⏳ Đang tạo PDF';}
 
   let holder=null;
+  let oldOverflow='';
   try{
     const byGrade={};
     rows.forEach(r=>{
@@ -1066,10 +1067,14 @@ async function exportEvidencePDF(){
     holder=document.createElement('div');
     holder.id='pdfEvidenceHolder';
     holder.style.position='fixed';
-    holder.style.left='-100000px';
+    holder.style.left='0';
     holder.style.top='0';
     holder.style.width='194mm';
     holder.style.background='#fff';
+    holder.style.zIndex='2147483647';
+    holder.style.pointerEvents='none';
+    holder.style.padding='0';
+    holder.style.margin='0';
 
     holder.innerHTML=`
       <style>
@@ -1132,13 +1137,23 @@ async function exportEvidencePDF(){
         </table>
       </div>`;
 
+    oldOverflow=document.body.style.overflow;
+    document.body.style.overflow='hidden';
     document.body.appendChild(holder);
+    await new Promise(resolve=>setTimeout(resolve,220));
 
     await html2pdf().set({
       margin:[8,8,8,8],
       filename,
       image:{type:'jpeg',quality:0.98},
-      html2canvas:{scale:2,useCORS:true,logging:false,backgroundColor:'#ffffff'},
+      html2canvas:{
+        scale:2,
+        useCORS:true,
+        logging:false,
+        backgroundColor:'#ffffff',
+        scrollX:0,
+        scrollY:0
+      },
       jsPDF:{unit:'mm',format:[210,297],orientation:'portrait',compress:true},
       pagebreak:{mode:['css','legacy'],avoid:['tr','.group']}
     }).from(holder.querySelector('.pdfpage')).save();
@@ -1148,6 +1163,7 @@ async function exportEvidencePDF(){
     alert('Không thể tạo PDF. Vui lòng thử lại.');
   }finally{
     if(holder && holder.remove) holder.remove();
+    document.body.style.overflow=oldOverflow;
     if(btn){btn.disabled=false;btn.innerHTML=oldBtn||'📄 Xuất PDF';}
   }
 }

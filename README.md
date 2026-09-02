@@ -60,3 +60,8 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Vùng dựng PDF không còn đặt ở left:-100000px; chuyển xuống dưới trang để html2canvas vẫn render đầy đủ.
 - Chờ 2 frame trước khi chụp và đặt kích thước canvas theo vùng PDF để tránh trang trắng.
 - Không mở tab mới, vẫn tải PDF trực tiếp.
+
+- V5.19: Sửa trực tiếp lỗi PDF trắng: vùng PDF được render ngay trong viewport thay vì left:-100000px.
+- Chờ 220ms để trình duyệt bố cục xong trước khi html2canvas chụp.
+- Sau khi tải PDF, vùng tạm tự xóa và trang trở lại bình thường.
+- Không mở tab mới; A4 dọc 210 × 297 mm.
