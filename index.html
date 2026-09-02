@@ -1203,7 +1203,7 @@ async function exportEvidencePDF(){
     const docDefinition={
       pageSize:'A4',
       pageOrientation:'portrait',
-      pageMargins:[24,24,24,24],
+      pageMargins:[42,26,42,28],
       defaultStyle:{
         font:'Roboto',
         fontSize:8.4,
@@ -1235,13 +1235,13 @@ async function exportEvidencePDF(){
         },
         {
           canvas:[
-            {type:'line',x1:0,y1:0,x2:547,y2:0,lineWidth:1,color:'#6d8fb6'}
+            {type:'line',x1:0,y1:0,x2:511,y2:0,lineWidth:1,color:'#6d8fb6'}
           ],
           margin:[0,0,0,7]
         },
         {
           table:{
-            widths:[76,'*',70,'*'],
+            widths:[70,'*',64,'*'],
             body:infoRows
           },
           layout:{
@@ -1295,7 +1295,7 @@ async function exportEvidencePDF(){
         {
           table:{
             headerRows:1,
-            widths:[72,48,30,'*',36,44,62],
+            widths:[66,44,28,'*',34,40,58],
             body
           },
           layout:{

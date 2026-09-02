@@ -77,3 +77,7 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Bổ sung đầy đủ thông tin phần đầu: tên trường, năm học, giáo viên, môn/HĐGD, tổ chuyên môn, khối, người duyệt, thời gian lọc.
 - Giữ tổng hồ sơ/số tiết, trạng thái, bảng chi tiết, tổng cộng và ngày xuất.
 - PDF A4 dọc, tạo bằng pdfMake, tải trực tiếp.
+
+- V5.22: Tăng lề trái/phải PDF để in và lưu hồ sơ thoáng hơn.
+- Lề trái/phải ~15 mm; lề trên/dưới giữ gọn.
+- Thu nhẹ bảng và đường kẻ để nội dung nằm cân đối giữa trang A4 dọc.
