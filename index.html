@@ -261,6 +261,7 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
   font-size:11.7px;font-weight:700;color:#213b69;outline:none
 }
 .teacherPick:focus{border-color:#4b8df0;box-shadow:0 0 0 2px rgba(75,141,240,.10)}
+.teacherPick.empty{color:#1769e8;font-weight:800;background:#f6fbff}
 .savedBadge{
   display:inline-flex;align-items:center;gap:3px;margin-top:4px;
   font-size:9.6px;color:#19864a;font-weight:700
@@ -293,7 +294,7 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
       <div class="brandIcon">📋</div>
       <div>
         <h1>NỘP GIÁO ÁN ONLINE - NTT</h1>
-        <p>Chọn giáo viên • PPCT đa môn • Tự động ghi nhớ</p>
+        <p>Chọn giáo viên • Tự lưu hồ sơ • PPCT đa môn</p>
       </div>
     </div>
     <div class="datebox">
@@ -306,7 +307,7 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
   <section class="card profileSection">
     <div class="sectionTitleRow">
       <h2 class="sectionTitle">👥 1. CHỌN GIÁO VIÊN NHANH</h2>
-      <button class="addTeacherBtn" onclick="addTeacher()">＋ Thêm giáo viên</button>
+      <button class="addTeacherBtn" onclick="addTeacher()">＋ Thêm giáo viên mới</button>
     </div>
     <div class="profiles" id="profiles"></div>
     <div class="info">ℹ️ Chọn giáo viên một lần → app tự lưu trên thiết bị. Lần sau mở lại sẽ tự khôi phục giáo viên, môn, tổ chuyên môn và người duyệt của từng khối.</div>
@@ -455,14 +456,15 @@ function render(){
     const sid=selections[grade]||'';
     const saved=!!teacherById(sid);
     const opts=['<option value="">— Chọn giáo viên —</option>']
-      .concat(teachers.map(t=>`<option value="${esc(t.id)}" ${t.id===sid?'selected':''}>${esc(t.name)} · ${esc(t.subject)}</option>`)).join('');
+      .concat(teachers.map(t=>`<option value="${esc(t.id)}" ${t.id===sid?'selected':''}>${esc(t.name)} · ${esc(t.subject)}</option>`))
+      .concat(['<option value="__add__">＋ Thêm giáo viên mới…</option>']).join('');
     return `
     <div class="profile ${i===selected?'active':''}" onclick="selectProfile(${i})">
       <div class="gradeIcon">🎓</div>
       <div style="min-width:0;flex:1">
         <h3>KHỐI ${grade}</h3>
         <div class="teacherPickWrap">
-          <select class="teacherPick" onclick="event.stopPropagation()" onchange="chooseTeacher(${i},this.value,event)">
+          <select class="teacherPick ${teachers.length?'':'empty'}" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation()" onchange="chooseTeacher(${i},this.value,event)">
             ${opts}
           </select>
         </div>
@@ -473,6 +475,12 @@ function render(){
       <button class="edit" onclick="event.stopPropagation();editProfile(${i})">⚙ ${x.name?'Sửa hồ sơ':'Thiết lập'}</button>
     </div>`;
   }).join('');
+}
+function ensureTeacherHint(){
+  if(getTeachers().length===0){
+    const hint=document.querySelector('.info');
+    if(hint) hint.innerHTML='ℹ️ Chưa có giáo viên đã lưu. Bấm <b>＋ Thêm giáo viên mới</b> hoặc chọn mục <b>＋ Thêm giáo viên mới…</b> trong ô chọn. Sau lần đầu, app sẽ tự nhớ trên thiết bị.';
+  }
 }
 function selectProfile(i){
   selected=i;localStorage.setItem('ntt_active_grade_v51',String(i));render();
@@ -485,7 +493,8 @@ function selectProfile(i){
 
 function chooseTeacher(i,id,event){
   if(event) event.stopPropagation();
-  if(!id){addTeacher(i);return}
+  if(id==='__add__'){addTeacher(i);return}
+  if(!id){return}
   applyTeacherToGrade(i,id);
   selected=i;localStorage.setItem('ntt_active_grade_v51',String(i));
   render();
@@ -545,7 +554,7 @@ function saveProfile(){
     if(tid===id) applyTeacherToGrade(Number(grade)-10,id);
   });
   selected=editing;localStorage.setItem('ntt_active_grade_v51',String(editing));
-  render();closeEditor();
+  render();ensureTeacherHint();closeEditor();
   $('subjectSelect').value=SUBJECTS.includes(data.subject)?data.subject:'Toán';
   refreshPPCT();
   $('ppctSelect').focus();
@@ -564,7 +573,7 @@ function deleteTeacher(){
       if(i>=0&&i<3) p[i]=defaults()[i];
     }
   });
-  setSelections(s);setProfiles(p);editingTeacherId=null;closeEditor();render();
+  setSelections(s);setProfiles(p);editingTeacherId=null;closeEditor();render();ensureTeacherHint();
   const cur=getProfiles()[selected];
   $('subjectSelect').value=SUBJECTS.includes(cur.subject)?cur.subject:'Toán';
   refreshPPCT();
@@ -643,6 +652,7 @@ function initPPCT(){
 
 migrateTeachers();
 render();
+ensureTeacherHint();
 initPPCT();
 </script>
 </body>

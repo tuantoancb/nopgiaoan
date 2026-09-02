@@ -1,13 +1,9 @@
-NỘP GIÁO ÁN ONLINE - NTT V5.1 · TEACHER MEMORY
+NỘP GIÁO ÁN ONLINE - NTT V5.2
 
-Nâng cấp:
-- Chọn giáo viên trực tiếp trên từng thẻ Khối 10/11/12.
-- Danh sách giáo viên được lưu bằng localStorage trên thiết bị.
-- Mỗi khối nhớ giáo viên được chọn gần nhất.
-- Tự khôi phục Họ tên, Môn/HĐGD, Tổ chuyên môn, Người duyệt khi mở lại app.
-- Có thể thêm, sửa và xóa giáo viên đã lưu.
-- Một giáo viên có thể được chọn cho nhiều khối.
-- Giữ nguyên PPCT đa môn và tự điền Tên bài, Số tiết, Tiết PPCT.
-- Tự chuyển dữ liệu hồ sơ V5 cũ sang danh sách giáo viên khi có thể.
-
-Triển khai: upload toàn bộ thư mục lên Vercel hoặc giải nén ZIP và deploy.
+Bản vá chức năng chọn giáo viên:
+- Ô chọn giáo viên luôn có mục “＋ Thêm giáo viên mới…”.
+- Khi chưa có giáo viên, hiển thị hướng dẫn rõ ràng thay vì dropdown rỗng.
+- Chặn sự kiện thẻ Khối làm đóng dropdown.
+- Sau khi thêm giáo viên, tên xuất hiện ngay trong cả 3 ô chọn.
+- Mỗi khối nhớ giáo viên được chọn gần nhất bằng localStorage.
+- Giữ nguyên PPCT đa môn và điền Google Form.
