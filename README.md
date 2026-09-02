@@ -81,3 +81,9 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - V5.22: Tăng lề trái/phải PDF để in và lưu hồ sơ thoáng hơn.
 - Lề trái/phải ~15 mm; lề trên/dưới giữ gọn.
 - Thu nhẹ bảng và đường kẻ để nội dung nằm cân đối giữa trang A4 dọc.
+
+- V5.23: Chỉ chọn giáo viên một lần ở mục “Giáo viên đang dùng”.
+- Ẩn dropdown giáo viên lặp lại trong Khối 10, 11, 12.
+- Thẻ khối chỉ dùng để bật/tắt khối đang dạy.
+- Khi đổi giáo viên ở ô trên cùng, app tự đồng bộ giáo viên đó xuống các khối.
+- Giữ nguyên logic PPCT, minh chứng và xuất PDF của V5.22.

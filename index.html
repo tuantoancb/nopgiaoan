@@ -398,6 +398,26 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
   .evPdf,.evRefresh{width:100%;min-width:0 !important}
 }
 
+
+/* V5.23 - Chỉ chọn giáo viên một lần; thẻ khối chỉ bật/tắt khối dạy */
+.gradeCard select{
+  display:none !important;
+}
+.gradeCard{
+  min-height:118px !important;
+  cursor:pointer;
+}
+.gradeCard .gradeToggleHint{
+  display:block;
+  margin-top:7px;
+  font-size:11px;
+  color:#6a7b91;
+  font-weight:600;
+}
+.gradeCard.active .gradeToggleHint{
+  color:#16884a;
+}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.js"></script>
@@ -683,7 +703,7 @@ function render(){
           </select>
         </div>
         <div class="meta">${x.name?esc(x.subject)+(x.team?' • '+esc(x.team):'')+(x.approver?' • '+esc(x.approver):''):'Chưa chọn giáo viên'}</div>
-        ${saved?'<div class="savedBadge">✓ Đã lưu trên thiết bị</div>':''}
+        ${saved?'<div class="savedBadge">✓ Dùng giáo viên đang chọn</div>':''}
       </div>
       <div class="check">${i===selected?'●':'○'}</div>
       ${sid&&String(sid).startsWith("staff_")?"":`<button class="edit" onclick="event.stopPropagation();editProfile(${i})">⚙ ${x.name?'Sửa hồ sơ':'Thiết lập'}</button>`}
@@ -1431,6 +1451,87 @@ function scheduleEvidenceRefresh(){
 window.addEventListener('focus',scheduleEvidenceRefresh);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)scheduleEvidenceRefresh()});
 
+
+function applyGlobalTeacherToAllGrades(){
+  const globalSelect =
+    document.getElementById('globalTeacherSelect') ||
+    document.querySelector('[data-global-teacher]') ||
+    document.querySelector('.globalTeacherSelect') ||
+    document.querySelector('.globalTeacher select');
+
+  if(!globalSelect) return;
+
+  const teacherName = globalSelect.value || '';
+  if(!teacherName) return;
+
+  document.querySelectorAll('.gradeCard').forEach(card=>{
+    const sel = card.querySelector('select');
+    if(sel){
+      const opt=[...sel.options].find(o=>normalizeName(o.value||o.textContent)===normalizeName(teacherName));
+      if(opt){
+        sel.value=opt.value;
+        sel.dispatchEvent(new Event('change',{bubbles:true}));
+      }
+    }
+
+    if(!card.querySelector('.gradeToggleHint')){
+      const hint=document.createElement('div');
+      hint.className='gradeToggleHint';
+      hint.textContent='Bấm thẻ để bật/tắt khối đang dạy';
+      card.appendChild(hint);
+    }
+  });
+}
+
+function initGradeToggleOnlyMode(){
+  const cards=[...document.querySelectorAll('.gradeCard')];
+  cards.forEach(card=>{
+    if(card.dataset.toggleOnlyBound==='1') return;
+    card.dataset.toggleOnlyBound='1';
+
+    card.addEventListener('click',e=>{
+      if(e.target.closest('select,button,a,input,label')) return;
+
+      const radio =
+        card.querySelector('input[type="radio"]') ||
+        card.querySelector('input[type="checkbox"]');
+
+      if(radio){
+        if(radio.type==='checkbox'){
+          radio.checked=!radio.checked;
+        }else{
+          radio.checked=true;
+        }
+        radio.dispatchEvent(new Event('change',{bubbles:true}));
+      }else{
+        card.classList.toggle('active');
+      }
+    });
+  });
+
+  const globalSelect =
+    document.getElementById('globalTeacherSelect') ||
+    document.querySelector('[data-global-teacher]') ||
+    document.querySelector('.globalTeacherSelect') ||
+    document.querySelector('.globalTeacher select');
+
+  if(globalSelect && !globalSelect.dataset.syncGradesBound){
+    globalSelect.dataset.syncGradesBound='1';
+    globalSelect.addEventListener('change',()=>{
+      setTimeout(applyGlobalTeacherToAllGrades,0);
+    });
+  }
+
+  applyGlobalTeacherToAllGrades();
+}
+
 </script>
+
+<script>
+window.addEventListener('DOMContentLoaded',()=>{
+  setTimeout(initGradeToggleOnlyMode,150);
+});
+</script>
+
 </body>
 </html>
