@@ -185,3 +185,8 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - V5.42: Đổi nút thao tác chính từ “Mở Google Form đã điền” thành “Nộp giáo án”.
 - Dòng phụ: “Thông tin đã điền sẵn • Chỉ cần tải file giáo án lên”.
 - Giữ nguyên hành vi mở Google Form đã điền sẵn và toàn bộ logic V5.41.
+
+- V5.43: Chốt giao diện tổng thể.
+- Giữ nguyên 3 background: mặc định lavender, Nam xanh, Nữ hồng.
+- Tinh chỉnh font nút NỘP GIÁO ÁN: nhẹ, thoáng, dễ đọc hơn.
+- Màu nút chính giảm độ gắt để đồng bộ với nền app.
