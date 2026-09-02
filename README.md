@@ -31,3 +31,5 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Bảng PDF gồm: Ngày nộp, Khối, Tên bài/Nội dung, Số tiết, Tiết PPCT, Người duyệt, Trạng thái.
 - Có tổng cộng cuối trang và ngày xuất minh chứng.
 - Tên file PDF tự có đầy đủ họ tên và tháng nếu xuất theo tháng.
+
+- V5.11: Chuyển mẫu PDF minh chứng sang khổ A4 dọc (portrait), tối ưu bảng và thẻ tổng hợp để vừa trang.
