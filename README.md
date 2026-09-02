@@ -9,3 +9,9 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Tự nhận môn, tổ, người duyệt, PPCT và ghi nhớ trên thiết bị.
 
 - V5.6: Đổi tiêu đề mục 2 thành “CHỌN BÀI DẠY”.
+
+- V5.7: Thêm mục 3. MINH CHỨNG ĐÃ NỘP.
+- Tự lọc hồ sơ theo giáo viên đang chọn.
+- Hiển thị ngày nộp, tên bài, khối, số tiết, tiết PPCT, trạng thái chờ duyệt/đã duyệt và nút mở file.
+- Tự thử cập nhật khi người dùng quay lại tab sau khi gửi Google Form.
+- Có nút ↻ Cập nhật thủ công và bộ nhớ đệm localStorage.

@@ -312,6 +312,30 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
 .globalTeacherInfo .gtMeta{color:#67768b}.globalTeacherInfo .gtSaved{color:#168847;font-weight:750}
 @media(max-width:720px){.compactGlobal{width:100%}.globalTeacherMain{grid-template-columns:1fr}.globalTeacherInfo{margin-left:0}}
 
+
+/* V5.7 - Minh chứng đã nộp */
+.evidenceCard{margin-top:10px;background:#fff;border:1px solid #d9e5f3;border-radius:12px;padding:11px 12px;box-shadow:0 4px 14px rgba(39,84,139,.055)}
+.evHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.evTitle{font-size:15px;font-weight:850;color:#173f7c}
+.evTools{display:flex;align-items:center;gap:7px}
+.evCount{font-size:10.5px;color:#68778d;background:#f2f6fb;border-radius:999px;padding:5px 8px}
+.evRefresh{border:1px solid #c8daf0;background:#f7fbff;color:#1769e8;border-radius:8px;padding:6px 9px;font-size:11px;font-weight:750;cursor:pointer}
+.evRefresh:hover{background:#edf6ff}
+.evStatusLine{font-size:10.5px;color:#66758b;margin-bottom:7px}
+.evTableWrap{overflow:auto;border:1px solid #e2eaf3;border-radius:9px}
+.evTable{width:100%;border-collapse:collapse;min-width:780px;font-size:10.8px}
+.evTable th{background:#f5f9fe;color:#234a82;font-weight:800;text-align:left;padding:8px;border-bottom:1px solid #dfe9f4;white-space:nowrap}
+.evTable td{padding:8px;border-bottom:1px solid #edf2f7;color:#35445c;vertical-align:middle}
+.evTable tr:last-child td{border-bottom:0}
+.evLesson{font-weight:720;color:#253d62;max-width:330px}
+.evBadge{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:4px 7px;font-size:9.8px;font-weight:800;white-space:nowrap}
+.evPending{background:#fff7df;color:#9a6700;border:1px solid #f5df9a}
+.evApproved{background:#eaf9ef;color:#14753a;border:1px solid #bfe9ce}
+.evFile{display:inline-flex;align-items:center;gap:3px;text-decoration:none;color:#1769e8;font-weight:750;background:#eef6ff;border:1px solid #cee2fa;border-radius:7px;padding:4px 7px;white-space:nowrap}
+.evEmpty{padding:18px;text-align:center;color:#748198;font-size:11px}
+.evFoot{margin-top:7px;padding:7px 9px;background:#f6faff;border-radius:8px;color:#627188;font-size:10.2px}
+@media(max-width:720px){.evHead{align-items:flex-start;flex-direction:column}.evTools{width:100%;justify-content:flex-end}}
+
 </style>
 </head>
 <body>
@@ -385,7 +409,38 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
     </div>
   </section>
 
-  <footer class="footer">🏫 TRƯỜNG PT DTNT TỈNH CAO BẰNG</footer>
+  
+  <section class="evidenceCard" id="evidenceSection">
+    <div class="evHead">
+      <div class="evTitle">✅ 3. MINH CHỨNG ĐÃ NỘP</div>
+      <div class="evTools">
+        <span class="evCount" id="evCount">0 hồ sơ</span>
+        <button class="evRefresh" type="button" onclick="loadEvidence(true)">↻ Cập nhật</button>
+      </div>
+    </div>
+    <div class="evStatusLine" id="evStatusLine">Chọn giáo viên để xem các giáo án đã nộp.</div>
+    <div class="evTableWrap">
+      <table class="evTable">
+        <thead>
+          <tr>
+            <th>NGÀY NỘP</th>
+            <th>TÊN BÀI / NỘI DUNG</th>
+            <th>KHỐI</th>
+            <th>SỐ TIẾT</th>
+            <th>TIẾT PPCT</th>
+            <th>TRẠNG THÁI</th>
+            <th>FILE</th>
+          </tr>
+        </thead>
+        <tbody id="evBody">
+          <tr><td colspan="7" class="evEmpty">Chưa chọn giáo viên.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="evFoot">ℹ️ Dữ liệu lấy từ bảng “DTNT- Nộp giáo án trực tuyến 2026-2027 (Câu trả lời)”. Sau khi bấm Gửi trên Google Form, quay lại tab này và bấm ↻ Cập nhật; app cũng tự thử cập nhật khi tab được mở lại.</div>
+  </section>
+
+<footer class="footer">🏫 TRƯỜNG PT DTNT TỈNH CAO BẰNG</footer>
 </div></main>
 
 <div class="editor" id="editor">
@@ -515,8 +570,12 @@ function chooseGlobalTeacher(id){
   setSelections(s);
   render();
   renderGlobalTeacher();
+renderEvidence();
+loadEvidence(false);
   $('subjectSelect').value=SUBJECTS.includes(t.subject)?t.subject:'Toán';
   refreshPPCT();
+  renderEvidence();
+  loadEvidence(false);
 }
 function migrateGlobalTeacher(){
   if(getGlobalTeacherId())return;
@@ -565,6 +624,8 @@ function selectProfile(i){
   $('subjectSelect').value=preferred;
   refreshPPCT();
   $('ppctSelect').focus();
+  renderEvidence();
+  loadEvidence(false);
 }
 
 function chooseTeacher(i,id,event){
@@ -731,6 +792,141 @@ migrateTeachers();
 render();
 ensureTeacherHint();
 initPPCT();
+
+const EVIDENCE_SHEET_ID='1ZSi9YK2hqCYSCZZkLGt4kVcMYtxxCIUjTwnplA2RL4A';
+const EVIDENCE_SHEET_NAME='Câu trả lời biểu mẫu 1';
+let evidenceRows=[];
+let evidenceLoading=false;
+
+function normalizeText(v){return String(v??'').trim().replace(/\s+/g,' ')}
+function normalizeName(v){return normalizeText(v).toLocaleLowerCase('vi-VN')}
+function gvizVal(c){return c && c.v!=null ? c.v : ''}
+function fmtSubmissionDate(v){
+  if(v instanceof Date && !isNaN(v)) return v.toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  const s=normalizeText(v);
+  const m=s.match(/^Date\((\d+),(\d+),(\d+),(\d+),(\d+),?(\d+)?\)$/);
+  if(m){
+    const d=new Date(+m[1],+m[2],+m[3],+m[4],+m[5],+(m[6]||0));
+    return d.toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  }
+  const d=new Date(s);
+  return isNaN(d)?s:d.toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+function firstUrl(s){
+  const m=String(s||'').match(/https?:\/\/[^\s,"']+/);
+  return m?m[0]:'';
+}
+function currentTeacherName(){
+  const gid=typeof getGlobalTeacherId==='function'?getGlobalTeacherId():'';
+  const t=typeof teacherById==='function'?teacherById(gid):null;
+  if(t&&t.name)return t.name;
+  try{const p=getProfiles()[selected];return p&&p.name?p.name:''}catch(e){return ''}
+}
+function renderEvidence(){
+  const body=$('evBody'), line=$('evStatusLine'), count=$('evCount');
+  if(!body)return;
+  const name=currentTeacherName();
+  if(!name){
+    count.textContent='0 hồ sơ';
+    line.textContent='Chọn giáo viên để xem các giáo án đã nộp.';
+    body.innerHTML='<tr><td colspan="7" class="evEmpty">Chưa chọn giáo viên.</td></tr>';
+    return;
+  }
+  const rows=evidenceRows.filter(r=>normalizeName(r.name)===normalizeName(name))
+    .sort((a,b)=>new Date(b.rawTime)-new Date(a.rawTime));
+  const approved=rows.filter(r=>normalizeText(r.approval)).length;
+  count.textContent=`${rows.length} hồ sơ`;
+  line.textContent=rows.length
+    ? `${name} · ${approved} đã duyệt · ${rows.length-approved} chờ duyệt`
+    : `${name} · chưa tìm thấy hồ sơ đã nộp trong nguồn.`;
+  if(!rows.length){
+    body.innerHTML='<tr><td colspan="7" class="evEmpty">Chưa có minh chứng nộp giáo án cho giáo viên này.</td></tr>';
+    return;
+  }
+  body.innerHTML=rows.slice(0,20).map(r=>{
+    const ok=!!normalizeText(r.approval);
+    const file=firstUrl(r.file);
+    return `<tr>
+      <td>${esc(r.time)}</td>
+      <td class="evLesson">${esc(r.lesson)}</td>
+      <td>${esc(r.grade)}</td>
+      <td>${esc(r.periods)}</td>
+      <td>${esc(r.range)}</td>
+      <td><span class="evBadge ${ok?'evApproved':'evPending'}">${ok?'✓ ĐÃ DUYỆT':'● ĐÃ NỘP · CHỜ DUYỆT'}</span></td>
+      <td>${file?`<a class="evFile" href="${esc(file)}" target="_blank" rel="noopener">📎 Mở file</a>`:'—'}</td>
+    </tr>`;
+  }).join('');
+}
+function handleEvidenceGviz(resp){
+  evidenceLoading=false;
+  try{
+    if(!resp || resp.status==='error' || !resp.table) throw new Error('Nguồn chưa cho phép đọc');
+    const cols=resp.table.cols.map(c=>normalizeText(c.label));
+    const findCol=(needles)=>cols.findIndex(x=>needles.some(n=>normalizeName(x).includes(normalizeName(n))));
+    const iTime=findCol(['Dấu thời gian']);
+    const iName=findCol(['Họ và tên']);
+    const iLesson=findCol(['Tên bài học']);
+    const iGrade=findCol(['Lớp']);
+    const iPeriods=findCol(['Số tiết']);
+    const iRange=findCol(['Từ tiết đến tiết']);
+    const iFile=findCol(['Tải file giáo án']);
+    const iApproval=findCol(['Duyệt giáo án']);
+    evidenceRows=(resp.table.rows||[]).map(row=>{
+      const c=row.c||[];
+      const rawTime=gvizVal(c[iTime]);
+      return {
+        rawTime: rawTime,
+        time: fmtSubmissionDate(rawTime),
+        name: gvizVal(c[iName]),
+        lesson: gvizVal(c[iLesson]),
+        grade: gvizVal(c[iGrade]),
+        periods: gvizVal(c[iPeriods]),
+        range: gvizVal(c[iRange]),
+        file: gvizVal(c[iFile]),
+        approval: gvizVal(c[iApproval])
+      };
+    }).filter(r=>normalizeText(r.name));
+    localStorage.setItem('ntt_evidence_cache_v57',JSON.stringify(evidenceRows));
+    $('evStatusLine').textContent='Đã đồng bộ minh chứng từ nguồn câu trả lời.';
+    renderEvidence();
+  }catch(err){
+    try{
+      const cache=JSON.parse(localStorage.getItem('ntt_evidence_cache_v57')||'[]');
+      if(Array.isArray(cache)&&cache.length)evidenceRows=cache;
+    }catch(e){}
+    $('evStatusLine').textContent=evidenceRows.length?'Đang hiển thị dữ liệu đã lưu gần nhất.':'Chưa đọc được nguồn minh chứng. Bấm ↻ để thử lại.';
+    renderEvidence();
+  }
+}
+function loadEvidence(manual=false){
+  const name=currentTeacherName();
+  if(!name){renderEvidence();return}
+  if(evidenceLoading)return;
+  evidenceLoading=true;
+  if(manual)$('evStatusLine').textContent='Đang cập nhật minh chứng…';
+  const old=document.getElementById('gvizEvidenceScript'); if(old)old.remove();
+  const s=document.createElement('script');
+  s.id='gvizEvidenceScript';
+  const tqx=encodeURIComponent('responseHandler:handleEvidenceGviz');
+  const sheet=encodeURIComponent(EVIDENCE_SHEET_NAME);
+  s.src=`https://docs.google.com/spreadsheets/d/${EVIDENCE_SHEET_ID}/gviz/tq?tqx=${tqx}&sheet=${sheet}&t=${Date.now()}`;
+  s.onerror=()=>{
+    evidenceLoading=false;
+    try{
+      const cache=JSON.parse(localStorage.getItem('ntt_evidence_cache_v57')||'[]');
+      if(Array.isArray(cache))evidenceRows=cache;
+    }catch(e){}
+    $('evStatusLine').textContent=evidenceRows.length?'Đang hiển thị dữ liệu đã lưu gần nhất.':'Chưa đọc được nguồn minh chứng. Bấm ↻ để thử lại.';
+    renderEvidence();
+  };
+  document.head.appendChild(s);
+}
+function scheduleEvidenceRefresh(){
+  setTimeout(()=>loadEvidence(false),1200);
+}
+window.addEventListener('focus',scheduleEvidenceRefresh);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)scheduleEvidenceRefresh()});
+
 </script>
 </body>
 </html>
