@@ -458,50 +458,1097 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
   .lessonCard .openBtn,.lessonCard .resetBtn{min-height:54px}
 }
 
+
+/* V5.27 - Phương án B: hai nút gọn ở góc phải cuối form */
+.lessonCard .actions{
+  display:flex !important;
+  justify-content:flex-end !important;
+  align-items:stretch !important;
+  gap:14px !important;
+  margin-top:16px !important;
+}
+.lessonCard .openBtn{
+  width:360px !important;
+  min-height:58px !important;
+  flex:0 0 360px !important;
+  border-radius:12px !important;
+}
+.lessonCard .resetBtn{
+  width:125px !important;
+  min-height:58px !important;
+  flex:0 0 125px !important;
+  background:#fff !important;
+  color:#2467c8 !important;
+  border:1.5px solid #b9d1f5 !important;
+  border-radius:12px !important;
+  box-shadow:none !important;
+}
+.lessonCard .resetBtn:hover{
+  background:#f4f8ff !important;
+  border-color:#79aaf0 !important;
+}
+.lessonCard .resetBtn small{
+  display:none !important;
+}
+@media(max-width:760px){
+  .lessonCard .actions{
+    display:grid !important;
+    grid-template-columns:1fr 118px !important;
+    gap:10px !important;
+  }
+  .lessonCard .openBtn{
+    width:100% !important;
+    min-width:0 !important;
+    flex:auto !important;
+  }
+  .lessonCard .resetBtn{
+    width:118px !important;
+    flex:auto !important;
+  }
+}
+@media(max-width:520px){
+  .lessonCard .actions{
+    grid-template-columns:1fr !important;
+  }
+  .lessonCard .openBtn,
+  .lessonCard .resetBtn{
+    width:100% !important;
+  }
+}
+
+
+/* V5.28 - Nút Mở gần PPCT, Làm mới ở góc tiêu đề */
+.lessonTitleRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:10px;
+}
+.lessonTitleRow .sectionTitle{
+  margin:0 !important;
+}
+.titleResetBtn{
+  height:36px;
+  padding:0 13px;
+  border:1.5px solid #b9d1f5;
+  border-radius:10px;
+  background:#fff;
+  color:#2467c8;
+  font-weight:800;
+  font-size:12px;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.titleResetBtn:hover{
+  background:#f4f8ff;
+  border-color:#79aaf0;
+}
+.quickOpenRow{
+  display:flex;
+  justify-content:flex-end;
+  margin:10px 0 14px;
+}
+.quickOpenBtn{
+  width:360px;
+  min-height:56px;
+  border:0;
+  border-radius:12px;
+  background:linear-gradient(180deg,#2f7df0,#1265e8);
+  color:#fff;
+  font-weight:900;
+  font-size:15px;
+  line-height:1.1;
+  cursor:pointer;
+  box-shadow:0 7px 18px rgba(26,104,222,.18);
+}
+.quickOpenBtn small{
+  display:block;
+  margin-top:4px;
+  font-size:10.5px;
+  font-weight:600;
+  opacity:.92;
+}
+.quickOpenBtn:hover{
+  filter:brightness(1.03);
+  transform:translateY(-1px);
+}
+@media(max-width:760px){
+  .quickOpenBtn{width:100%}
+}
+@media(max-width:520px){
+  .lessonTitleRow{align-items:flex-start}
+  .titleResetBtn{height:34px;padding:0 10px;font-size:11px}
+  .quickOpenBtn{min-height:52px;font-size:14px}
+}
+
+
+.lessonCard .actions{display:none !important}
+
+
+/* V5.29 - Cân lại bố cục: Mở ở cuối form, Làm mới ở tiêu đề */
+.quickOpenRow{display:none !important}
+.bottomOpenRow{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:15px;
+}
+.bottomOpenBtn{
+  width:340px;
+  min-height:56px;
+  border:0;
+  border-radius:12px;
+  background:linear-gradient(180deg,#2f7df0,#1265e8);
+  color:#fff;
+  font-weight:900;
+  font-size:15px;
+  line-height:1.1;
+  cursor:pointer;
+  box-shadow:0 7px 18px rgba(26,104,222,.16);
+}
+.bottomOpenBtn small{
+  display:block;
+  margin-top:4px;
+  font-size:10.5px;
+  font-weight:600;
+  opacity:.92;
+}
+.bottomOpenBtn:hover{
+  filter:brightness(1.03);
+  transform:translateY(-1px);
+}
+@media(max-width:760px){
+  .bottomOpenBtn{width:100%}
+}
+
+
+/* V5.30 - Cân đối giao diện tổng thể */
+.card:first-of-type{
+  padding-top:12px !important;
+  padding-bottom:12px !important;
+}
+.card:first-of-type .sectionTitle{
+  margin-bottom:8px !important;
+}
+.globalTeacher{
+  max-width:700px !important;
+  padding:10px 12px !important;
+  margin-bottom:0 !important;
+}
+.globalTeacherInfo{
+  margin-top:4px !important;
+}
+
+.ppctTools.ppctTools3{
+  grid-template-columns:140px 230px minmax(420px,1fr) !important;
+  gap:14px !important;
+  align-items:start !important;
+}
+.gradeSelectBox,
+.subjectSelectBox,
+.ppctSelectBox{
+  min-width:0 !important;
+}
+.ppctBox label{
+  margin-bottom:5px !important;
+}
+
+.titleResetBtn{
+  height:32px !important;
+  padding:0 11px !important;
+  font-size:10.5px !important;
+  border-radius:9px !important;
+}
+.bottomOpenRow{
+  margin-top:17px !important;
+}
+.bottomOpenBtn{
+  width:320px !important;
+  min-height:52px !important;
+  border-radius:11px !important;
+  font-size:14px !important;
+}
+.bottomOpenBtn small{
+  font-size:9.8px !important;
+}
+
+.evTools{
+  display:grid !important;
+  grid-template-columns:auto minmax(220px,290px) auto auto !important;
+  column-gap:16px !important;
+  align-items:center !important;
+}
+.evCount{
+  justify-self:start !important;
+}
+.evMonth{
+  width:100% !important;
+  min-width:220px !important;
+}
+.evPdf,
+.evRefresh{
+  min-height:36px !important;
+  padding:6px 12px !important;
+}
+.evPdf{
+  min-width:78px !important;
+}
+.evRefresh{
+  min-width:82px !important;
+}
+
+.card{
+  margin-bottom:10px !important;
+}
+.lessonCard{
+  padding-bottom:14px !important;
+}
+.lessonBody .field{
+  margin-bottom:9px !important;
+}
+.evidenceCard{
+  padding-top:12px !important;
+  padding-bottom:12px !important;
+}
+.footer,
+.siteFooter{
+  margin-top:6px !important;
+  padding-top:6px !important;
+  padding-bottom:6px !important;
+}
+
+@media(max-width:900px){
+  .ppctTools.ppctTools3{
+    grid-template-columns:130px 1fr !important;
+  }
+  .ppctSelectBox{
+    grid-column:1/-1 !important;
+  }
+  .evTools{
+    grid-template-columns:auto 1fr auto auto !important;
+    gap:10px !important;
+  }
+}
+@media(max-width:620px){
+  .ppctTools.ppctTools3{
+    grid-template-columns:1fr !important;
+  }
+  .ppctSelectBox{
+    grid-column:auto !important;
+  }
+  .evTools{
+    grid-template-columns:auto 1fr !important;
+    gap:9px 10px !important;
+  }
+  .evPdf,.evRefresh{
+    width:100% !important;
+  }
+  .bottomOpenBtn{
+    width:100% !important;
+  }
+}
+
+
+/* V5.31 - Header phương án B */
+.hero,
+.appHeader,
+.headerCard,
+.topHeader{
+  min-height:auto !important;
+}
+.hero{
+  padding:12px 16px !important;
+}
+.heroIcon{
+  width:54px !important;
+  height:54px !important;
+  border-radius:14px !important;
+  flex:0 0 54px !important;
+}
+.hero h1,
+.appTitle{
+  font-size:28px !important;
+  line-height:1.05 !important;
+  margin-bottom:4px !important;
+  letter-spacing:-0.4px !important;
+}
+.hero .sub,
+.appSubtitle{
+  font-size:12px !important;
+  line-height:1.2 !important;
+  color:#667b95 !important;
+  margin-top:0 !important;
+}
+.todayCard,
+.dateCard,
+.headerDate{
+  width:190px !important;
+  min-width:190px !important;
+  min-height:72px !important;
+  padding:9px 14px !important;
+  border-radius:14px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:center !important;
+  align-items:center !important;
+  gap:3px !important;
+}
+.todayCard .label,
+.dateCard .label,
+.headerDate .label{
+  font-size:10.5px !important;
+  font-weight:700 !important;
+  color:#61758f !important;
+  text-transform:uppercase !important;
+  letter-spacing:.3px !important;
+}
+.todayCard .date,
+.todayCard strong,
+.dateCard .date,
+.headerDate .date{
+  font-size:22px !important;
+  font-weight:900 !important;
+  color:#1265df !important;
+  line-height:1 !important;
+}
+.todayCard small,
+.dateCard small,
+.headerDate small{
+  display:none !important;
+}
+
+@media(max-width:700px){
+  .hero{
+    padding:10px 12px !important;
+    gap:10px !important;
+  }
+  .heroIcon{
+    width:48px !important;
+    height:48px !important;
+    flex-basis:48px !important;
+  }
+  .hero h1,
+  .appTitle{
+    font-size:22px !important;
+  }
+  .todayCard,
+  .dateCard,
+  .headerDate{
+    width:150px !important;
+    min-width:150px !important;
+    min-height:64px !important;
+    padding:7px 10px !important;
+  }
+  .todayCard .date,
+  .todayCard strong,
+  .dateCard .date,
+  .headerDate .date{
+    font-size:18px !important;
+  }
+}
+
+
+/* V5.31 FIX - áp đúng class header thực tế */
+.header{
+  padding:12px 16px !important;
+  min-height:84px !important;
+  align-items:center !important;
+}
+.brand{
+  gap:12px !important;
+}
+.brandIcon{
+  width:54px !important;
+  height:54px !important;
+  border-radius:14px !important;
+  font-size:34px !important;
+  flex:0 0 54px !important;
+}
+.brand h1{
+  font-size:28px !important;
+  line-height:1.04 !important;
+  margin:0 !important;
+  letter-spacing:-.3px !important;
+}
+.brand p{
+  margin:4px 0 0 !important;
+  font-size:12px !important;
+  line-height:1.2 !important;
+  color:#667b95 !important;
+  font-style:normal !important;
+}
+.datebox{
+  min-width:190px !important;
+  width:190px !important;
+  padding:9px 14px !important;
+  border-radius:14px !important;
+  box-shadow:0 5px 14px rgba(32,94,160,.10) !important;
+}
+.datebox span{
+  font-size:10.5px !important;
+  text-transform:uppercase !important;
+  letter-spacing:.3px !important;
+  font-weight:700 !important;
+  color:#61758f !important;
+}
+.datebox b{
+  font-size:22px !important;
+  line-height:1 !important;
+  margin:5px 0 0 !important;
+}
+.datebox small{
+  display:none !important;
+}
+@media(max-width:700px){
+  .header{
+    padding:10px 12px !important;
+    min-height:74px !important;
+  }
+  .brandIcon{
+    width:48px !important;
+    height:48px !important;
+    flex-basis:48px !important;
+    font-size:30px !important;
+  }
+  .brand h1{font-size:22px !important}
+  .brand p{font-size:10.5px !important}
+  .datebox{
+    width:150px !important;
+    min-width:150px !important;
+    padding:8px 10px !important;
+  }
+  .datebox b{font-size:18px !important}
+}
+
+
+/* V5.32 - Giáo viên trên Header */
+.header{
+  display:grid !important;
+  grid-template-columns:minmax(290px,1.1fr) minmax(280px,1fr) 190px !important;
+  gap:14px !important;
+  align-items:center !important;
+}
+.brand{
+  min-width:0 !important;
+}
+.headerTeacher{
+  background:rgba(255,255,255,.78);
+  border:1px solid #d8e5f7;
+  border-radius:14px;
+  padding:10px 12px;
+  box-shadow:0 4px 12px rgba(32,94,160,.06);
+}
+.headerTeacher label{
+  display:block;
+  margin:0 0 5px;
+  font-size:10.5px;
+  font-weight:800;
+  color:#61758f;
+  letter-spacing:.35px;
+}
+.headerTeacher select{
+  width:100%;
+  height:38px;
+  border:1px solid #bfd0ea;
+  border-radius:10px;
+  padding:0 12px;
+  font-weight:700;
+  color:#1a3f77;
+  background:#fff;
+}
+.headerTeacherInfo{
+  margin-top:5px;
+  font-size:11px;
+  color:#5e7087;
+}
+@media(max-width:900px){
+  .header{
+    grid-template-columns:1fr 1fr !important;
+  }
+  .brand{
+    grid-column:1/-1 !important;
+  }
+}
+@media(max-width:620px){
+  .header{
+    grid-template-columns:1fr !important;
+  }
+  .datebox{
+    width:100% !important;
+    min-width:0 !important;
+  }
+}
+
+
+/* V5.33 - Sửa Header bị khối 1 trồi lên che */
+.header{
+  height:auto !important;
+  min-height:112px !important;
+  overflow:visible !important;
+  padding:12px 14px !important;
+  margin-bottom:10px !important;
+}
+.headerTeacher{
+  min-height:78px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:center !important;
+}
+.datebox{
+  min-height:72px !important;
+  align-self:center !important;
+}
+.lessonCard{
+  position:relative !important;
+  z-index:1 !important;
+  margin-top:0 !important;
+}
+.shell{
+  gap:10px !important;
+}
+@media(max-width:900px){
+  .header{
+    min-height:154px !important;
+    margin-bottom:10px !important;
+  }
+}
+@media(max-width:620px){
+  .header{
+    min-height:auto !important;
+    padding-bottom:14px !important;
+  }
+}
+
+
+/* V5.34 - Bỏ Ngày nộp, mở rộng khối Giáo viên */
+.header{
+  display:grid !important;
+  grid-template-columns:minmax(320px,1fr) minmax(420px,1.15fr) !important;
+  gap:18px !important;
+  align-items:center !important;
+  min-height:106px !important;
+  padding:12px 16px !important;
+}
+.brand{
+  min-width:0 !important;
+}
+.headerTeacher{
+  min-height:82px !important;
+  padding:10px 13px !important;
+  border:1px solid #d7e5f6 !important;
+  border-radius:15px !important;
+  background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(247,251,255,.96)) !important;
+  box-shadow:0 6px 16px rgba(30,89,153,.09) !important;
+}
+.headerTeacherTop{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:6px;
+}
+.headerTeacherIcon{
+  width:28px;
+  height:28px;
+  border-radius:9px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(145deg,#eef6ff,#dfeeff);
+  box-shadow:inset 0 0 0 1px #d2e3f8;
+  font-size:16px;
+}
+.headerTeacher label{
+  margin:0 !important;
+  font-size:10.5px !important;
+  font-weight:850 !important;
+  color:#4d6788 !important;
+  letter-spacing:.45px !important;
+}
+.headerTeacherSelectWrap{
+  position:relative;
+}
+.headerTeacher select{
+  width:100% !important;
+  height:40px !important;
+  border:1.4px solid #bcd1ef !important;
+  border-radius:11px !important;
+  padding:0 12px !important;
+  background:#fff !important;
+  color:#173e70 !important;
+  font-weight:750 !important;
+  font-size:13px !important;
+  box-shadow:0 2px 7px rgba(36,100,171,.05) !important;
+}
+.headerTeacher select:focus{
+  outline:none !important;
+  border-color:#5b93e8 !important;
+  box-shadow:0 0 0 3px rgba(91,147,232,.10) !important;
+}
+.headerTeacherInfo{
+  margin-top:6px !important;
+  font-size:11px !important;
+  color:#60738b !important;
+  line-height:1.2 !important;
+}
+@media(max-width:900px){
+  .header{
+    grid-template-columns:1fr !important;
+    min-height:auto !important;
+  }
+}
+
+
+/* V5.35 - Khối 1 hai cột */
+.lessonCard{
+  padding-bottom:14px !important;
+}
+.lessonCard > .sectionTitle{
+  margin:0 0 10px !important;
+}
+.lessonTwoCol{
+  display:grid !important;
+  grid-template-columns:minmax(300px,.88fr) minmax(460px,1.35fr) !important;
+  gap:18px !important;
+  align-items:stretch !important;
+}
+.lessonLeftCol,
+.lessonRightCol{
+  border:1px solid #dbe7f5;
+  border-radius:14px;
+  padding:14px 15px;
+  background:linear-gradient(180deg,#fff,#fbfdff);
+}
+.lessonLeftCol{
+  background:linear-gradient(180deg,#fafdff,#f6faff);
+}
+.lessonRightCol{
+  background:linear-gradient(180deg,#ffffff,#fbfffc);
+}
+.lessonSideTitle{
+  font-size:13px;
+  font-weight:850;
+  color:#174b8d;
+  margin-bottom:12px;
+  letter-spacing:.1px;
+}
+.lessonRightCol .lessonSideTitle{
+  color:#16884a;
+}
+.lessonLeftCol .ppctBox{
+  margin-bottom:13px !important;
+}
+.lessonLeftCol .ppctBox label,
+.lessonRightCol .field label{
+  display:block;
+  margin-bottom:5px !important;
+  font-size:12px !important;
+  font-weight:800 !important;
+  color:#193f74 !important;
+}
+.lessonLeftCol select{
+  width:100%;
+  min-height:42px;
+  border-radius:10px;
+}
+.lessonLeftCol .ppctHint{
+  margin-top:6px !important;
+  font-size:10.5px !important;
+  color:#6c7f98 !important;
+}
+.leftOpenRow{
+  margin-top:18px;
+}
+.leftOpenBtn{
+  width:100%;
+  min-height:58px;
+  border:0;
+  border-radius:12px;
+  background:linear-gradient(180deg,#2f7df0,#1265e8);
+  color:#fff;
+  font-weight:900;
+  font-size:14px;
+  line-height:1.12;
+  cursor:pointer;
+  box-shadow:0 7px 18px rgba(26,104,222,.16);
+}
+.leftOpenBtn small{
+  display:block;
+  margin-top:4px;
+  font-size:10px;
+  font-weight:600;
+  opacity:.92;
+}
+.lessonRightCol .field{
+  margin-bottom:14px !important;
+}
+.lessonRightCol .field input{
+  min-height:42px !important;
+}
+.fieldHint{
+  margin-top:5px;
+  font-size:10.5px;
+  color:#6c7f98;
+}
+.titleResetBtn,
+.lessonTitleRow,
+.bottomOpenRow,
+.quickOpenRow,
+.lessonCard .actions{
+  display:none !important;
+}
+@media(max-width:900px){
+  .lessonTwoCol{
+    grid-template-columns:1fr !important;
+  }
+}
+
+
+/* V5.36 - Làm nổi bật tiêu đề Khối 1 và Khối 2 */
+.sectionHead{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-height:44px;
+  padding:7px 11px;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+.sectionHead .sectionBadge{
+  width:30px;
+  height:30px;
+  flex:0 0 30px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:15px;
+  font-weight:900;
+  box-shadow:0 4px 10px rgba(0,0,0,.10);
+}
+.sectionHead .sectionHeadIcon{
+  width:28px;
+  height:28px;
+  border-radius:9px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.78);
+  box-shadow:inset 0 0 0 1px rgba(120,150,190,.16);
+  font-size:15px;
+}
+.sectionHead .sectionHeadText{
+  font-size:17px;
+  font-weight:900;
+  letter-spacing:.1px;
+}
+
+/* Khối 1 */
+.sectionHeadLesson{
+  background:linear-gradient(90deg,#edf5ff 0%,#f8fbff 78%,#ffffff 100%);
+  border:1px solid #cfe1f8;
+  box-shadow:0 5px 14px rgba(34,104,190,.07);
+}
+.sectionHeadLesson .sectionBadge{
+  background:linear-gradient(180deg,#2f7df0,#1265df);
+}
+.sectionHeadLesson .sectionHeadText{
+  color:#123f82;
+}
+
+/* Khối 2 */
+.sectionHeadEvidence{
+  background:linear-gradient(90deg,#edf9f1 0%,#f8fdf9 78%,#ffffff 100%);
+  border:1px solid #cee9d7;
+  box-shadow:0 5px 14px rgba(36,143,82,.07);
+  margin:0 !important;
+}
+.sectionHeadEvidence .sectionBadge{
+  background:linear-gradient(180deg,#31b866,#168f49);
+}
+.sectionHeadEvidence .sectionHeadText{
+  color:#167a3f;
+}
+
+/* Giữ thanh công cụ minh chứng cân với tiêu đề mới */
+.evHead{
+  align-items:center !important;
+  gap:14px !important;
+}
+.evTitle{
+  flex:1 1 auto !important;
+  min-width:250px !important;
+}
+.evTools{
+  flex:0 0 auto !important;
+}
+
+@media(max-width:760px){
+  .sectionHead{
+    min-height:40px;
+    padding:6px 9px;
+  }
+  .sectionHead .sectionBadge{
+    width:28px;
+    height:28px;
+    flex-basis:28px;
+    font-size:14px;
+  }
+  .sectionHead .sectionHeadText{
+    font-size:15px;
+  }
+  .evHead{
+    align-items:stretch !important;
+  }
+}
+
+
+/* V5.37 - Header tối giản */
+.header.minimalHeader{
+  height:auto !important;
+  min-height:78px !important;
+  overflow:visible !important;
+  display:grid !important;
+  grid-template-columns:minmax(300px,1fr) minmax(300px,420px) !important;
+  gap:22px !important;
+  align-items:center !important;
+  padding:10px 16px !important;
+  margin-bottom:10px !important;
+  border-radius:16px !important;
+}
+.minimalBrand{
+  display:flex !important;
+  align-items:center !important;
+  gap:12px !important;
+  min-width:0 !important;
+}
+.minimalBrand .brandIcon{
+  width:50px !important;
+  height:50px !important;
+  flex:0 0 50px !important;
+  border-radius:13px !important;
+  font-size:31px !important;
+  box-shadow:0 5px 14px rgba(28,105,225,.12), inset 0 0 0 1px #d7e7fa !important;
+}
+.minimalBrand h1{
+  margin:0 !important;
+  font-size:25px !important;
+  line-height:1.02 !important;
+  font-weight:900 !important;
+  color:#123d87 !important;
+  letter-spacing:-.25px !important;
+}
+.minimalBrand p{
+  margin:4px 0 0 !important;
+  font-size:10.5px !important;
+  line-height:1.15 !important;
+  font-style:normal !important;
+  font-weight:650 !important;
+  color:#74839a !important;
+  letter-spacing:.15px !important;
+}
+.minimalTeacher{
+  width:100% !important;
+  justify-self:end !important;
+}
+.minimalTeacherSelectWrap{
+  position:relative !important;
+  width:100% !important;
+  height:46px !important;
+  display:flex !important;
+  align-items:center !important;
+  background:#fff !important;
+  border:1.4px solid #c7d9f1 !important;
+  border-radius:12px !important;
+  box-shadow:0 4px 12px rgba(35,95,162,.07) !important;
+}
+.minimalTeacherIcon{
+  width:42px !important;
+  height:42px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  color:#1768dc !important;
+  font-size:18px !important;
+  flex:0 0 42px !important;
+}
+.minimalTeacher select{
+  width:100% !important;
+  height:44px !important;
+  border:0 !important;
+  outline:0 !important;
+  background:transparent !important;
+  padding:0 12px 0 2px !important;
+  color:#173d70 !important;
+  font-size:13px !important;
+  font-weight:750 !important;
+  cursor:pointer !important;
+}
+.minimalTeacherSelectWrap:focus-within{
+  border-color:#6d9fe9 !important;
+  box-shadow:0 0 0 3px rgba(70,133,225,.10) !important;
+}
+
+/* Hide legacy header elements if any remain in CSS/DOM */
+.headerTeacher,
+.headerTeacherTop,
+.headerTeacherInfo,
+.datebox{
+  display:none !important;
+}
+
+@media(max-width:760px){
+  .header.minimalHeader{
+    grid-template-columns:1fr !important;
+    gap:9px !important;
+    min-height:auto !important;
+    padding:10px 12px !important;
+  }
+  .minimalTeacher{
+    justify-self:stretch !important;
+  }
+  .minimalBrand h1{
+    font-size:22px !important;
+  }
+  .minimalBrand p{
+    font-size:9.8px !important;
+  }
+}
+
+
+/* V5.38 - Header compact, nổi bật hơn, ô giáo viên gần tiêu đề hơn */
+.header.minimalHeader{
+  min-height:76px !important;
+  grid-template-columns:minmax(290px,430px) minmax(280px,360px) !important;
+  justify-content:start !important;
+  column-gap:14px !important;
+  padding:10px 14px !important;
+  margin-bottom:10px !important;
+  border:1px solid #c8dcf5 !important;
+  border-radius:16px !important;
+  background:
+    radial-gradient(circle at 14% 0%,rgba(59,130,246,.09),transparent 42%),
+    linear-gradient(180deg,#ffffff 0%,#f7fbff 100%) !important;
+  box-shadow:
+    0 8px 22px rgba(32,92,158,.10),
+    inset 0 1px 0 rgba(255,255,255,.95) !important;
+}
+.minimalBrand{
+  gap:10px !important;
+}
+.minimalBrand .brandIcon{
+  width:48px !important;
+  height:48px !important;
+  flex:0 0 48px !important;
+  border-radius:13px !important;
+  font-size:30px !important;
+  background:linear-gradient(145deg,#ffffff,#eef6ff) !important;
+  box-shadow:
+    0 5px 12px rgba(34,104,190,.12),
+    inset 0 0 0 1px #d5e6fb !important;
+}
+.minimalBrand h1{
+  font-size:24px !important;
+  letter-spacing:-.3px !important;
+}
+.minimalBrand p{
+  margin-top:3px !important;
+  font-size:9.8px !important;
+  color:#74839a !important;
+}
+.minimalTeacher{
+  width:100% !important;
+  justify-self:start !important;
+}
+.minimalTeacherSelectWrap{
+  height:44px !important;
+  border:1.5px solid #b9d0ee !important;
+  border-radius:12px !important;
+  background:linear-gradient(180deg,#ffffff,#fbfdff) !important;
+  box-shadow:
+    0 4px 12px rgba(38,96,168,.08),
+    inset 0 1px 0 rgba(255,255,255,.96) !important;
+}
+.minimalTeacherIcon{
+  width:40px !important;
+  height:40px !important;
+  flex:0 0 40px !important;
+  margin-left:2px !important;
+  border-radius:10px !important;
+  background:#edf5ff !important;
+  color:#1768dc !important;
+  font-size:17px !important;
+}
+.minimalTeacher select{
+  height:42px !important;
+  font-size:12.5px !important;
+  font-weight:800 !important;
+  color:#173d70 !important;
+  padding-right:10px !important;
+}
+.minimalTeacherSelectWrap:hover{
+  border-color:#8db4ea !important;
+  box-shadow:
+    0 5px 14px rgba(38,96,168,.11),
+    inset 0 1px 0 rgba(255,255,255,.96) !important;
+}
+.minimalTeacherSelectWrap:focus-within{
+  border-color:#4f8ee8 !important;
+  box-shadow:0 0 0 3px rgba(79,142,232,.11) !important;
+}
+@media(max-width:900px){
+  .header.minimalHeader{
+    grid-template-columns:minmax(260px,1fr) minmax(260px,340px) !important;
+    column-gap:10px !important;
+  }
+}
+@media(max-width:700px){
+  .header.minimalHeader{
+    grid-template-columns:1fr !important;
+    gap:8px !important;
+    padding:10px 12px !important;
+  }
+  .minimalTeacher{
+    max-width:none !important;
+  }
+}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.js"></script>
 </head>
 <body>
 <main class="app"><div class="shell">
-  <header class="header">
-    <div class="brand">
+  <header class="header minimalHeader">
+    <div class="brand minimalBrand">
       <div class="brandIcon">📋</div>
-      <div>
-        <h1>NỘP GIÁO ÁN ONLINE - NTT</h1>
-        <p>Chọn giáo viên • Tự lưu hồ sơ • PPCT đa môn</p>
+      <div class="brandCopy">
+        <h1>NỘP GIÁO ÁN</h1>
+        <p>TRƯỜNG PT DTNT TỈNH CAO BẰNG</p>
       </div>
     </div>
-    <div class="datebox">
-      <span>📅 Ngày nộp</span>
-      <b id="todayText"></b>
-      <small>(Tự động lấy ngày hôm nay)</small>
+
+    <div class="minimalTeacher">
+      <div class="minimalTeacherSelectWrap">
+        <span class="minimalTeacherIcon">👤</span>
+        <select id="teacherHeaderSelect" aria-label="Chọn giáo viên"></select>
+      </div>
     </div>
   </header>
 
-  <section class="card profileSection">
-    <div class="sectionTitleRow">
-      <h2 class="sectionTitle">👥 1. CHỌN GIÁO VIÊN</h2>
-    </div>
-    <div class="globalTeacher compactGlobal">
-      <div class="globalTeacherMain">
-        <div class="gtLabel">👤 Giáo viên đang dùng</div>
-        <select id="globalTeacherSelect" onchange="chooseGlobalTeacher(this.value)">
-          <option value="">— Chọn giáo viên —</option><option value="staff_9">Hoàng Khánh Diệp</option><option value="staff_5">Hoàng Thị Lan</option><option value="staff_10">Hoàng Thị Ngọc Hà</option><option value="staff_31">Hoàng Thị Thanh Vân</option><option value="staff_14">Hà Thị Phương Dung</option><option value="staff_3">Hà Thị Thu Oanh</option><option value="staff_29">Lâm Thị Thu Hường</option><option value="staff_25">Lê Kim Thoa</option><option value="staff_1">Lê Thị Lan Phương</option><option value="staff_27">Lê Thị Mai</option><option value="staff_26">Lý Thu Hiền</option><option value="staff_4">Lưu Công Tuấn</option><option value="staff_12">Lương Thị Thanh Thủy</option><option value="staff_28">Lương Vũ Long</option><option value="staff_16">Ma Thị Anh</option><option value="staff_15">Nguyễn Hồng Quyên</option><option value="staff_20">Nguyễn Thanh Tuấn</option><option value="staff_2">Nguyễn Thế Phong</option><option value="staff_32">Nguyễn Thị Liễu</option><option value="staff_23">Nguyễn Thị Na</option><option value="staff_8">Nguyễn Thị Ngọc Liễu</option><option value="staff_17">Nông Thị Huệ</option><option value="staff_11">Nông Thị Thu Bằng</option><option value="staff_21">Nông Trung Hiếu</option><option value="staff_7">Triệu Thị Đàn</option><option value="staff_18">Trương Thị Mỹ Ngọc</option><option value="staff_22">Trần Chiến Thắng</option><option value="staff_30">Trần Thị Kim Oanh</option><option value="staff_13">Trần Thị Vân Anh</option><option value="staff_19">Vi Thị Diệp</option><option value="staff_24">Vũ Huyền Chi</option><option value="staff_6">Đàm Thị Diệp</option>
-        </select>
-      </div>
-      <div class="globalTeacherInfo">
-        <span class="gtMeta" id="globalTeacherMeta">Chưa chọn giáo viên</span>
-        <span class="gtSaved" id="globalTeacherSaved"></span>
-      </div>
-    </div>
-    <div id="profiles" style="display:none"></div>
-  </section>
+  
 
   <section class="card lessonCard">
-    <h2 class="sectionTitle">📄 2. CHỌN BÀI DẠY</h2>
-    <div class="lessonBody">
-      <div class="ppctTools ppctTools3">
+    <div class="sectionHead sectionHeadLesson">
+      <div class="sectionBadge">1</div>
+      <div class="sectionHeadIcon">📄</div>
+      <div class="sectionHeadText">CHỌN BÀI DẠY</div>
+    </div>
+
+    <div class="lessonBody lessonTwoCol">
+      <div class="lessonLeftCol">
+        <div class="lessonSideTitle">🎯 CHỌN NỘI DUNG</div>
+
         <div class="ppctBox gradeSelectBox">
           <label>🎓 Khối</label>
           <select id="gradeSelect">
@@ -510,32 +1557,45 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
             <option value="2">Khối 12</option>
           </select>
         </div>
+
         <div class="ppctBox subjectSelectBox">
           <label>📚 Môn/HĐGD <span style="font-weight:500;color:#789">(tự nhận)</span></label>
           <select id="subjectSelect"></select>
         </div>
+
         <div class="ppctBox ppctSelectBox">
           <label>🔎 Chọn bài từ PPCT</label>
           <select id="ppctSelect"><option value="">— Chọn bài để tự điền —</option></select>
           <div class="ppctHint" id="ppctHint">Chọn Khối → Môn → bài PPCT để tự điền.</div>
         </div>
-      </div>
-      <div class="field">
-        <label>Tên bài học / chuyên đề <span class="req">*</span></label>
-        <input id="lesson" placeholder="Nhập tên bài học hoặc chuyên đề...">
-      </div>
-      <div class="field">
-        <label>Số tiết <span class="req">*</span></label>
-        <input id="periods" inputmode="numeric" placeholder="Ví dụ: 2">
-      </div>
-      <div class="field">
-        <label>Từ tiết đến tiết (a-b) <span class="req">*</span></label>
-        <input id="range" placeholder="Ví dụ: 1-5">
+
+        <div class="leftOpenRow">
+          <button class="leftOpenBtn" type="button" onclick="openPrefilled()">
+            🚀 MỞ GOOGLE FORM ĐÃ ĐIỀN
+            <small>Tự động điền thông tin vào Google Form</small>
+          </button>
+        </div>
       </div>
 
-      <div class="actions">
-        <button class="big openBtn" onclick="openPrefilled()">🚀 MỞ GOOGLE FORM ĐÃ ĐIỀN<small>Tự động điền thông tin vào Google Form</small></button>
-        <button class="big resetBtn" onclick="resetLesson()">↻&nbsp; LÀM MỚI<small>Xóa thông tin vừa nhập</small></button>
+      <div class="lessonRightCol">
+        <div class="lessonSideTitle">📄 THÔNG TIN BÀI HỌC</div>
+
+        <div class="field">
+          <label>Tên bài học / chuyên đề <span class="req">*</span></label>
+          <input id="lesson" placeholder="Nhập tên bài học hoặc chuyên đề...">
+        </div>
+
+        <div class="field">
+          <label>Số tiết <span class="req">*</span></label>
+          <input id="periods" inputmode="numeric" placeholder="Ví dụ: 2">
+          <div class="fieldHint">1 tiết = 45 phút</div>
+        </div>
+
+        <div class="field">
+          <label>Từ tiết đến tiết (a-b) <span class="req">*</span></label>
+          <input id="range" placeholder="Ví dụ: 1-5">
+          <div class="fieldHint">Nhập khoảng tiết sẽ dạy, ví dụ: 1-5, 6-8, ...</div>
+        </div>
       </div>
     </div>
   </section>
@@ -543,7 +1603,11 @@ select:focus{border-color:#4c8ff1;box-shadow:0 0 0 3px rgba(76,143,241,.11)}
   
   <section class="evidenceCard" id="evidenceSection">
     <div class="evHead">
-      <div class="evTitle">✅ 3. MINH CHỨNG ĐÃ NỘP</div>
+      <div class="evTitle sectionHead sectionHeadEvidence">
+        <div class="sectionBadge">2</div>
+        <div class="sectionHeadIcon">✅</div>
+        <div class="sectionHeadText">MINH CHỨNG ĐÃ NỘP</div>
+      </div>
       <div class="evTools">
         <span class="evCount" id="evCount">0 hồ sơ</span>
         <select class="evMonth" id="evMonthFilter" onchange="onEvidenceMonthChange()">
@@ -754,7 +1818,34 @@ function changeGradeFromLesson(){
   loadEvidence(false);
 }
 
+
+function syncHeaderTeacher(){
+  const sel = document.getElementById('teacherHeaderSelect');
+  if(!sel) return;
+  const teachers = getTeacherList();
+  const current = getGlobalTeacherId ? (getGlobalTeacherId() || '') : '';
+  sel.innerHTML = '<option value="">— Chọn giáo viên —</option>' +
+    teachers.map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
+  sel.value = current;
+}
+function onHeaderTeacherChange(){
+  const sel = document.getElementById('teacherHeaderSelect');
+  if(!sel) return;
+  const id = sel.value || '';
+  if(id){
+    if(typeof setGlobalTeacherId === 'function') setGlobalTeacherId(id);
+    if(typeof applyTeacherToGrade === 'function'){
+      for(let i=0;i<3;i++) applyTeacherToGrade(i,id);
+    }
+  }
+  if(typeof render === 'function') render();
+  if(typeof refreshPPCT === 'function') refreshPPCT();
+  if(typeof renderEvidence === 'function') renderEvidence();
+  if(typeof loadEvidence === 'function') loadEvidence(false);
+}
+
 function render(){
+  syncHeaderTeacher();
   syncGradeSelect();
   const p=getProfiles();
   const gid=getGlobalTeacherId();
@@ -1524,6 +2615,8 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden)scheduleEv
 </script>
 <script>
 window.addEventListener('DOMContentLoaded',()=>{
+  const hs=document.getElementById('teacherHeaderSelect'); if(hs){hs.addEventListener('change', onHeaderTeacherChange);} 
+  syncHeaderTeacher();
   const gs=$('gradeSelect');
   if(gs){
     gs.value=String(selected);

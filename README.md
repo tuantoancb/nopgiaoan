@@ -96,3 +96,68 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - “Mở Google Form đã điền” giữ là nút chính màu xanh, rộng.
 - “Làm mới” chuyển thành nút phụ nền trắng, viền xanh và bỏ dòng mô tả phụ.
 - Trên điện thoại hai nút tự xếp dọc.
+
+- V5.27: Chốt phương án B cho hai nút cuối mục 2.
+- Cụm nút căn phải, tạo khoảng trống bên trái.
+- Nút Mở Google Form rộng khoảng 360px, là nút chính.
+- Nút Làm mới rộng khoảng 125px, là nút phụ viền xanh.
+- Trên màn hình nhỏ hai nút tự co lại; điện thoại rất nhỏ thì xếp dọc.
+
+- V5.28: Đưa nút “Mở Google Form đã điền” lên ngay sau hàng Khối – Môn – PPCT để thao tác nhanh.
+- Nút “Làm mới” chuyển thành nút nhỏ ở góc phải tiêu đề “2. Chọn bài dạy”.
+- Bỏ hoàn toàn cụm hai nút lớn ở cuối form để giao diện sạch hơn.
+- Trên điện thoại nút Mở tự giãn toàn chiều rộng.
+
+- V5.29: Cân lại bố cục mục 2.
+- Giữ nút Làm mới nhỏ ở góc phải tiêu đề.
+- Đưa nút Mở Google Form xuống góc phải cuối mục 2, rộng khoảng 340px.
+- Bỏ nút Mở ở gần PPCT để phần trên form nhẹ và cân đối hơn.
+
+- V5.30: Cân đối giao diện tổng thể theo 5 điểm đã chốt.
+- Thu gọn khối 1 Chọn giáo viên.
+- Cân lại hàng Khối – Môn/HĐGD – PPCT.
+- Nút Làm mới nhỏ hơn; nút Mở Google Form thu gọn nhẹ và giữ căn phải.
+- Thanh công cụ Minh chứng tách nhóm rõ.
+- Giảm khoảng trắng và thống nhất khoảng cách dọc giữa các khối.
+
+- V5.31: Chốt header theo phương án B.
+- Rút tiêu đề “NỘP GIÁO ÁN ONLINE - NTT” thành “NỘP GIÁO ÁN”.
+- Thu gọn icon và chiều cao đầu trang.
+- Thẻ ngày bên phải compact hơn, chỉ giữ NGÀY NỘP + ngày hiện tại.
+- Bỏ dòng “Tự động lấy ngày hôm nay”.
+
+- V5.32: Đưa chọn giáo viên lên Header.
+- Bỏ khối 1 Chọn giáo viên.
+- Đánh lại số mục còn 1. Chọn bài dạy, 2. Minh chứng đã nộp.
+
+- V5.33: Sửa lỗi khối 1 trồi lên sát/che Header.
+- Header chuyển từ chiều cao cố định sang tự giãn, min-height 112px.
+- Bỏ overflow:hidden để không cắt ô Giáo viên/Ngày nộp.
+- Tăng khoảng cách Header → Khối 1 khoảng 10px.
+
+- V5.34: Bỏ hoàn toàn ô Ngày nộp khỏi Header.
+- Header còn 2 vùng: Nộp giáo án + Giáo viên.
+- Mở rộng khối Giáo viên, thêm icon và làm card nổi bật hơn.
+- Sau khi chọn giáo viên, hiển thị Môn • Tổ • Người duyệt.
+
+- V5.35: Chốt khối 1 theo bố cục hai cột.
+- Cột trái: Khối → Môn/HĐGD → PPCT → Mở Google Form.
+- Cột phải: Tên bài học → Số tiết → Từ tiết đến tiết.
+- Bỏ hoàn toàn nút Làm mới.
+- Trên màn hình nhỏ hai cột tự xếp dọc.
+
+- V5.36: Làm nổi bật tiêu đề 2 khối chính.
+- Khối 1 Chọn bài dạy: badge số 1 xanh dương, thanh nền xanh nhạt.
+- Khối 2 Minh chứng đã nộp: badge số 2 xanh lá, thanh nền xanh lá nhạt.
+- Giữ nguyên nội dung và bố cục bên trong các khối.
+
+- V5.37: Header tối giản theo phương án đã chốt.
+- Bên trái: icon + NỘP GIÁO ÁN + tên trường nhỏ.
+- Bên phải: duy nhất ô Chọn giáo viên.
+- Bỏ Ngày nộp và bỏ Môn/Tổ/Người duyệt khỏi Header.
+- Giữ nguyên Khối 1, Khối 2 và toàn bộ chức năng còn lại.
+
+- V5.38: Header compact và nổi bật hơn.
+- Ô Chọn giáo viên kéo sát phần NỘP GIÁO ÁN hơn.
+- Giảm khoảng cách ngang, thu gọn kích thước, tăng độ nổi bằng viền/bóng nhẹ.
+- Giữ phong cách tối giản và responsive.
