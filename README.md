@@ -55,3 +55,8 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - V5.17: Sửa dứt điểm nút Xuất PDF: không còn window.open()/tab trắng/about:blank.
 - PDF được tạo và tải trực tiếp ngay tại trang hiện tại bằng html2pdf.
 - Giữ A4 dọc 210 × 297 mm, lọc theo tháng và đúng mẫu minh chứng đã chốt.
+
+- V5.18: Sửa lỗi PDF A4 dọc nhưng nội dung trắng.
+- Vùng dựng PDF không còn đặt ở left:-100000px; chuyển xuống dưới trang để html2canvas vẫn render đầy đủ.
+- Chờ 2 frame trước khi chụp và đặt kích thước canvas theo vùng PDF để tránh trang trắng.
+- Không mở tab mới, vẫn tải PDF trực tiếp.
