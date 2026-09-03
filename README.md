@@ -190,3 +190,14 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Giữ nguyên 3 background: mặc định lavender, Nam xanh, Nữ hồng.
 - Tinh chỉnh font nút NỘP GIÁO ÁN: nhẹ, thoáng, dễ đọc hơn.
 - Màu nút chính giảm độ gắt để đồng bộ với nền app.
+
+- V5.44: Cập nhật phân tổ giáo viên theo thống nhất mới.
+- KHTN: Ma Thị Anh, Lương Vũ Long, Nông Thị Bích Ngọc, Nông Hồng Lanh.
+- KHXH: Nguyễn Thị Ngọc Liễu, Nông Trung Hiếu, Trần Chiến Thắng, Hoàng Lệ Thủy.
+- Người duyệt KHTN: Nguyễn Hồng Quyên.
+- Người duyệt KHXH: Lương Thị Thanh Thủy.
+- Bổ sung 3 hồ sơ còn thiếu: Nông Thị Bích Ngọc, Nông Hồng Lanh, Hoàng Lệ Thủy.
+- Tổng danh sách trong app: 35 giáo viên.
+- Bổ sung môn Âm nhạc vào danh sách môn (chưa có PPCT nhúng sẵn).
+- Tự đồng bộ lại hồ sơ đã lưu cũ khi mở phiên bản mới.
+- Sửa cảnh báo sai khi đã chọn giáo viên.
