@@ -201,3 +201,12 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Bổ sung môn Âm nhạc vào danh sách môn (chưa có PPCT nhúng sẵn).
 - Tự đồng bộ lại hồ sơ đã lưu cũ khi mở phiên bản mới.
 - Sửa cảnh báo sai khi đã chọn giáo viên.
+
+- V5.45: Tinh chỉnh font chữ NỘP GIÁO ÁN ở Header.
+- Dùng Segoe UI/Arial, cỡ 22.5px, weight 800, tăng độ thoáng chữ.
+- Giữ nguyên theme Nam/Nữ/Lavender và toàn bộ chức năng V5.44.
+
+- V5.46: Chỉnh riêng font và bố cục chữ của nút NỘP GIÁO ÁN.
+- Dòng chính: 18px, weight 800, thoáng hơn.
+- Dòng phụ: 10px, nhẹ hơn, cách dòng 6px.
+- Tăng chiều cao và padding nút để tổng thể sạch, dễ nhìn.

@@ -2007,6 +2007,67 @@ body:not(.theme-male):not(.theme-female) .leftOpenBtn:hover{
 
 
 /* V5.44 - Cập nhật phân tổ giáo viên và sửa lỗi kiểm tra hồ sơ */
+
+/* V5.45 - Tinh chỉnh font chữ NỘP GIÁO ÁN ở Header */
+.minimalBrand h1{
+  font-family:"Segoe UI", Arial, sans-serif !important;
+  font-size:22.5px !important;
+  font-weight:800 !important;
+  line-height:1.04 !important;
+  letter-spacing:.15px !important;
+  text-rendering:optimizeLegibility !important;
+}
+.minimalBrand p{
+  margin-top:4px !important;
+  font-size:9.6px !important;
+  font-weight:600 !important;
+  letter-spacing:.12px !important;
+}
+@media(max-width:700px){
+  .minimalBrand h1{
+    font-size:21px !important;
+  }
+}
+
+
+/* V5.46 - Chỉnh font và bố cục nút NỘP GIÁO ÁN */
+.submitBtn{
+  min-height:86px !important;
+  padding:14px 24px !important;
+}
+.submitBtn .main{
+  font-family:"Segoe UI", Arial, sans-serif !important;
+  font-size:18px !important;
+  font-weight:800 !important;
+  line-height:1.08 !important;
+  letter-spacing:.2px !important;
+}
+.submitBtn .sub{
+  display:block !important;
+  margin-top:6px !important;
+  font-family:"Segoe UI", Arial, sans-serif !important;
+  font-size:10px !important;
+  font-weight:600 !important;
+  line-height:1.35 !important;
+  letter-spacing:.1px !important;
+  opacity:.97 !important;
+}
+.submitBtn{
+  gap:10px !important;
+}
+@media(max-width:700px){
+  .submitBtn{
+    min-height:78px !important;
+    padding:12px 18px !important;
+  }
+  .submitBtn .main{
+    font-size:17px !important;
+  }
+  .submitBtn .sub{
+    font-size:9.6px !important;
+  }
+}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.js"></script>
