@@ -210,3 +210,12 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Dòng chính: 18px, weight 800, thoáng hơn.
 - Dòng phụ: 10px, nhẹ hơn, cách dòng 6px.
 - Tăng chiều cao và padding nút để tổng thể sạch, dễ nhìn.
+
+- V5.47: Cập nhật lại toàn bộ PPCT môn Tin học từ file:
+  Phu luc I - Ke hoach day hoc - Tin hoc (x).docx
+- Tin học 10: 36 đơn vị, 70 tiết.
+- Tin học 11: 37 đơn vị, 70 tiết.
+- Tin học 12: 35 đơn vị, 70 tiết.
+- Chuyên đề lựa chọn: không tổ chức dạy học.
+- Dữ liệu Tin học cũ đã được thay toàn bộ bằng dữ liệu mới.
+- Khoảng tiết được chuẩn hóa về dạng 1-2, 9-12, 36-37... để đồng nhất giao diện app.
