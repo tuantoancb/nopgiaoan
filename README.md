@@ -223,3 +223,7 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - V5.48: Sửa lỗi font chữ ở nút NỘP GIÁO ÁN.
 - Dùng font Arial/Helvetica/Segoe UI để hiển thị ổn định.
 - Chỉnh lại độ đậm, khoảng cách dòng và khoảng cách icon/chữ.
+
+- V5.49: Sửa đúng selector thực tế của nút NỘP GIÁO ÁN.
+- Tách rõ 2 dòng tiêu đề/phụ, tăng line-height và khoảng cách.
+- Rút gọn dòng chỉ dẫn thành: “Đã điền sẵn • Chỉ cần tải file lên”.
