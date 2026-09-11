@@ -219,3 +219,7 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Chuyên đề lựa chọn: không tổ chức dạy học.
 - Dữ liệu Tin học cũ đã được thay toàn bộ bằng dữ liệu mới.
 - Khoảng tiết được chuẩn hóa về dạng 1-2, 9-12, 36-37... để đồng nhất giao diện app.
+
+- V5.48: Sửa lỗi font chữ ở nút NỘP GIÁO ÁN.
+- Dùng font Arial/Helvetica/Segoe UI để hiển thị ổn định.
+- Chỉnh lại độ đậm, khoảng cách dòng và khoảng cách icon/chữ.
