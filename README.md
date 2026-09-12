@@ -227,3 +227,9 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - V5.49: Sửa đúng selector thực tế của nút NỘP GIÁO ÁN.
 - Tách rõ 2 dòng tiêu đề/phụ, tăng line-height và khoảng cách.
 - Rút gọn dòng chỉ dẫn thành: “Đã điền sẵn • Chỉ cần tải file lên”.
+
+- V5.50: Tích hợp PPCT Phụ đạo Toán.
+- Toán 10/11/12: 18 tiết/khối = 9 HKI + 9 HKII.
+- Tiến độ riêng PĐ1 → PĐ18.
+- Thêm Loại PPCT: Chính khóa / Chuyên đề / Phụ đạo.
+- Chọn Phụ đạo sẽ tự điền Tên bài “Phụ đạo: ...”, Số tiết = 1, Khoảng = PĐn.
