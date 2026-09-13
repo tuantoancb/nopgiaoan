@@ -233,3 +233,8 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Tiến độ riêng PĐ1 → PĐ18.
 - Thêm Loại PPCT: Chính khóa / Chuyên đề / Phụ đạo.
 - Chọn Phụ đạo sẽ tự điền Tên bài “Phụ đạo: ...”, Số tiết = 1, Khoảng = PĐn.
+
+- V5.51: Bổ sung PPCT Phụ đạo Ngữ văn 10.
+- 21 tiết: 10 tiết HKI + 11 tiết HKII.
+- Tiến độ riêng PĐ1 → PĐ21.
+- Hiển thị tại Loại PPCT → Phụ đạo khi chọn Ngữ văn, Khối 10.
