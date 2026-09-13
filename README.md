@@ -238,3 +238,15 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - 21 tiết: 10 tiết HKI + 11 tiết HKII.
 - Tiến độ riêng PĐ1 → PĐ21.
 - Hiển thị tại Loại PPCT → Phụ đạo khi chọn Ngữ văn, Khối 10.
+
+- V5.52: Bổ sung PPCT Phụ đạo Sinh học.
+- Sinh 10: 12 tiết/năm, PĐ1 → PĐ12.
+- Sinh 12: 12 tiết/năm, PĐ1 → PĐ12.
+- Giữ đúng nhóm tiết 2 tiết theo tài liệu nguồn, ví dụ PĐ1-PĐ2.
+- Không thêm Sinh 11 vì tài liệu nguồn không có kế hoạch phụ đạo lớp 11.
+
+- V5.53: Bổ sung PPCT Phụ đạo Tiếng Anh 10, 11, 12.
+- Mỗi khối 18 tiết/năm, tiến độ riêng PĐ1 → PĐ18.
+- Giữ nguyên thứ tự nội dung theo file nguồn.
+- Không tự chia HKI/HKII vì tài liệu nguồn không quy định học kỳ.
+- Hiển thị tại Loại PPCT → Phụ đạo.
