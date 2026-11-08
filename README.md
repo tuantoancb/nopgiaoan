@@ -250,3 +250,16 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Giữ nguyên thứ tự nội dung theo file nguồn.
 - Không tự chia HKI/HKII vì tài liệu nguồn không quy định học kỳ.
 - Hiển thị tại Loại PPCT → Phụ đạo.
+
+- V5.54: Sửa lỗi Minh chứng không cập nhật đầy đủ.
+- Kiểm tra nguồn Google Sheet: riêng Nguyễn Thanh Tuấn có 41 hồ sơ.
+- Thêm API Vercel /api/evidence đọc trực tiếp Google Sheet phía server.
+- Frontend ưu tiên API live; GViz trực tiếp chỉ còn là fallback.
+- Chỉ dùng cache khi cả API và GViz đều lỗi.
+- Hiển thị rõ “dữ liệu trực tiếp” hoặc “dữ liệu lưu gần nhất”.
+- Bỏ giới hạn hiển thị 20 hồ sơ.
+
+- V5.54.1: Hoàn thiện fix đồng bộ minh chứng.
+- API Vercel chuyển sang CommonJS để tương thích rộng hơn khi deploy.
+- Ưu tiên giá trị hiển thị GViz cho các cột văn bản, giữ raw timestamp để lọc tháng.
+- Sắp xếp đúng cả timestamp dạng Date(YYYY,M,D,H,M,S).

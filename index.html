@@ -2141,6 +2141,10 @@ body:not(.theme-male):not(.theme-female) .programTypeSelectBox select{color:#5b4
 /* V5.52 - Bổ sung PPCT Phụ đạo Sinh học 10 và 12 */
 
 /* V5.53 - Bổ sung PPCT Phụ đạo Tiếng Anh 10, 11, 12 */
+
+/* V5.54 - Sửa đồng bộ minh chứng: API Vercel + live/cache rõ ràng + bỏ giới hạn 20 dòng */
+
+/* V5.54.1 - Đồng bộ minh chứng ổn định hơn: CommonJS API + sort thời gian GViz */
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.js"></script>
@@ -2782,6 +2786,7 @@ const EVIDENCE_SHEET_ID='1ZSi9YK2hqCYSCZZkLGt4kVcMYtxxCIUjTwnplA2RL4A';
 const EVIDENCE_SHEET_NAME='Câu trả lời biểu mẫu 1';
 let evidenceRows=[];
 let evidenceLoading=false;
+let evidenceSource='';
 
 function normalizeText(v){return String(v??'').trim().replace(/\s+/g,' ')}
 function normalizeName(v){return normalizeText(v).toLocaleLowerCase('vi-VN')}
@@ -2808,6 +2813,14 @@ function currentTeacherName(){
   try{const p=getProfiles()[selected];return p&&p.name?p.name:''}catch(e){return ''}
 }
 
+function evidenceTimeValue(v){
+  if(v instanceof Date && !isNaN(v)) return v.getTime();
+  const s=String(v??'').trim();
+  const m=s.match(/^Date\((\d+),(\d+),(\d+),(\d+),(\d+),?(\d+)?\)$/);
+  if(m) return new Date(+m[1],+m[2],+m[3],+m[4],+m[5],+(m[6]||0)).getTime();
+  const d=new Date(s);
+  return isNaN(d)?0:d.getTime();
+}
 function evidenceMonthKey(v){
   const s=String(v??'');
   let d=new Date(s);
@@ -2854,18 +2867,19 @@ function renderEvidence(){
   }
   const rows=filterEvidenceRowsByMonth(
     evidenceRows.filter(r=>normalizeName(r.name)===normalizeName(name))
-  ).sort((a,b)=>new Date(b.rawTime)-new Date(a.rawTime));
+  ).sort((a,b)=>evidenceTimeValue(b.rawTime)-evidenceTimeValue(a.rawTime));
   const approved=rows.filter(r=>normalizeText(r.approval)).length;
   count.textContent=`${rows.length} hồ sơ`;
   const period=evidencePeriodLabel();
+  const sourceNote=evidenceSource==='live'?' · dữ liệu trực tiếp':(evidenceSource==='cache'?' · dữ liệu lưu gần nhất':'');
   line.textContent=rows.length
-    ? `${name} · ${period} · ${approved} đã duyệt · ${rows.length-approved} chờ duyệt`
-    : `${name} · ${period} · chưa tìm thấy hồ sơ đã nộp.`;
+    ? `${name} · ${period} · ${approved} đã duyệt · ${rows.length-approved} chờ duyệt${sourceNote}`
+    : `${name} · ${period} · chưa tìm thấy hồ sơ đã nộp${sourceNote}.`;
   if(!rows.length){
     body.innerHTML='<tr><td colspan="7" class="evEmpty">Chưa có minh chứng nộp giáo án cho giáo viên này.</td></tr>';
     return;
   }
-  body.innerHTML=rows.slice(0,20).map(r=>{
+  body.innerHTML=rows.map(r=>{
     const ok=!!normalizeText(r.approval);
     const file=firstUrl(r.file);
     return `<tr>
@@ -2915,39 +2929,74 @@ function handleEvidenceGviz(resp){
       };
     }).filter(r=>normalizeText(r.name));
     localStorage.setItem('ntt_evidence_cache_v57',JSON.stringify(evidenceRows));
-    $('evStatusLine').textContent='Đã đồng bộ minh chứng từ nguồn câu trả lời.';
+    evidenceSource='live';
+    evidenceLoading=false;
     renderEvidence();
   }catch(err){
     try{
       const cache=JSON.parse(localStorage.getItem('ntt_evidence_cache_v57')||'[]');
       if(Array.isArray(cache)&&cache.length)evidenceRows=cache;
     }catch(e){}
-    $('evStatusLine').textContent=evidenceRows.length?'Đang hiển thị dữ liệu đã lưu gần nhất.':'Chưa đọc được nguồn minh chứng. Bấm ↻ để thử lại.';
+    evidenceSource=evidenceRows.length?'cache':'';
     renderEvidence();
   }
 }
-function loadEvidence(manual=false){
+async function loadEvidence(manual=false){
   const name=currentTeacherName();
   if(!name){renderEvidence();return}
   if(evidenceLoading)return;
   evidenceLoading=true;
   if(manual)$('evStatusLine').textContent='Đang cập nhật minh chứng…';
-  const old=document.getElementById('gvizEvidenceScript'); if(old)old.remove();
-  const s=document.createElement('script');
-  s.id='gvizEvidenceScript';
-  const tqx=encodeURIComponent('responseHandler:handleEvidenceGviz');
-  const sheet=encodeURIComponent(EVIDENCE_SHEET_NAME);
-  s.src=`https://docs.google.com/spreadsheets/d/${EVIDENCE_SHEET_ID}/gviz/tq?tqx=${tqx}&sheet=${sheet}&t=${Date.now()}`;
-  s.onerror=()=>{
+
+  try{
+    const r=await fetch(`/api/evidence?t=${Date.now()}`,{
+      cache:'no-store',
+      headers:{'Accept':'application/json'}
+    });
+    if(!r.ok) throw new Error(`HTTP ${r.status}`);
+    const data=await r.json();
+    if(!data || !Array.isArray(data.rows)) throw new Error('Dữ liệu API không hợp lệ');
+
+    evidenceRows=data.rows.map(x=>({
+      rawTime:x.rawTime||'',
+      time:fmtSubmissionDate(x.rawTime||x.time||''),
+      name:x.name||'',
+      subject:x.subject||'',
+      lesson:x.lesson||'',
+      grade:x.grade??'',
+      periods:x.periods??'',
+      range:x.range??'',
+      file:x.file||'',
+      approver:x.approver||'',
+      approval:x.approval||'',
+      note:x.note||''
+    })).filter(r=>normalizeText(r.name));
+
+    evidenceSource='live';
+    localStorage.setItem('ntt_evidence_cache_v57',JSON.stringify(evidenceRows));
+    localStorage.setItem('ntt_evidence_cache_time_v554',new Date().toISOString());
     evidenceLoading=false;
-    try{
-      const cache=JSON.parse(localStorage.getItem('ntt_evidence_cache_v57')||'[]');
-      if(Array.isArray(cache))evidenceRows=cache;
-    }catch(e){}
-    $('evStatusLine').textContent=evidenceRows.length?'Đang hiển thị dữ liệu đã lưu gần nhất.':'Chưa đọc được nguồn minh chứng. Bấm ↻ để thử lại.';
     renderEvidence();
-  };
-  document.head.appendChild(s);
+    return;
+  }catch(err){
+    // Fallback về GViz trực tiếp để tương thích với bản cũ.
+    const old=document.getElementById('gvizEvidenceScript'); if(old)old.remove();
+    const s=document.createElement('script');
+    s.id='gvizEvidenceScript';
+    const tqx=encodeURIComponent('responseHandler:handleEvidenceGviz');
+    const sheet=encodeURIComponent(EVIDENCE_SHEET_NAME);
+    s.src=`https://docs.google.com/spreadsheets/d/${EVIDENCE_SHEET_ID}/gviz/tq?tqx=${tqx}&sheet=${sheet}&t=${Date.now()}`;
+    s.onerror=()=>{
+      evidenceLoading=false;
+      try{
+        const cache=JSON.parse(localStorage.getItem('ntt_evidence_cache_v57')||'[]');
+        if(Array.isArray(cache))evidenceRows=cache;
+      }catch(e){}
+      evidenceSource=evidenceRows.length?'cache':'';
+      renderEvidence();
+    };
+    document.head.appendChild(s);
+  }
 }
 
 async function exportEvidencePDF(){
@@ -2959,7 +3008,7 @@ async function exportEvidencePDF(){
 
   const rows=filterEvidenceRowsByMonth(
     evidenceRows.filter(r=>normalizeName(r.name)===normalizeName(name))
-  ).sort((a,b)=>new Date(a.rawTime)-new Date(b.rawTime));
+  ).sort((a,b)=>evidenceTimeValue(a.rawTime)-evidenceTimeValue(b.rawTime));
 
   if(!rows.length){
     alert(`Chưa có minh chứng để xuất PDF cho ${evidencePeriodLabel().toLowerCase()}.`);
