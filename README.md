@@ -263,3 +263,17 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - API Vercel chuyển sang CommonJS để tương thích rộng hơn khi deploy.
 - Ưu tiên giá trị hiển thị GViz cho các cột văn bản, giữ raw timestamp để lọc tháng.
 - Sắp xếp đúng cả timestamp dạng Date(YYYY,M,D,H,M,S).
+
+- V5.55: Loại bỏ tình trạng cache cũ làm người dùng tưởng dữ liệu đã cập nhật.
+- Nút Cập nhật xóa dữ liệu cache cũ và đọc trực tiếp /api/evidence.
+- API lọc đúng giáo viên và trả teacherTotal/sourceTotal.
+- Giao diện hiển thị số hồ sơ nguồn trực tiếp.
+- Nếu API + GViz đều lỗi, app báo LỖI ĐỒNG BỘ thay vì hiện cache tháng 11.
+
+- V5.56: Bản static, không cần API Vercel.
+- Đọc trực tiếp Google Sheet bằng GViz JSONP.
+- Ép phạm vi A1:M1001, query đúng tên giáo viên.
+- Không dùng cache minh chứng.
+- Mặc định bộ lọc = Tất cả năm học.
+- Hiển thị rõ “Nguồn: X hồ sơ”.
+- Footer có “Phiên bản V5.56” để xác nhận deploy đúng bản.
