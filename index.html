@@ -2148,7 +2148,7 @@ body:not(.theme-male):not(.theme-female) .programTypeSelectBox select{color:#5b4
 
 /* V5.55 - Không hiển thị cache cũ khi cập nhật; chẩn đoán nguồn minh chứng rõ ràng */
 
-/* V5.56 - Static sync: direct GViz A1:M1001, no API, no evidence cache */
+/* V5.57 - Read full GViz sheet first, filter teacher only in browser */
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.js"></script>
@@ -2287,7 +2287,7 @@ body:not(.theme-male):not(.theme-female) .programTypeSelectBox select{color:#5b4
         </tbody>
       </table>
     </div>
-    <div class="evFoot"><b>Phiên bản V5.56</b> · ℹ️ Dữ liệu lấy từ bảng “DTNT- Nộp giáo án trực tuyến 2026-2027 (Câu trả lời)”. Sau khi bấm Gửi trên Google Form, quay lại tab này và bấm ↻ Cập nhật; app cũng tự thử cập nhật khi tab được mở lại.</div>
+    <div class="evFoot"><b>Phiên bản V5.57</b> · ℹ️ Dữ liệu lấy từ bảng “DTNT- Nộp giáo án trực tuyến 2026-2027 (Câu trả lời)”. Sau khi bấm Gửi trên Google Form, quay lại tab này và bấm ↻ Cập nhật; app cũng tự thử cập nhật khi tab được mở lại.</div>
   </section>
 
 <footer class="footer">🏫 TRƯỜNG PT DTNT TỈNH CAO BẰNG</footer>
@@ -2848,6 +2848,16 @@ function evidencePeriodLabel(){
   const [y,m]=f.split('-');
   return `Tháng ${m}/${y}`;
 }
+function evidenceMonthStats(rows){
+  const counts={};
+  rows.forEach(r=>{
+    const k=evidenceMonthKey(r.rawTime);
+    if(k) counts[k]=(counts[k]||0)+1;
+  });
+  const order=['2026-08','2026-09','2026-10','2026-11','2026-12','2027-01','2027-02','2027-03','2027-04','2027-05'];
+  const parts=order.filter(k=>counts[k]).map(k=>`T${Number(k.slice(5))}:${counts[k]}`);
+  return parts.join(' · ');
+}
 function onEvidenceMonthChange(){
   localStorage.setItem('ntt_ev_month_v510', currentEvidenceMonth());
   renderEvidence();
@@ -2869,15 +2879,16 @@ function renderEvidence(){
     body.innerHTML='<tr><td colspan="7" class="evEmpty">Chưa chọn giáo viên.</td></tr>';
     return;
   }
-  const rows=filterEvidenceRowsByMonth(
-    evidenceRows.filter(r=>normalizeName(r.name)===normalizeName(name))
-  ).sort((a,b)=>evidenceTimeValue(b.rawTime)-evidenceTimeValue(a.rawTime));
+  const teacherRows=evidenceRows.filter(r=>normalizeName(r.name)===normalizeName(name));
+  const rows=filterEvidenceRowsByMonth(teacherRows)
+    .sort((a,b)=>evidenceTimeValue(b.rawTime)-evidenceTimeValue(a.rawTime));
   const approved=rows.filter(r=>normalizeText(r.approval)).length;
   count.textContent=`${rows.length} hồ sơ`;
   const period=evidencePeriodLabel();
   const diag=window.__evidenceDiag||{};
+  const monthStats=evidenceMonthStats(teacherRows);
   const sourceNote=evidenceSource==='live'
-    ? ` · Nguồn: ${diag.teacherTotal??evidenceRows.length} hồ sơ`
+    ? ` · Nguồn: ${teacherRows.length} hồ sơ${monthStats?` (${monthStats})`:''}`
     : (evidenceSource==='error'?' · LỖI ĐỒNG BỘ':'');
   line.textContent=rows.length
     ? `${name} · ${period} · ${approved} đã duyệt · ${rows.length-approved} chờ duyệt${sourceNote}`
@@ -2947,7 +2958,7 @@ function handleEvidenceGviz(resp){
     const teacherTotal=evidenceRows.filter(r=>normalizeName(r.name)===normalizeName(current)).length;
 
     evidenceSource='live';
-    window.__evidenceDiag={teacherTotal,sourceTotal:evidenceRows.length,via:'gviz-full-range'};
+    window.__evidenceDiag={teacherTotal,sourceTotal:evidenceRows.length,via:'gviz-full-sheet-client-filter'};
     renderEvidence();
   }catch(err){
     evidenceRows=[];
@@ -2971,7 +2982,7 @@ function loadEvidence(manual=false){
   evidenceSource='';
 
   if(manual){
-    $('evStatusLine').textContent='Đang đọc toàn bộ hồ sơ trực tiếp từ Google Sheet…';
+    $('evStatusLine').textContent='Đang đọc toàn bộ dữ liệu Google Sheet…';
   }
 
   const old=document.getElementById('gvizEvidenceScript');
@@ -2980,19 +2991,17 @@ function loadEvidence(manual=false){
   const s=document.createElement('script');
   s.id='gvizEvidenceScript';
 
-  const teacher=String(name).replace(/'/g,"''");
-  const tq=`select A,B,C,D,E,F,G,H,I,J,K,L,M where B='${teacher}'`;
   const tqx=encodeURIComponent('responseHandler:handleEvidenceGviz');
   const sheet=encodeURIComponent(EVIDENCE_SHEET_NAME);
-  const query=encodeURIComponent(tq);
 
+  // V5.57: Không query theo tên ở phía Google nữa.
+  // Đọc toàn bộ A:M rồi lọc giáo viên trong trình duyệt.
   s.src=
     `https://docs.google.com/spreadsheets/d/${EVIDENCE_SHEET_ID}/gviz/tq`+
     `?tqx=${tqx}`+
     `&sheet=${sheet}`+
     `&range=A1:M1001`+
     `&headers=1`+
-    `&tq=${query}`+
     `&t=${Date.now()}`;
 
   s.onerror=()=>{
@@ -3403,6 +3412,9 @@ window.addEventListener('DOMContentLoaded',()=>{
     gs.value=String(selected);
     gs.addEventListener('change',changeGradeFromLesson);
   }
+  initEvidenceMonth();
+  renderEvidence();
+  loadEvidence(false);
 });
 </script>
 </body>

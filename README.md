@@ -277,3 +277,10 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Mặc định bộ lọc = Tất cả năm học.
 - Hiển thị rõ “Nguồn: X hồ sơ”.
 - Footer có “Phiên bản V5.56” để xác nhận deploy đúng bản.
+
+- V5.57: Bỏ hoàn toàn query `where B='Tên giáo viên'` ở phía Google GViz.
+- App đọc toàn bộ phạm vi A1:M1001 rồi lọc tên giáo viên trong trình duyệt.
+- Khi mở app, tự đặt bộ lọc về Tất cả năm học và tự tải dữ liệu.
+- Dòng trạng thái hiển thị tổng nguồn và phân bố theo tháng, ví dụ:
+  Nguồn: 41 hồ sơ (T8:7 · T9:14 · T10:18 · T11:2).
+- Footer hiển thị Phiên bản V5.57 để xác nhận deploy đúng bản.
