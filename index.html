@@ -2148,7 +2148,9 @@ body:not(.theme-male):not(.theme-female) .programTypeSelectBox select{color:#5b4
 
 /* V5.55 - Không hiển thị cache cũ khi cập nhật; chẩn đoán nguồn minh chứng rõ ràng */
 
-/* V5.57 - Read full GViz sheet first, filter teacher only in browser */
+/* V5.58 - Evidence source switched to IMPORTRANGE mirror sheet */
+
+/* V5.58 mirror sheet: 1W-HOT-c4_UsORTZlSZCT3xM0A4gG4qfl_zrLIWWih94 / Data */
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.js"></script>
@@ -2287,7 +2289,7 @@ body:not(.theme-male):not(.theme-female) .programTypeSelectBox select{color:#5b4
         </tbody>
       </table>
     </div>
-    <div class="evFoot"><b>Phiên bản V5.57</b> · ℹ️ Dữ liệu lấy từ bảng “DTNT- Nộp giáo án trực tuyến 2026-2027 (Câu trả lời)”. Sau khi bấm Gửi trên Google Form, quay lại tab này và bấm ↻ Cập nhật; app cũng tự thử cập nhật khi tab được mở lại.</div>
+    <div class="evFoot"><b>Phiên bản V5.58</b> · ℹ️ Dữ liệu lấy từ nguồn mirror tự đồng bộ với bảng nộp giáo án. Sau khi bấm Gửi trên Google Form, quay lại tab này và bấm ↻ Cập nhật; app cũng tự thử cập nhật khi tab được mở lại.</div>
   </section>
 
 <footer class="footer">🏫 TRƯỜNG PT DTNT TỈNH CAO BẰNG</footer>
@@ -2786,8 +2788,8 @@ render();
 ensureTeacherHint();
 initPPCT();
 
-const EVIDENCE_SHEET_ID='1ZSi9YK2hqCYSCZZkLGt4kVcMYtxxCIUjTwnplA2RL4A';
-const EVIDENCE_SHEET_NAME='Câu trả lời biểu mẫu 1';
+const EVIDENCE_SHEET_ID='1W-HOT-c4_UsORTZlSZCT3xM0A4gG4qfl_zrLIWWih94';
+const EVIDENCE_SHEET_NAME='Data';
 let evidenceRows=[];
 let evidenceLoading=false;
 let evidenceSource='';

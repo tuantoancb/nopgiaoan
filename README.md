@@ -284,3 +284,10 @@ NỘP GIÁO ÁN ONLINE - NTT V5.5
 - Dòng trạng thái hiển thị tổng nguồn và phân bố theo tháng, ví dụ:
   Nguồn: 41 hồ sơ (T8:7 · T9:14 · T10:18 · T11:2).
 - Footer hiển thị Phiên bản V5.57 để xác nhận deploy đúng bản.
+
+- V5.58: Chuyển nguồn Minh chứng sang Sheet mirror do người dùng sở hữu.
+- Mirror Sheet ID: 1W-HOT-c4_UsORTZlSZCT3xM0A4gG4qfl_zrLIWWih94
+- Tab: Data
+- Mirror dùng IMPORTRANGE từ Sheet phản hồi gốc, phạm vi A1:M5000.
+- Đã kiểm tra mirror có đủ 41 hồ sơ Nguyễn Thanh Tuấn.
+- Bộ lọc/ẩn ở Sheet gốc không còn làm mất dữ liệu trên app.
